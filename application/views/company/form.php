@@ -5,6 +5,8 @@ if (empty($data_company)) {
     $alamat = "";
     $notelp = "";
     $email = "";
+    $logo = "";
+    $template = "";
 } else {
     foreach ($data_company as $val) {
         $id = $val->id;
@@ -12,6 +14,8 @@ if (empty($data_company)) {
         $alamat = $val->alamat;
         $notelp = $val->notelp;
         $email = $val->email;
+        $logo = $val->logo;
+        $template = $val->template;
     }
 }
 ?>
@@ -63,7 +67,17 @@ if (empty($data_company)) {
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label" for="file-input">Logo</label>
                                     <div class="col-md-9">
-                                        <input id="file-input" type="file" name="userfile">
+                                        <input id="file-input" type="file" name="userfile" accept=".jpg, .png, .jpeg"><br>
+                                        <a href="<?= base_url() ?>files/images/<?= $logo ?>" target="_blank"><?= $logo ?></a>
+                                        
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="file-input">Template Buku Nikah</label>
+                                    <div class="col-md-9">
+                                        <input id="file-input" type="file" name="template" accept=".xlsx"><br>
+                                        
+                                        <a href="<?= base_url() ?>files/template/<?= $template ?>" target="_blank"><?= $template ?></a>
                                     </div>
                                 </div>
                             </div>

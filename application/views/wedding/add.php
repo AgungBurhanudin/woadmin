@@ -147,9 +147,10 @@
             dataType: "JSON",
             success: function (data) {
                 if(data.code == "200"){
-                    alert("Berhasil");
+                    swal('success',"Berhasil");
+                    window.location.href = "<?= base_url() ?>Wedding";
                 }else{
-                    alert("Gagal");
+                    swal('warning',"Gagal");
                 }
             }
         });

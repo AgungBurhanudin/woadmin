@@ -179,7 +179,7 @@ class Wedding_model extends CI_Model {
         $data['tempat_lahir'] = $_POST['tempat_lahir_pria'];
         $data['tanggal_lahir'] = $_POST['tanggal_lahir_pria'];
         $data['no_hp'] = $_POST['no_hp_pria'];
-        $data['email'] = "agungburhanudinyusuf@gmail.com";//$_POST['email_pria'];
+        $data['email'] = $_POST['email_pria'];
         $data['agama'] = $_POST['agama_pria'];
         $data['pendidikan'] = $_POST['pendidikan_pria'];
         $data['hobi'] = $_POST['hobi_pria'];
@@ -231,7 +231,7 @@ class Wedding_model extends CI_Model {
         $data['tempat_lahir'] = $_POST['tempat_lahir_wanita'];
         $data['tanggal_lahir'] = $_POST['tanggal_lahir_wanita'];
         $data['no_hp'] = $_POST['no_hp_wanita'];
-        $data['email'] = "agungburhanudinyusuf@gmail.com";//$_POST['email_wanita'];
+        $data['email'] = $_POST['email_wanita'];
         $data['agama'] = $_POST['agama_wanita'];
         $data['pendidikan'] = $_POST['pendidikan_wanita'];
         $data['hobi'] = $_POST['hobi_wanita'];
@@ -346,11 +346,11 @@ class Wedding_model extends CI_Model {
         $data['user_group_id'] = 37;
         $data['user_real_name'] = $_POST['nama_lengkap_pria'];
         $data['user_user_name'] = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_pria']));
-        $data['user_email'] = "agungburhanudinyusuf@gmail.com";//$_POST['email_pria'];
+        $data['user_email'] = $_POST['email_pria'];
         $data['user_password'] = md5($_POST['tanggal_lahir_pria']);
         $data['user_address'] = $_POST['alamat_sekarang_pria'];
         $data['user_phone'] = $_POST['no_hp_pria'];
-        $this->sendEmail("agungburhanudinyusuf@gmail.com", strtolower(str_replace(" ", "_", $_POST['nama_panggilan_pria'])), $_POST['tanggal_lahir_pria']);
+        $this->sendEmail($_POST['email_pria'], strtolower(str_replace(" ", "_", $_POST['nama_panggilan_pria'])), $_POST['tanggal_lahir_pria']);
         $this->db->insert('app_user', $data);
 
         $data['id_wedding'] = $id_wedding;
@@ -358,11 +358,11 @@ class Wedding_model extends CI_Model {
         $data['user_group_id'] = 37;
         $data['user_real_name'] = $_POST['nama_lengkap_wanita'];
         $data['user_user_name'] = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita']));
-        $data['user_email'] = "agungburhanudinyusuf@gmail.com";//$_POST['email_wanita'];
+        $data['user_email'] = $_POST['email_wanita'];
         $data['user_password'] = md5($_POST['tanggal_lahir_wanita']);
         $data['user_address'] = $_POST['alamat_sekarang_wanita'];
         $data['user_phone'] = $_POST['no_hp_wanita'];
-        $this->sendEmail("agungburhanudinyusuf@gmail.com", strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita'])), $_POST['tanggal_lahir_wanita']);
+        $this->sendEmail($_POST['email_wanita'], strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita'])), $_POST['tanggal_lahir_wanita']);
         return $this->db->insert('app_user', $data);
     }
 
@@ -374,8 +374,8 @@ class Wedding_model extends CI_Model {
 //SMTP & mail configuration
         $config = array(
             'protocol' => 'smtp',
-            'smtp_host' => 'smtp.gmail.com',
-            'smtp_port' => 587,
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
             'smtp_user' => 'afnanafifudin@gmail.com',
             'smtp_pass' => 'afnan2016',
             'mailtype' => 'html',
@@ -388,8 +388,8 @@ class Wedding_model extends CI_Model {
 //Email content
         $htmlContent = '<h1>Wedding Organizer</h1>';
         $htmlContent .= '<p>Berikut kami lampirkan username dan password untuk login aplikasi Mahkota Wedding Organizer.</p>';
-        $htmlContent .= '<p>username : <b> ' . $username . ' </b>.</p>';
-        $htmlContent .= '<p>password : <b> ' . $password . ' </b>.</p>';
+        $htmlContent .= '<p>username : <b> ' . $username . ' </b></p>';
+        $htmlContent .= '<p>password : <b> ' . $password . ' </b></p>';
         $htmlContent .= '<p>Pastikan untuk langsung merubah password setelah anda login.</p>';
 
         $this->email->to($email);

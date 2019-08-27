@@ -10,6 +10,7 @@ if (!empty($pria)) {
     $tempat_lahir = $pria->tempat_lahir;
     $tanggal_lahir = $pria->tanggal_lahir;
     $no_hp = $pria->no_hp;
+    $email = $pria->email;
     $agama = $pria->agama;
     $pendidikan = $pria->pendidikan;
     $hobi = $pria->hobi;
@@ -33,6 +34,7 @@ if (!empty($pria)) {
     $tempat_lahir = "";
     $tanggal_lahir = "";
     $no_hp = "";
+    $email = "";
     $agama = "";
     $pendidikan = "";
     $hobi = "";
@@ -96,6 +98,10 @@ if (!empty($pria)) {
                 <input name="no_hp_pria" id="no_hp_pria" type="text" required="required" class="form-control"  />
             </div>
             <div class="form-group">
+                <label class="control-label">Email Pengantin Pria</label>
+                <input name="email_pria" id="email_pria" type="text" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
                 <label class="control-label">Agama Pengantin Pria</label>
                 <input name="agama_pria" id="agama_pria" type="text" required="required" class="form-control"  />
             </div>
@@ -126,6 +132,7 @@ if (!empty($pria)) {
         $("#tempat_lahir_pria").val('<?= $tempat_lahir ?>');
         $("#tanggal_lahir_pria").val('<?= $tanggal_lahir ?>');
         $("#no_hp_pria").val('<?= $no_hp ?>');
+        $("#email_pria").val('<?= $email ?>');
         $("#agama_pria").val('<?= $agama ?>');
         $("#pendidikan_pria").val('<?= $pendidikan ?>');
         $("#hobi_pria").val('<?= $hobi ?>');

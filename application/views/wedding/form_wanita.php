@@ -10,6 +10,7 @@ if (!empty($wanita)) {
     $tempat_lahir = $wanita->tempat_lahir;
     $tanggal_lahir = $wanita->tanggal_lahir;
     $no_hp = $wanita->no_hp;
+    $email = $wanita->email;
     $agama = $wanita->agama;
     $pendidikan = $wanita->pendidikan;
     $hobi = $wanita->hobi;
@@ -33,6 +34,7 @@ if (!empty($wanita)) {
     $tempat_lahir = "";
     $tanggal_lahir = "";
     $no_hp = "";
+    $email = "";
     $agama = "";
     $pendidikan = "";
     $hobi = "";
@@ -96,6 +98,10 @@ if (!empty($wanita)) {
             <input name="no_hp_wanita" id="no_hp_wanita" type="text" required="required" class="form-control"  />
         </div>
         <div class="form-group">
+            <label class="control-label">Email Pengantin Wanita</label>
+            <input name="email_wanita" id="email_wanita" type="text" required="required" class="form-control" />
+        </div>
+        <div class="form-group">
             <label class="control-label">Agama Pengantin Wanita</label>
             <input name="agama_wanita" id="agama_wanita" type="text" required="required" class="form-control"  />
         </div>
@@ -105,7 +111,7 @@ if (!empty($wanita)) {
         </div>
         <div class="form-group">
             <label class="control-label">Hobi Pengantin Wanita</label>
-            <input name="nama_lengkap_wanita" id="nama_lengkap_wanita" type="text" required="required" class="form-control"  />
+            <input name="hobi_wanita" id="hobi_wanita" type="text" required="required" class="form-control"  />
         </div>
         <div class="form-group">
             <label class="control-label">Sosmed Pengantin Wanita</label>
@@ -125,6 +131,7 @@ if (!empty($wanita)) {
     $("#tempat_lahir_wanita").val('<?= $tempat_lahir ?>');
     $("#tanggal_lahir_wanita").val('<?= $tanggal_lahir ?>');
     $("#no_hp_wanita").val('<?= $no_hp ?>');
+    $("#email_wanita").val('<?= $email ?>');
     $("#agama_wanita").val('<?= $agama ?>');
     $("#pendidikan_wanita").val('<?= $pendidikan ?>');
     $("#hobi_wanita").val('<?= $hobi ?>');

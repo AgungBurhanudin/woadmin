@@ -71,9 +71,11 @@
                             <br>
                             <div>
                                 <a href="<?= base_url() ?>Wedding/cetak?id=<?= $id_wedding ?>" target="_blank">
-                                    <button type="button" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
+                                    <button type="button" class="btn btn-sm btn-success" style="width:100%"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
                                 </a>
-                                <button type="button" class="btn btn-sm btn-dark"><i class="fa fa-lock"></i> Nonaktifkan User</button>
+                                <button type="button" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
+                                <br><br>
+                                <button type="button" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Pernikahan Selesai</button>
                             </div>
                         </nav>
                         <main>

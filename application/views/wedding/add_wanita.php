@@ -46,6 +46,10 @@
                 <input name="no_hp_wanita" id="no_hp_wanita" type="text" required="required" class="form-control" />
             </div>
             <div class="form-group">
+                <label class="control-label">Email Pengantin Wanita</label>
+                <input name="email_wanita" id="email_wanita" type="text" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
                 <label class="control-label">Agama Pengantin Wanita</label>
                 <input name="agama_wanita" id="agama_wanita" type="text" required="required" class="form-control" />
             </div>

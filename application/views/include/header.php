@@ -104,6 +104,17 @@
                     icon: icon
                 });
             }
+            function swalConfirm(content, url){
+              $.sweetModal.confirm(content, function() {
+                $.ajax({
+                  url : url,
+                  success:function(data){
+                    $.sweetModal('Thanks for confirming!');
+                    location.reload();
+                  }
+                });                
+              });
+            }
         </script>
         <style>
             .red{

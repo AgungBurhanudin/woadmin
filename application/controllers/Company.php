@@ -55,6 +55,22 @@ class Company extends CI_Controller {
             } else {
                 $data['logo'] = "";
             }
+
+            if (isset($_FILES)) {
+                $path = realpath(APPPATH . '../files/template/');
+    
+                $this->upload->initialize(array(
+                    'upload_path' => $path,
+                    'allowed_types' => 'xlsx'
+                ));
+    
+                if ($this->upload->do_upload()) {
+                    $data_upload = $this->upload->data();
+                    $data['template'] = $data_upload['file_name'];
+                } else {
+                    $data['template'] = "";
+                }
+            }
             // print_r($data);
             $this->db->insert("company", $data);
             redirect(base_url() . 'Company', 'refresh');
@@ -70,7 +86,7 @@ class Company extends CI_Controller {
                     'max_height' => '3000'
                 ));
 
-                if ($this->upload->do_upload()) {
+                if ($this->upload->do_upload('template')) {
                     $data_upload = $this->upload->data();
                     $this->image_lib->initialize(array(
                         'image_library' => 'gd2',
@@ -85,7 +101,21 @@ class Company extends CI_Controller {
                         $data['logo'] = $data_upload['file_name'];
                     }
                 } else {
-                    $data['logo'] = "";
+                    
+                }
+            }
+
+            if (isset($_FILES)) {
+                $path = realpath(APPPATH . '../files/template/');
+    
+                $this->upload->initialize(array(
+                    'upload_path' => $path,
+                    'allowed_types' => 'xlsx'
+                ));
+    
+                if ($this->upload->do_upload('template')) {
+                    $data_upload = $this->upload->data();
+                    $data['template'] = $data_upload['file_name'];
                 }
             }
             $key['id'] = $id;

@@ -74,9 +74,12 @@
                                                     <div class="small text-muted"><?= $d->user_real_name ?> : <?= $d->deskripsi ?></div>
                                                     <strong><?= $d->datetime != "" ? DateToIndo($d->datetime) : ""; ?></strong>
                                                 </td>
-                                                <td>
+                                                <td nowrap="nowrap">
                                                     <a href="<?= base_url() ?>Wedding/form?id=<?= $d->id ?>">
-                                                        <button type="button" class="btn btn-primary"><i class="fa fa-search"></i> Detail</button>
+                                                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> </button>
+                                                    </a>
+                                                    <a href="#" onclick="return swalConfirm('Apakah anda yakin akan menghapus data ini?','<?= base_url() ?>Wedding/delete?id=<?= $d->id ?>')">
+                                                        <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> </button>
                                                     </a>
                                                 </td>
                                             </tr>

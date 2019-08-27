@@ -21,6 +21,13 @@ class Wedding extends CI_Controller {
         render('wedding/data', $data);
     }
 
+    public function delete() {
+        $id = $_GET['id'];
+        $key['id'] = $id;
+        $this->db->delete('wedding',$key);
+        redirect(base_url() . "Wedding");
+    }
+
     public function add() {
         $data_upacara = $this->db->query("SELECT
 		c1.id,		
@@ -148,6 +155,8 @@ class Wedding extends CI_Controller {
                                         wedding_upacara a
                                         LEFT JOIN upacara_tipe b ON a.id_upacara_tipe = b.id 
                                         LEFT JOIN upacara_tipe c ON b.id_upacara = c.id 
+                                WHERE 
+                                       a.id_wedding = '$id'
                                 GROUP BY
                                         b.id_upacara 
                                 ORDER BY
@@ -159,7 +168,9 @@ class Wedding extends CI_Controller {
                                 b.nama_upacara 
                         FROM
                                 wedding_upacara a
-                                LEFT JOIN upacara_tipe b ON a.id_upacara_tipe = b.id 
+                        LEFT JOIN upacara_tipe b ON a.id_upacara_tipe = b.id 
+                        WHERE 
+                                a.id_wedding = '$id'
                         ORDER BY
                                 a.urutan ASC")->result(),
             'acara' => $this->db->query("SELECT
@@ -169,6 +180,8 @@ class Wedding extends CI_Controller {
                         FROM
                                 wedding_acara a
                                 LEFT JOIN acara_tipe b ON a.id_acara_tipe = b.id 
+                        WHERE 
+                                a.id_wedding = '$id'
                         ORDER BY
                                 a.urutan ASC")->result(),
             'panitia' => $this->db->query("SELECT
@@ -178,6 +191,8 @@ class Wedding extends CI_Controller {
                         FROM
                                 wedding_panitia a
                                 LEFT JOIN panitia_tipe b ON a.id_panitia_tipe = b.id 
+                        WHERE 
+                                a.id_wedding = '$id'
                         ORDER BY
                                 a.urutan ASC")->result(),
             'tambahan' => $this->db->query("SELECT
@@ -187,6 +202,8 @@ class Wedding extends CI_Controller {
                         FROM
                                 wedding_tambahan a
                                 LEFT JOIN tambahan_tipe b ON a.id_tambahan_tipe = b.id 
+                        WHERE 
+                                a.id_wedding = '$id'
                         ORDER BY
                                 a.urutan ASC")->result()
         );
@@ -219,6 +236,7 @@ class Wedding extends CI_Controller {
         $data['tempat_lahir'] = $_POST['tempat_lahir_pria'];
         $data['tanggal_lahir'] = $_POST['tanggal_lahir_pria'];
         $data['no_hp'] = $_POST['no_hp_pria'];
+        $data['email'] = $_POST['email_pria'];
         $data['agama'] = $_POST['agama_pria'];
         $data['pendidikan'] = $_POST['pendidikan_pria'];
         $data['hobi'] = $_POST['hobi_pria'];
@@ -273,6 +291,7 @@ class Wedding extends CI_Controller {
         $data['tempat_lahir'] = $_POST['tempat_lahir_wanita'];
         $data['tanggal_lahir'] = $_POST['tanggal_lahir_wanita'];
         $data['no_hp'] = $_POST['no_hp_wanita'];
+        $data['email'] = $_POST['email_wanita'];
         $data['agama'] = $_POST['agama_wanita'];
         $data['pendidikan'] = $_POST['pendidikan_wanita'];
         $data['hobi'] = $_POST['hobi_wanita'];

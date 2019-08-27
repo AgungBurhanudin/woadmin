@@ -46,6 +46,10 @@
                 <input name="no_hp_pria" id="no_hp_pria" type="text" required="required" class="form-control" />
             </div>
             <div class="form-group">
+                <label class="control-label">Email Pengantin Pria</label>
+                <input name="email_pria" id="email_pria" type="text" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
                 <label class="control-label">Agama Pengantin Pria</label>
                 <input name="agama_pria" id="agama_pria" type="text" required="required" class="form-control" />
             </div>
