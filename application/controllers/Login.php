@@ -61,8 +61,7 @@ class Login extends CI_Controller {
 
                 $this->session->set_userdata($reply);
                 $strSqlUpLogin = "update app_user set user_token = '" . $reply['auth']['token'] . "', last_used = now(), ip = '$this->ip', status = 1,"
-                        . "appid = '$aplikasiid_add', salah_pin = 0 where user_id = '$noid' and user_real_name = '" . $post['username'] . "'";
-
+                        . "appid = '$aplikasiid_add', salah_pin = 0 where user_id = '$noid' and user_user_name = '" . $post['username'] . "'";
                 $this->db->query($strSqlUpLogin);
                 // redirect(base_url(),'Dashboard');
             } else {

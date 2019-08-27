@@ -94,7 +94,7 @@ if (!empty($wedding)) {
 
 <script>
 
-    function simpanWedding()() {
+    function simpanWedding(){
         var formData = new FormData($("#formWedding")[0]);
         $('#formWedding').validate({
             rules: {

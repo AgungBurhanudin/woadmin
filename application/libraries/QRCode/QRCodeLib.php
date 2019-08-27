@@ -18,7 +18,7 @@ class QRCodeLib extends vCard
     
     var $errorCorrectionLevel = 'L';
     var $matrixPointSize = 2; 
-    var $size = 1;
+    var $size = 10;
     var $margin;
     
     var $error;

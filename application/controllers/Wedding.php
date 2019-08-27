@@ -1,10 +1,11 @@
 <?php
 
-        error_reporting(E_ALL);
-        ini_set('display_errors', TRUE);
-        ini_set('display_startup_errors', TRUE);
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 defined('BASEPATH') or exit('No direct script access allowed');
 require_once dirname(__FILE__) . '/../libraries/PHPExcelTemplate/samples/Bootstrap.php';
+
 class Wedding extends CI_Controller {
 
     public function __construct() {
@@ -193,18 +194,18 @@ class Wedding extends CI_Controller {
     }
 
     public function saveWedding() {
-      $data['title']  = $_POST["title"];
-      $data['tanggal']  = $_POST["tanggal_pernikahan"];
-      $data['waktu']  = $_POST["waktu_pernikahan"];
-      $data['tempat']  = $_POST["lokasi_pernikahan"];
-      $data['alamat']  = $_POST["alamat_pernikahan"];
-      $data['tema']  = $_POST["tema_pernikahan"];
-      $data['hashtag']  = $_POST["hastag_pernikahan"];
-      $data['penyelenggara']  = $_POST["penyelenggara"];
-      $data['undangan']  = $_POST["jumlah_undangan"];
-      $data['status'] = 1;
-      $key['id']  = $_POST['id'];
-      $this->db->update('wedding', $data, $key);
+        $data['title'] = $_POST["title"];
+        $data['tanggal'] = $_POST["tanggal_pernikahan"];
+        $data['waktu'] = $_POST["waktu_pernikahan"];
+        $data['tempat'] = $_POST["lokasi_pernikahan"];
+        $data['alamat'] = $_POST["alamat_pernikahan"];
+        $data['tema'] = $_POST["tema_pernikahan"];
+        $data['hashtag'] = $_POST["hastag_pernikahan"];
+        $data['penyelenggara'] = $_POST["penyelenggara"];
+        $data['undangan'] = $_POST["jumlah_undangan"];
+        $data['status'] = 1;
+        $key['id'] = $_POST['id'];
+        $this->db->update('wedding', $data, $key);
     }
 
     public function saveBiodataPria() {
@@ -258,7 +259,6 @@ class Wedding extends CI_Controller {
 
         $key['id'] = $_POST['id'];
         $this->db->update('pengantin', $data, $key);
-        
     }
 
     public function saveBiodataWanita() {
@@ -311,13 +311,23 @@ class Wedding extends CI_Controller {
         }
         $key['id'] = $_POST['id'];
         $this->db->update('pengantin', $data, $key);
-        
     }
-    
+
     public function vendor() {
         $uri = $this->uri->segment(3);
         $this->db->where('id', $uri);
         if ($uri == "add") {
+            $data = array(
+                'id_wedding' => $_POST['id_wedding'],
+                'id_kategori' => $_POST['kategori_vendor'],
+                'id_vendor' => $_POST['vendor'],
+                'nama_vendor' => $_POST['nama_vendor'],
+                'cp' => $_POST['cp'],
+                'nohp_cp' => $_POST['nohp'],
+                'biaya' => $_POST['biaya'],
+                'dibayaroleh' => $_POST['bayar_oleh'],
+            );
+            $this->db->insert('vendor_pengantin', $data);
             $return = array(
                 'code' => '200',
                 'msg' => 'Berhasil menambah vendor'
@@ -439,9 +449,9 @@ class Wedding extends CI_Controller {
         foreach ($undangan as $val) {
             $barcode = $val->barcode;
             if ($val->barcode == "") {
-                $qr_lib->setFileName($val->id . "QR_Code" . date('Y-m-d_H_i_s') . ".png");
-                if ($qr_lib->generateImage($val->id)) {
-                    echo 1 . "<br>";
+                $qr_lib->setFileName($val->id . "_QR_Code" . date('Y-m-d_H_i_s') . ".png");
+                $qr_lib->setSize("5");
+                if ($qr_lib->generateImage("undangan_" . $val->id)) {                    
                     $key['id'] = $val->id;
                     $data['barcode'] = $qr_lib->getFileName();
                     $barcode = $qr_lib->getFileName();

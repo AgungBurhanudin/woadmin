@@ -5,7 +5,7 @@
 </a>
 <br>
 <br>
-<table class="table table-responsive-sm table-hover table-outline mb-0">
+<table class="table table-responsive-sm table-hover table-outline mb-0" id="tableDataVendor">
     <thead class="thead-light">
         <tr>
             <th>No</th>
@@ -74,9 +74,9 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Vendor Yang Tersedia </label>
                         <div class="col-md-9">
-                            <select class="form-control" name="vendor" id="vendorcombobox" onchange=getVendor(this.value)">
-                                <option value=""><?php foreach ($vendor as $v) { ?>
-                                    <option value="<?= $v->id ?>"><?= $v->vendor ?></option> <?php } ?></option>
+                            <select class="form-control" name="vendor" id="vendorcombobox" onchange="setVendor(this.value)">
+                                <option value="">
+                                    
                             </select>
                         </div>
                     </div>
@@ -84,12 +84,6 @@
                         <label class="col-md-3 col-form-label" for="hf-email">Nama Vendor</label>
                         <div class="col-md-9">
                             <input name="nama_vendor" id="nama_vendor" type="text" required="required" class="form-control" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Alamat </label>
-                        <div class="col-md-9">
-                            <input name="alamat" id="alamat" type="text" required="required" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -107,7 +101,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Biaya</label>
                         <div class="col-md-9">
-                            <input name="biaya" id="biaya" type="number" required="required" class="form-control" />
+                            <input name="biaya" id="biaya" type="text" required="required" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -147,6 +141,18 @@
             }
         });
     }
+    
+    function setVendor(id) {
+        $.ajax({
+            url: "<?= base_url() ?>Combobox/getVendor?id=" + id,
+            dataType: "JSON",
+            success: function (data) {
+                $("#nama_vendor").val(data.vendor);
+                $("#cp").val(data.cp);
+                $("#nohp").val(data.nohp_cp);
+            }
+        });
+    }
 
     function simpanVendor() {
         var formData = new FormData($("#formVendor")[0]);
@@ -177,6 +183,7 @@
                         if (data.code == "200") {
                             swal("success", "Berhasil menambah vendor!");
                             $("#vendorModal").modal('hide');
+                            $("#tableDataVendor").load(location.href + " #tableDataVendor");
                         } else {
                             swal("warning", "Gagal menambah vendor!");
                         }

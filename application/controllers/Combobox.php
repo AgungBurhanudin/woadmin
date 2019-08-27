@@ -18,5 +18,12 @@ class Combobox extends CI_Controller {
             echo "<option value='$val->id'>$val->vendor</option>";
         }
     }
+    
+    public function getVendor() {
+        $kategori = $_GET['id'];
+        $query = "SELECT a.*,b.nama_kategori FROM vendor a LEFT JOIN kategori_vendor b ON a.id_kategori = b.id WHERE a.id = '$kategori'";
+        $data = $this->db->query($query)->row();
+        echo json_encode($data);
+    }
 
 }
