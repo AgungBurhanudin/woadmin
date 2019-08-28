@@ -34,14 +34,14 @@
                         <td><?= $val->alamat ?></td>
                         <td><?= $val->tipe_undangan ?></td>
                         <td>
-                            <a href="<?= base_url() ?>Wedding/undangan/edit?id=<?= $val->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                            <a href="<?= base_url() ?>Wedding/undangan/delete?id=<?= $val->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>                    
+                            <a href="#" onclick="editUndangan('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+                            <a href="#" onclick="deleteUndangan('<?= $val->id ?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>                    
                         </td>
                     </tr>
                     <?php
                 }
             } else {
-                echo "<tr><td colspan='7'>Data Vendor Masih Kosong</td></tr>";
+                echo "<tr><td colspan='7'>Data Undangan Masih Kosong</td></tr>";
             }
             ?>
         </tbody>
@@ -57,8 +57,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" action="" name="undangan" id="undangan" method="post">
-                <input type="hidden" name="id_wedding" id="id_wedding" value="<?= $id_wedding ?>">
+                <form class="form-horizontal" action="#" name="formUndangan" id="formUndangan" method="post">
+                    <input type="hidden" name="id_wedding" id="id_wedding" value="<?= $id_wedding ?>">
+                    <input type="hidden" name="id_undangan" id="id_undangan" value="">
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="hf-email">Nama Lengkap</label>
                         <div class="col-md-9">
@@ -164,7 +165,7 @@
         });
     }
     function simpanUndangan() {
-        var formData = new FormData($("#undangan")[0]);
+        var formData = new FormData($("#formUndangan")[0]);
         $('#undangan').validate({
             rules: {
                 nama: {
@@ -190,11 +191,39 @@
                         if (data.code == "200") {
                             swal("success", "Berhasil menambah undangan!");
                             $("#myModal").modal('hide');
+                            $("#dataUndangan").load(location.href + " #dataUndangan");
                         } else {
                             swal("warning", "Gagal menambah undangan!");
                         }
                     }
                 });
+            }
+        });
+    }
+    function deleteUndangan(id) {
+        $.ajax({
+            url: '<?= base_url() ?>Wedding/undangan/delete?id=' + id,
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == "200") {
+                    swal("success", "Berhasil menghapus undangan!");
+                    $("#dataUndangan").load(location.href + " #dataUndangan");
+                } else {
+                    swal("warning", "Gagal menghapus undangan!");
+                }
+            }
+        });
+    }
+    function editUndangan(id) {
+        $.ajax({
+            url: '<?= base_url() ?>Wedding/undangan/get?id=' + id,
+            dataType: "JSON",
+            success: function (data) {
+                $("#myModal").modal('show');
+                $("#id_undangan").val(data.id);
+                $("#nama_lengkap").val(data.nama);
+                $("#alamat_undangan").val(data.alamat);
+                $("#tipe_undangan").val(data.tipe_undangan);
             }
         });
     }

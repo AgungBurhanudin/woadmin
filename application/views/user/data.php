@@ -23,7 +23,7 @@
                         <div class="card-header">
                             <i class="fa fa-align-justify"></i> Data User</div>
                         <div class="card-body">
-                            <table class="table table-responsive-sm table-striped">
+                            <table class="table table-responsive-sm table-striped table-datatable">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -46,9 +46,21 @@
                                             <td><?= $val->user_phone ?></td>
                                             <td><?= $val->user_active == 1 ? "Aktif" : "Tidak Aktif" ?></td>
                                             <td>
-                                                <a href="<?= base_url() ?>User/edit?id=<?= $val->user_id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                                                <a href="<?= base_url() ?>User/delete?id=<?= $val->user_id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                                <?php
+                                                if ($val->user_active == 1) {
+                                                    ?>
+                                                    <a href="<?= base_url() ?>User/nonaktif?id=<?= $val->user_id ?>" class="btn btn-sm btn-warning"><i class="fa fa-lock"></i> Nonaktifkan</a>
+                                                    <a href="<?= base_url() ?>User/edit?id=<?= $val->user_id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+                                                    <a href="#" onclick="swalConfirm('Apakah anda yakin akan menghapus data user?', '<?= base_url() ?>User/delete?id=<?= $val->user_id ?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
 
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <a href="<?= base_url() ?>User/aktif?id=<?= $val->user_id ?>" class="btn btn-sm btn-warning"><i class="fa fa-lock"></i> Aktifkan</a>
+                                                    <a href="#" onclick="swalConfirm('Apakah anda yakin akan menghapus data user?', '<?= base_url() ?>User/delete?id=<?= $val->user_id ?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                                    <?php
+                                                }
+                                                ?>
                                             </td>
                                         </tr>
                                         <?php

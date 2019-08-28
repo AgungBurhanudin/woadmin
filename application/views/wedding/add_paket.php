@@ -1,5 +1,5 @@
 <div class="panel-body">
-    <div>
+    <div id="addPaket">
         <div class="col-md-6" style="float: left">
             <fieldset>
                 <h2>Paket Acara</h2>

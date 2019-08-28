@@ -1,5 +1,5 @@
 <div class="panel-body">
-    <div>
+    <div id="addWanita">
         <div class="col-md-6" style="float: left">
             <div class="form-group">
                 <!--<label class="control-label">Foto</label>-->
@@ -16,11 +16,11 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Nama Lengkap Pengantin Wanita</label>
-                <input name="nama_lengkap_wanita" id="nama_lengkap_wanita" type="text" required="required" class="form-control" placeholder="" />
+                <input name="nama_lengkap_wanita" id="nama_lengkap_wanita" type="text" required="required" class="form-control required" placeholder="" />
             </div>
             <div class="form-group">
                 <label class="control-label">Nama Panggilan Pengantin Wanita</label>
-                <input name="nama_panggilan_wanita" id="nama_panggilan_wanita" type="text" required="required" class="form-control" />
+                <input name="nama_panggilan_wanita" id="nama_panggilan_wanita" type="text" required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">Alamat Sekarang Pengantin Wanita</label>
@@ -39,19 +39,27 @@
 
             <div class="form-group">
                 <label class="control-label">Tanggal Lahir Pengantin Wanita</label>
-                <input name="tanggal_lahir_wanita" id="tanggal_lahir_wanita" type="date" required="required" class="form-control" />
+                <input name="tanggal_lahir_wanita" id="tanggal_lahir_wanita" type="date" required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">No Hp Pengantin Wanita</label>
-                <input name="no_hp_wanita" id="no_hp_wanita" type="text" required="required" class="form-control" />
+                <input name="no_hp_wanita" id="no_hp_wanita" type="text" required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">Email Pengantin Wanita</label>
-                <input name="email_wanita" id="email_wanita" type="text" required="required" class="form-control" />
+                <input name="email_wanita" id="email_wanita" type="text" required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">Agama Pengantin Wanita</label>
-                <input name="agama_wanita" id="agama_wanita" type="text" required="required" class="form-control" />
+
+                <select class="form-control required" name="agama_wanita" id="agama_wanita">
+                    <option value="">-- Pilih Agama --</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katholik">Katholik</option>
+                    <option value="Budha">Budha</option>
+                    <option value="Hindu">Hindu</option>
+                </select>
             </div>
             <div class="form-group">
                 <label class="control-label">Pendidikan Pengantin Wanita</label>
@@ -67,5 +75,5 @@
             </div>
         </div>
     </div>
-    <button onclick="moveStep('step-3', 'step-4')" class="btn btn-primary nextBtn pull-right" type="button">Next</button>    
+    <button onclick="moveStep('step-3', 'step-4', 'addWanita')" class="btn btn-primary nextBtn pull-right" type="button">Next</button>    
 </div>

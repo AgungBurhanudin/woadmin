@@ -77,23 +77,36 @@
 <script>
     $(function () {
         $("#step-2").attr('class', 'hide');
+        $(".required").on('focus', function () {
+            $(this).removeAttr('style');
+        });
     });
 
-    function moveStep(from, to) {
-        $("#btn_" + to).removeAttr('disabled');
-        $("#btn_" + to).removeClass('btn-primary');
-        $("#btn_" + to).addClass('btn-success');
+    function moveStep(from, to, id) {
+        var valid = true;
+        $("#" + id + " .required").each(function () {
+            if ($(this).val() == "") {
+                $(this).attr('style', 'border:1px solid red');
+                valid = false;
+            }
+        });
+        if (valid == true) {
+            $("#btn_" + to).removeAttr('disabled');
+            $("#btn_" + to).removeClass('btn-primary');
+            $("#btn_" + to).addClass('btn-success');
 
 
-        //        $("#btn_" + from).attr('disabled','disabled');
-        //        $("#btn_" + from).removeClass('btn-success');
-        //        $("#btn_" + from).addClass('btn-primary');
+            //        $("#btn_" + from).attr('disabled','disabled');
+            //        $("#btn_" + from).removeClass('btn-success');
+            //        $("#btn_" + from).addClass('btn-primary');
 
-        $("#" + to).removeClass('hide');
-        $("#" + to).addClass('active_form');
+            $("#" + to).removeClass('hide');
+            $("#" + to).addClass('active_form');
 
-        $("#" + from).removeClass('active_form');
-        $("#" + from).addClass('hide');
+            $("#" + from).removeClass('active_form');
+            $("#" + from).addClass('hide');
+        }
+
     }
 
     function moveTab(tab, hideTab, hideTab2, hideTab3, hideTab4) {
@@ -137,6 +150,8 @@
     }
 
     function simpan() {
+        $("#simpanWedding").html('Mohon tunggu...'; )
+        $("#simpanWedding").attr('disabled', 'disabled');
         var formData = new FormData($("#formWedding")[0]);
         $.ajax({
             type: 'POST',
@@ -146,11 +161,11 @@
             data: formData,
             dataType: "JSON",
             success: function (data) {
-                if(data.code == "200"){
-                    swal('success',"Berhasil");
+                if (data.code == "200") {
+                    swal('success', "Berhasil");
                     window.location.href = "<?= base_url() ?>Wedding";
-                }else{
-                    swal('warning',"Gagal");
+                } else {
+                    swal('warning', "Gagal");
                 }
             }
         });

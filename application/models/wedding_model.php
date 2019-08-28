@@ -97,7 +97,54 @@ class Wedding_model extends CI_Model {
                 WHERE gender = 'P' ) c 
               ON c.id_wedding = a.id 
               LEFT JOIN 
-                (SELECT * FROM log_aktivitas GROUP BY id_wedding ORDER BY datetime DESC LIMIT 1) d 
+                (SELECT * FROM log_aktivitas GROUP BY id_wedding ORDER BY datetime DESC ) d 
+              ON d.id_wedding = a.id 
+              LEFT JOIN app_user e 
+              ON d.id_user = e.user_id 
+              WHERE a.status = 1 $where 
+              ORDER BY a.tanggal DESC";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    public function getDataAllDashboard() {
+        $auth = $this->session->userdata('auth');
+        $group = $auth['group'];
+        $id_company = $auth['company'];
+        $where = "";
+        if ($group == 35) {
+            $where = "AND a.id_company = '$id_company'";
+        } else if ($group == 1) {
+            $where = "";
+        } else {
+            $where = "AND a.id_company = '6s4f5dsf4ds6f4ds6f4dsf64'";
+        }
+        // return $this->db->get($this->_table)->result();
+//        $this->db->select('wedding.*', 'pengantin.id_wedding', 'pengantin.lengkap', 'pengantin.nama_panggilan', 'pengantin.alamat_nikah', 'pengantin.gender');
+//        $this->db->join('wedding', 'pengantin.id_wedding = wedding.id');
+        $sql = "SELECT a.*,
+                b.nama_panggilan AS nama_pria, 
+                c.nama_panggilan AS nama_wanita,
+                b.photo AS foto_pria, 
+                c.photo AS foto_wanita,
+                e.user_real_name,
+                d.datetime,
+                d.deskripsi,
+                a.registration_date,
+                CONCAT(b.no_hp , '<br>', c.no_hp) AS cp
+                FROM wedding a   
+              LEFT JOIN 
+                (SELECT id_wedding,nama_lengkap, nama_panggilan, alamat_nikah, photo, no_hp 
+                FROM pengantin 
+                WHERE gender = 'L' ) b 
+              ON b.id_wedding = a.id 
+              LEFT JOIN 
+                (SELECT id_wedding,nama_lengkap, nama_panggilan, alamat_nikah, photo, no_hp
+                FROM pengantin 
+                WHERE gender = 'P' ) c 
+              ON c.id_wedding = a.id 
+              LEFT JOIN 
+                (SELECT * FROM log_aktivitas GROUP BY id_wedding ORDER BY datetime DESC ) d 
               ON d.id_wedding = a.id 
               LEFT JOIN app_user e 
               ON d.id_user = e.user_id 
@@ -131,7 +178,7 @@ class Wedding_model extends CI_Model {
                 WHERE gender = 'P' ) c 
               ON c.id_wedding = a.id 
               LEFT JOIN 
-                (SELECT * FROM log_aktivitas GROUP BY id_wedding ORDER BY datetime DESC LIMIT 1) d 
+                (SELECT * FROM log_aktivitas GROUP BY id_wedding ORDER BY datetime DESC ) d 
               ON d.id_wedding = a.id 
               LEFT JOIN app_user e 
               ON d.id_user = e.user_id 

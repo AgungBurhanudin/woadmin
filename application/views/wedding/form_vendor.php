@@ -29,10 +29,10 @@
                     <td><?= $val->cp ?></td>
                     <td><?= $val->nohp_cp ?></td>
                     <td><?= $val->nama_kategori ?></td>
-                    <td><?= $val->biaya ?></td>
+                    <td align="right"><?= number_format($val->biaya,2) ?></td>
                     <td>
-                        <a href="<?= base_url() ?>Wedding/vendor/edit?id=<?= $val->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                        <a href="<?= base_url() ?>Wedding/vendor/delete?id=<?= $val->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                        <a href="#" onclick="editVendor('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+                        <a href="#" onclick="deleteVendor('<?= $val->id ?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
                     </td>
                 </tr>
                 <?php
@@ -55,7 +55,8 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" action="#" id="formVendor" method="post">
-                    <input type="hidden" class="id_wedding" name="id_wedding">
+                    <input type="hidden" class="id_wedding" name="id_wedding" value="<?= $id_wedding ?>">
+                    <input type="hidden" name="id_vendor_pengantin" id="id_vendor_pengantin" value="">
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Kategori Vendor </label>
                         <div class="col-md-9">
@@ -189,6 +190,38 @@
                         }
                     }
                 });
+            }
+        });
+    }
+    function deleteVendor(id) {
+        $.ajax({
+            url: '<?= base_url() ?>Wedding/vendor/delete?id=' + id,
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == "200") {
+                    swal("success", "Berhasil menghapus vendor!");
+                    $("#dataVendor").load(location.href + " #dataVendor");
+                } else {
+                    swal("warning", "Gagal menghapus vendor!");
+                }
+            }
+        });
+    }
+    function editVendor(id) {
+        $.ajax({
+            url: '<?= base_url() ?>Wedding/vendor/get?id=' + id,
+            dataType: "JSON",
+            success: function (data) {
+                $("#vendorModal").modal('show');
+                $("#id_vendor_pengantin").val(data.id);                
+                getVendor(data.id);
+                $("#kategori_vendor").select2('val',data.id_kategori);
+                setTimeout(function(){ $("#vendorcombobox").val(data.id_vendor); }, 1000);                
+                $("#nama_vendor").val(data.nama_vendor);
+                $("#cp").val(data.cp);
+                $("#nohp").val(data.nohp_cp);
+                $("#biaya").val(data.biaya);                
+                $("#bayar_oleh").val(data.dibayaroleh);
             }
         });
     }

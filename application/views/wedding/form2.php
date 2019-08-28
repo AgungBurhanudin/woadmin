@@ -65,6 +65,9 @@
                                     <a class="nav-link" data-toggle="tab" href="#tambahan" role="tab" aria-controls="tambahan">Paket Tambahan</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
+                                    <a class="nav-link" data-toggle="tab" href="#layout" role="tab" aria-controls="layout">Layout</a>
+                                </li>
+                                <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#log" role="tab" aria-controls="log">Log Aktivitas</a>
                                 </li>
                             </ul>
@@ -109,6 +112,9 @@
                                 </div>
                                 <div class="tab-pane" id="tambahan" role="tabpanel">
                                     <?php $this->load->view('wedding/form_tambahan'); ?>
+                                </div>
+                                <div class="tab-pane" id="layout" role="tabpanel">
+                                    <?php $this->load->view('wedding/form_layout'); ?>
                                 </div>
                                 <div class="tab-pane" id="log" role="tabpanel">
                                     <?php $this->load->view('wedding/form_log'); ?>

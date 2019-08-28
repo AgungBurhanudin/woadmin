@@ -27,7 +27,7 @@
                             foreach ($upacara as $val) {
                                 if ($val->id_upacara == $v->id) {
                                     ?>
-                                    <li class="nav-item" onclick="getFieldUpacara('<?= $val->id_field ?>', '<?= $v->id ?>')">
+                                    <li class="nav-item" onclick="getFieldUpacara('<?= $id_wedding ?>', '<?= $val->id_field ?>', '<?= $v->id ?>')">
                                         <a class="nav-link" data-toggle="tab" href="#upacara_<?= $v->id ?>_<?= $val->id_field ?>" role="tab" aria-controls="upacara_<?= $val->id ?>" aria-selected="true"><?= $val->nama_upacara ?></a>
                                     </li>
                                     <?php
@@ -56,9 +56,9 @@
     ?>
 </div>
 <script>
-    function getFieldUpacara(id, parent) {
+    function getFieldUpacara(id_wedding, id, parent) {
         $.ajax({
-            url: "<?= base_url() ?>Wedding/upacara/field?id=" + id,
+            url: "<?= base_url() ?>Wedding/upacara/field?id=" + id + "&id_wedding=" + id_wedding,
             success: function (data) {
                 $("#upacara_" + parent + "_" + id).html(data);
             }

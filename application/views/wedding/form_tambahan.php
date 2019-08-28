@@ -11,7 +11,7 @@
         <?php
         foreach ($tambahan as $val) {
             ?>
-            <li class="nav-item" onclick="getFieldTambahan('<?= $val->id_field ?>')">
+            <li class="nav-item" onclick="getFieldTambahan('<?= $id_wedding ?>', '<?= $val->id_field ?>')">
                 <a class="nav-link" data-toggle="tab" href="#tambahan_<?= $val->id_field ?>" role="tab" aria-controls="tambahan_<?= $val->id ?>" aria-selected="true"><?= $val->nama_tambahan ?></a>
             </li>
             <?php
@@ -32,9 +32,9 @@
     </div>
 </div>
 <script>
-    function getFieldTambahan(id) {
+    function getFieldTambahan(id_wedding, id) {
         $.ajax({
-            url: "<?= base_url() ?>Wedding/tambahan/field?id=" + id,
+            url: "<?= base_url() ?>Wedding/tambahan/field?id=" + id + "&id_wedding=" + id_wedding,
             success: function (data) {
                 $("#tambahan_" + id).html(data);
             }

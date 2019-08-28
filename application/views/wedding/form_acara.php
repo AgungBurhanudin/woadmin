@@ -11,7 +11,7 @@
         <?php
         foreach ($acara as $val) {
             ?>
-            <li class="nav-item" onclick="getFieldAcara('<?= $val->id_field ?>')">
+            <li class="nav-item" onclick="getFieldAcara('<?= $id_wedding ?>','<?= $val->id_field ?>')">
                 <a class="nav-link" data-toggle="tab" href="#acara_<?= $val->id_field ?>" role="tab" aria-controls="acara_<?= $val->id ?>" aria-selected="true"><?= $val->nama_acara ?></a>
             </li>
             <?php
@@ -32,9 +32,9 @@
     </div>
 </div>
 <script>
-    function getFieldAcara(id) {
+    function getFieldAcara(id_wedding, id) {
         $.ajax({
-            url: "<?= base_url() ?>Wedding/acara/field?id=" + id,
+            url: "<?= base_url() ?>Wedding/acara/field?id=" + id + "&id_wedding=" + id_wedding,
             success: function (data) {
                 $("#acara_" + id).html(data);
             }

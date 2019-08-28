@@ -39,17 +39,24 @@
                     <a href="<?= base_url() ?>Setting/Tambahan">
                         <button type="button" class="btn btn-lg btn-dark col-lg-12" >
                             <i class="fa fa-bitbucket"></i><br>
-                            Setting Paket Tambahan / Lampiran</button>
+                            Setting Paket Tambahan / <br>Lampiran</button>
                     </a>
                 </div>
             </div><br>
             <div class="row">
                 <!--<div style="clear: both"></div><hr>-->
-                <div class="col-md-3">
+<!--                <div class="col-md-3">
                     <a href="<?= base_url() ?>Settings/dokumen">
                         <button type="button" class="btn btn-lg btn-danger col-lg-12" >
                             <i class="fa fa-book"></i><br>
                             Template Dokumen Cetak<br>&nbsp;</button>
+                    </a>
+                </div>-->
+                <div class="col-md-3">
+                    <a href="<?= base_url() ?>Settings/dokumen">
+                        <button type="button" class="btn btn-lg btn-danger col-lg-12" >
+                            <i class="fa fa-phone"></i><br>
+                            Setting Aplikasi Android<br>&nbsp;</button>
                     </a>
                 </div>
             </div>

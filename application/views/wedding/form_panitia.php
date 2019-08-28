@@ -11,7 +11,7 @@
         <?php
         foreach ($panitia as $val) {
             ?>
-            <li class="nav-item" onclick="getFieldPanitia('<?= $val->id_field ?>')">
+            <li class="nav-item" onclick="getFieldPanitia('<?= $id_wedding ?>', '<?= $val->id_field ?>')">
                 <a class="nav-link" data-toggle="tab" href="#panitia_<?= $val->id_field ?>" role="tab" aria-controls="panitia_<?= $val->id ?>" aria-selected="true"><?= $val->nama_panitia ?></a>
             </li>
             <?php
@@ -32,9 +32,9 @@
     </div>
 </div>
 <script>
-    function getFieldPanitia(id) {
+    function getFieldPanitia(id_wedding, id) {
         $.ajax({
-            url: "<?= base_url() ?>Wedding/panitia/field?id=" + id,
+            url: "<?= base_url() ?>Wedding/panitia/field?id=" + id + "&id_wedding=" + id_wedding,
             success: function (data) {
                 $("#panitia_" + id).html(data);
             }

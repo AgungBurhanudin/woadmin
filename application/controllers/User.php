@@ -121,7 +121,24 @@ class User extends CI_Controller {
     public function delete() {
         $id = $this->input->get("id");
         $key['user_id'] = $id;
-        $this->db->delete("user", $key);
+        $this->db->delete("app_user", $key);
+        redirect(base_url() . 'User', 'refresh');
+    }
+    
+
+    public function aktif() {
+        $id = $this->input->get("id");
+        $key['user_id'] = $id;
+        $data['user_active'] = 1;
+        $this->db->update("app_user",$data, $key);
+        redirect(base_url() . 'User', 'refresh');
+    }
+    
+    public function nonaktif() {
+        $id = $this->input->get("id");
+        $key['user_id'] = $id;
+        $data['user_active'] = 0;
+        $this->db->update("app_user",$data, $key);
         redirect(base_url() . 'User', 'refresh');
     }
 

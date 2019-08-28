@@ -24,7 +24,7 @@ class Wedding extends CI_Controller {
     public function delete() {
         $id = $_GET['id'];
         $key['id'] = $id;
-        $this->db->delete('wedding',$key);
+        $this->db->delete('wedding', $key);
         redirect(base_url() . "Wedding");
     }
 
@@ -42,7 +42,7 @@ class Wedding extends CI_Controller {
                     p.id_upacara=0 
                 ORDER BY 
    p.id, c1.urutan ASC")->result();
-   
+
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
         $id_company = $auth['company'];
@@ -350,118 +350,154 @@ class Wedding extends CI_Controller {
 
     public function vendor() {
         $uri = $this->uri->segment(3);
-        $id_wedding = $_POST['id_wedding'];
-        $this->db->where('id', $uri);
+        $id_wedding = isset($_POST['id_wedding']) ? $_POST['id_wedding'] : "";
+//        $this->db->where('id', $uri);
         if ($uri == "add") {
-            $data = array(
-                'id_wedding' => $_POST['id_wedding'],
-                'id_kategori' => $_POST['kategori_vendor'],
-                'id_vendor' => $_POST['vendor'],
-                'nama_vendor' => $_POST['nama_vendor'],
-                'cp' => $_POST['cp'],
-                'nohp_cp' => $_POST['nohp'],
-                'biaya' => $_POST['biaya'],
-                'dibayaroleh' => $_POST['bayar_oleh'],
-            );
-            $this->db->insert('vendor_pengantin', $data);
-            $this->wedding_model->insertLog($id_wedding, "Menambah vendor");
-            $return = array(
-                'code' => '200',
-                'msg' => 'Berhasil menambah vendor'
-            );
-            echo json_encode($return);
-        } else if ($uri == "edit") {
-            $key['id'] = $_GET['id'];
-            $data = array(
-                'id_wedding' => $_POST['id_wedding'],
-                'id_kategori' => $_POST['kategori_vendor'],
-                'id_vendor' => $_POST['vendor'],
-                'nama_vendor' => $_POST['nama_vendor'],
-                'cp' => $_POST['cp'],
-                'nohp_cp' => $_POST['nohp'],
-                'biaya' => $_POST['biaya'],
-                'dibayaroleh' => $_POST['bayar_oleh'],
-            );
-            $this->db->update('vendor_pengantin', $data, $key);
-            $this->wedding_model->insertLog($id_wedding, "Merubah data vendor");
+            if ($_POST['id_vendor_pengantin'] == "") {
+                $data = array(
+                    'id_wedding' => $_POST['id_wedding'],
+                    'id_kategori' => $_POST['kategori_vendor'],
+                    'id_vendor' => $_POST['vendor'],
+                    'nama_vendor' => $_POST['nama_vendor'],
+                    'cp' => $_POST['cp'],
+                    'nohp_cp' => $_POST['nohp'],
+                    'biaya' => $_POST['biaya'],
+                    'dibayaroleh' => $_POST['bayar_oleh'],
+                );
+                $this->db->insert('vendor_pengantin', $data);
+                $this->wedding_model->insertLog($id_wedding, "Menambah vendor");
+                $return = array(
+                    'code' => '200',
+                    'msg' => 'Berhasil menambah vendor'
+                );
+                echo json_encode($return);
+            } else {
+                $key['id'] = $_POST['id_vendor_pengantin'];
+                $data = array(
+                    'id_wedding' => $_POST['id_wedding'],
+                    'id_kategori' => $_POST['kategori_vendor'],
+                    'id_vendor' => $_POST['vendor'],
+                    'nama_vendor' => $_POST['nama_vendor'],
+                    'cp' => $_POST['cp'],
+                    'nohp_cp' => $_POST['nohp'],
+                    'biaya' => $_POST['biaya'],
+                    'dibayaroleh' => $_POST['bayar_oleh'],
+                );
+                $this->db->update('vendor_pengantin', $data, $key);
+                $this->wedding_model->insertLog($id_wedding, "Merubah data vendor");
+                $result = array(
+                    'code' => 200
+                );
+                echo json_encode($result);
+            }
         } else if ($uri == "delete") {
             $key['id'] = $_GET['id'];
-            $this->db->delete('vendor_pengantin', $data, $key);
+            $this->db->delete('vendor_pengantin', $key);
             $this->wedding_model->insertLog($id_wedding, "Menghapus data vendor");
+            $result = array(
+                'code' => 200
+            );
+            echo json_encode($result);
         } else if ($uri == "get") {
-          $key['id'] = $_GET['id'];
-          $data = $this->db->get_where('vendor_pengantin', $key)->row();
-          echo json_encode($data);
-      }
+            $key['id'] = $_GET['id'];
+            $data = $this->db->get_where('vendor_pengantin', $key)->row();
+            echo json_encode($data);
+        }
     }
 
     public function meeting() {
         $uri = $this->uri->segment(3);
-        $id = $_GET['id'];
-        $this->db->where('id', $uri);
+        $id = isset($_GET['id']) ? $_GET['id'] : "";
+        $id_wedding = isset($_POST['id_wedding']) ? $_POST['id_wedding'] : "";
         if ($uri == "add") {
-          $data = array(
-            'tanggal' => $_POST['tanggal'],
-            'waktu' => $_POST['waktu'],
-            'tempat' => $_POST['tempat'],
-            'keperluan' => $_POST['materi'],
-            'id_wedding' => $_POST['id_wedding'],
-            'kepada' => $_POST['kepada']
-          );     
-          $this->db->insert('jadwal_meeting', $data);
-          $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah jadwal meeting");
-        } else if ($uri == "edit") {
-          $key['id'] = $_GET['id'];
-          $data = array(
-            'tanggal' => $_POST['tanggal'],
-            'waktu' => $_POST['waktu'],
-            'tempat' => $_POST['tempat'],
-            'keperluan' => $_POST['materi'],
-            'id_wedding' => $_POST['id_wedding'],
-            'kepada' => $_POST['kepada']
-          );     
-          $this->db->update('jadwal_meeting', $data, $key);
-          $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah jadwal meeting");
-            
+            if ($_POST['id_meeting'] == "") {
+                $data = array(
+                    'tanggal' => $_POST['tanggal'],
+                    'waktu' => $_POST['waktu'],
+                    'tempat' => $_POST['tempat'],
+                    'keperluan' => $_POST['materi'],
+                    'id_wedding' => $_POST['id_wedding'],
+                    'kepada' => $_POST['kepada']
+                );
+                $this->db->insert('jadwal_meeting', $data);
+                $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah jadwal meeting");
+                $result = array(
+                    'code' => 200
+                );
+                echo json_encode($result);
+            } else {
+                $key['id'] = $_POST['id_meeting'];
+                $data = array(
+                    'tanggal' => $_POST['tanggal'],
+                    'waktu' => $_POST['waktu'],
+                    'tempat' => $_POST['tempat'],
+                    'keperluan' => $_POST['materi'],
+                    'id_wedding' => $_POST['id_wedding'],
+                    'kepada' => $_POST['kepada']
+                );
+                $this->db->update('jadwal_meeting', $data, $key);
+                $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah jadwal meeting");
+                $result = array(
+                    'code' => 200
+                );
+                echo json_encode($result);
+            }
         } else if ($uri == "delete") {
-          $key['id'] = $_GET['id'];
-          $this->db->delete('jadwal_meeting', $data, $key);
-          $this->wedding_model->insertLog($_POST['id_wedding'], "Menghapus jadwal meeting");
-            
-        }else if ($uri == "get") {
-          $key['id'] = $_GET['id'];
-          $data = $this->db->get_where('jadwal_meeting', $key)->row();
-          echo json_encode($data);
-      }
+            $key['id'] = $_GET['id'];
+            $this->db->delete('jadwal_meeting', $key);
+            $this->wedding_model->insertLog($id_wedding, "Menghapus jadwal meeting");
+            $result = array(
+                'code' => 200
+            );
+            echo json_encode($result);
+        } else if ($uri == "get") {
+            $key['id'] = $_GET['id'];
+            $data = $this->db->get_where('jadwal_meeting', $key)->row();
+            echo json_encode($data);
+        }
     }
 
     public function undangan() {
         $uri = $this->uri->segment(3);
         if ($uri == "add") {
-            $data = array(
-              'id_wedding' => $_POST['id_wedding'],
-              // 'id_pengantin' => $_POST[''],
-              'nama' => $_POST['nama_lengkap'],
-              'alamat' => $_POST['alamat_undangan'],
-              'tipe_undangan' => $_POST['tipe_undangan']
-            );
-            $this->db->insert('undangan',$data);
-            $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah data undangan");
-        } else if ($uri == "edit") {
-          $key['id'] = $_GET['id'];
-          $data = array(
-            'id_wedding' => $_POST['id_wedding'],
-            // 'id_pengantin' => $_POST[''],
-            'nama' => $_POST['nama_lengkap'],
-            'alamat' => $_POST['alamat_undangan'],
-            'tipe_undangan' => $_POST['tipe_undangan']
-          );
-          $this->db->update('undangan',$data, $key);
-          $this->wedding_model->insertLog($_POST['id_wedding'], "Merubah data undangan");
+            if ($_POST['id_undangan'] == "") {
+                $data = array(
+                    'id_wedding' => $_POST['id_wedding'],
+                    // 'id_pengantin' => $_POST[''],
+                    'nama' => $_POST['nama_lengkap'],
+                    'alamat' => $_POST['alamat_undangan'],
+                    'tipe_undangan' => $_POST['tipe_undangan']
+                );
+                $this->db->insert('undangan', $data);
+                $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah data undangan");
+                $result = array(
+                    'code' => 200
+                );
+                echo json_encode($result);
+            } else {
+                $key['id'] = $_POST['id_undangan'];
+                $data = array(
+                    'id_wedding' => $_POST['id_wedding'],
+                    // 'id_pengantin' => $_POST[''],
+                    'nama' => $_POST['nama_lengkap'],
+                    'alamat' => $_POST['alamat_undangan'],
+                    'tipe_undangan' => $_POST['tipe_undangan']
+                );
+                $this->db->update('undangan', $data, $key);
+                $this->wedding_model->insertLog($_POST['id_wedding'], "Merubah data undangan");
+                $result = array(
+                    'code' => 200
+                );
+                echo json_encode($result);
+            }
         } else if ($uri == "delete") {
-          $key['id'] = $_GET['id'];
-          $this->db->delete('undangan',$data, $key);
-          $this->wedding_model->insertLog($_POST['id_wedding'], "Menghapus data undangan");
+            $key['id'] = $_GET['id'];
+            $this->db->delete('undangan', $key);
+            $result = array(
+                'code' => 200
+            );
+            echo json_encode($result);
+            $this->wedding_model->insertLog($_POST['id_wedding'], "Menghapus data undangan");
         } else if ($uri == "upload") {
             $id_wedding = $_POST['id_wedding_upload_undangan'];
             $this->uploadUndangan();
@@ -470,11 +506,11 @@ class Wedding extends CI_Controller {
             $id_wedding = $_GET['id'];
             $this->barcodeUndangan();
             $this->wedding_model->insertLog($id_wedding, "Mencetak Barcode undangan");
-        }else if ($uri == "get") {
-          $key['id'] = $_GET['id'];
-          $data = $this->db->get_where('undangan', $key)->row();
-          echo json_encode($data);
-      }
+        } else if ($uri == "get") {
+            $key['id'] = $_GET['id'];
+            $data = $this->db->get_where('undangan', $key)->row();
+            echo json_encode($data);
+        }
     }
 
     public function uploadUndangan() {
@@ -560,7 +596,7 @@ class Wedding extends CI_Controller {
             if ($val->barcode == "") {
                 $qr_lib->setFileName($val->id . "_QR_Code" . date('Y-m-d_H_i_s') . ".png");
                 $qr_lib->setSize("5");
-                if ($qr_lib->generateImage("undangan_" . $val->id)) {                    
+                if ($qr_lib->generateImage("undangan_" . $val->id)) {
                     $key['id'] = $val->id;
                     $data['barcode'] = $qr_lib->getFileName();
                     $barcode = $qr_lib->getFileName();
@@ -582,8 +618,9 @@ class Wedding extends CI_Controller {
         $uri = $this->uri->segment(3);
         $id = isset($_GET['id']) ? $_GET['id'] : "";
         if ($uri == "field") {
+            $id_wedding = $_GET['id_wedding'];
             $field = $this->db->query("SELECT a.*,b.value FROM upacara_field a "
-                            . "LEFT JOIN upacara_data b ON b.id_upacara_field = a.id "
+                            . "LEFT JOIN (SELECT * FROM upacara_data WHERE id_wedding = '$id_wedding') b ON b.id_upacara_field = a.id "
                             . "WHERE a.id_upacara_tipe = '$id' "
                             . "ORDER BY a.urutan ASC")->result();
             $data = array(
@@ -625,8 +662,9 @@ class Wedding extends CI_Controller {
         $uri = $this->uri->segment(3);
         $id = isset($_GET['id']) ? $_GET['id'] : "";
         if ($uri == "field") {
+            $id_wedding = $_GET['id_wedding'];
             $field = $this->db->query("SELECT a.*,b.value FROM acara_field a "
-                            . "LEFT JOIN acara_data b  "
+                            . "LEFT JOIN (SELECT * FROM acara_data WHERE id_wedding = '$id_wedding') b  "
                             . "ON a.id = b.id_acara_field "
                             . "WHERE a.id_acara_tipe = '$id' "
                             . "ORDER BY a.urutan ASC")->result();
@@ -668,8 +706,9 @@ class Wedding extends CI_Controller {
         $uri = $this->uri->segment(3);
         $id = isset($_GET['id']) ? $_GET['id'] : "";
         if ($uri == "field") {
+            $id_wedding = $_GET['id_wedding'];
             $field = $this->db->query("SELECT a.*,b.value FROM panitia_field a "
-                            . "LEFT JOIN panitia_data b  "
+                            . "LEFT JOIN (SELECT * FROM panitia_data WHERE id_wedding = '$id_wedding') b  "
                             . "ON a.id = b.id_panitia_field "
                             . "WHERE a.id_panitia_tipe = '$id' "
                             . "ORDER BY a.urutan ASC")->result();
@@ -711,8 +750,9 @@ class Wedding extends CI_Controller {
         $uri = $this->uri->segment(3);
         $id = isset($_GET['id']) ? $_GET['id'] : "";
         if ($uri == "field") {
+            $id_wedding = $_GET['id_wedding'];
             $field = $this->db->query("SELECT a.*,b.value FROM tambahan_field a "
-                            . "LEFT JOIN tambahan_data b  "
+                            . "LEFT JOIN (SELECT * FROM tambahan_data WHERE id_wedding = '$id_wedding') b  "
                             . "ON a.id = b.id_tambahan_field "
                             . "WHERE id_tambahan_tipe = '$id' "
                             . "ORDER BY urutan ASC")->result();
@@ -750,6 +790,34 @@ class Wedding extends CI_Controller {
         }
     }
 
+    public function layout() {
+        $id_wedding = $_POST['id_wedding'];
+        if (isset($_FILES)) {
+            $path = realpath(APPPATH . '../files/images/');
+
+            $this->upload->initialize(array(
+                'upload_path' => $path,
+                'allowed_types' => 'png|jpg|gif',
+                'max_size' => '15000'
+            ));
+
+            if ($this->upload->do_upload('files')) {
+                $data_upload = $this->upload->data();
+                $data['layout'] = $data_upload['file_name'];
+            } else {
+                $data['layout'] = "";
+            }
+        } else {
+            $data['layout'] = "";
+        }
+        $key['id'] = $id_wedding;
+        $this->db->update('wedding', $data, $key);
+        $result = array(
+            'code' => 200
+        );
+        echo json_encode($result);
+    }
+
     public function cetak() {
         $id = $_GET['id'];
         $wedding = $this->db->query("SELECT * FROM wedding WHERE id = '$id' ")->row();
@@ -759,8 +827,8 @@ class Wedding extends CI_Controller {
         $wanita = $this->db->query("SELECT * FROM pengantin WHERE id_wedding = '$id' AND gender = 'P' ")->row();
 
         $template = $company->template;
-        $templateFile = './files/template/'.$template;
-        $fileName = './files/output/Buku_Nikah_'.$id.'.xlsx';
+        $templateFile = './files/template/' . $template;
+        $fileName = './files/output/Buku_Nikah_' . $id . '.xlsx';
 
         $tanggal_nikah = strtotime($wedding->tanggal);
         $params = [
@@ -819,24 +887,31 @@ class Wedding extends CI_Controller {
         header("location:.$fileName");
     }
 
-    public function getHari($tanggal){
-      //fungsi mencari namahari
-      //format $tgl YYYY-MM-DD
-      //harviacode.com
-      $tgl=substr($tanggal,8,2);
-      $bln=substr($tanggal,5,2);
-      $thn=substr($tanggal,0,4);
-      $info=date('w', mktime(0,0,0,$bln,$tgl,$thn));
-      switch($info){
-          case '0': return "Minggu"; break;
-          case '1': return "Senin"; break;
-          case '2': return "Selasa"; break;
-          case '3': return "Rabu"; break;
-          case '4': return "Kamis"; break;
-          case '5': return "Jumat"; break;
-          case '6': return "Sabtu"; break;
-      };
-  }
+    public function getHari($tanggal) {
+        //fungsi mencari namahari
+        //format $tgl YYYY-MM-DD
+        //harviacode.com
+        $tgl = substr($tanggal, 8, 2);
+        $bln = substr($tanggal, 5, 2);
+        $thn = substr($tanggal, 0, 4);
+        $info = date('w', mktime(0, 0, 0, $bln, $tgl, $thn));
+        switch ($info) {
+            case '0': return "Minggu";
+                break;
+            case '1': return "Senin";
+                break;
+            case '2': return "Selasa";
+                break;
+            case '3': return "Rabu";
+                break;
+            case '4': return "Kamis";
+                break;
+            case '5': return "Jumat";
+                break;
+            case '6': return "Sabtu";
+                break;
+        };
+    }
 
 }
 
