@@ -58,6 +58,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" action="" name="undangan" id="undangan" method="post">
+                <input type="hidden" name="id_wedding" id="id_wedding" value="<?= $id_wedding ?>">
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="hf-email">Nama Lengkap</label>
                         <div class="col-md-9">

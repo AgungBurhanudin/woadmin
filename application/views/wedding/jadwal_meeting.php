@@ -56,6 +56,12 @@
             <div class="modal-body">
                 <form class="form-horizontal" action="" method="post">
                     <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="hf-email">Kepada</label>
+                        <div class="col-md-9">
+                            <input name="kepada" id="kepada" type="text" required="required" class="form-control" placeholder="" />                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="hf-email">Tanggal</label>
                         <div class="col-md-9">
                             <input name="tanggal" id="tanggal" type="date" required="required" class="form-control" placeholder="" />                            

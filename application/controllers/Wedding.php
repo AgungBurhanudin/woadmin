@@ -221,6 +221,7 @@ class Wedding extends CI_Controller {
     }
 
     public function saveWedding() {
+        $id_wedding = $_POST['id_wedding'];
         $data['title'] = $_POST["title"];
         $data['tanggal'] = $_POST["tanggal_pernikahan"];
         $data['waktu'] = $_POST["waktu_pernikahan"];
@@ -238,6 +239,7 @@ class Wedding extends CI_Controller {
 
     public function saveBiodataPria() {
         $id = $_POST['id_wedding'];
+        $id_wedding = $_POST['id_wedding'];
         $data['id_wedding'] = $id;
         $data['gender'] = "L";
         $data['nama_lengkap'] = isset($_POST["nama_lengkap_pria"]) ? $_POST["nama_lengkap_pria"] : "";
@@ -293,6 +295,7 @@ class Wedding extends CI_Controller {
 
     public function saveBiodataWanita() {
         $id = $_POST['id_wedding'];
+        $id_wedding = $_POST['id_wedding'];
         $_POST = $this->input->post();
         $data['id_wedding'] = $id;
         $data['gender'] = "P";
@@ -347,6 +350,7 @@ class Wedding extends CI_Controller {
 
     public function vendor() {
         $uri = $this->uri->segment(3);
+        $id_wedding = $_POST['id_wedding'];
         $this->db->where('id', $uri);
         if ($uri == "add") {
             $data = array(
@@ -367,12 +371,28 @@ class Wedding extends CI_Controller {
             );
             echo json_encode($return);
         } else if ($uri == "edit") {
-            $id = $_GET['id'];
+            $key['id'] = $_GET['id'];
+            $data = array(
+                'id_wedding' => $_POST['id_wedding'],
+                'id_kategori' => $_POST['kategori_vendor'],
+                'id_vendor' => $_POST['vendor'],
+                'nama_vendor' => $_POST['nama_vendor'],
+                'cp' => $_POST['cp'],
+                'nohp_cp' => $_POST['nohp'],
+                'biaya' => $_POST['biaya'],
+                'dibayaroleh' => $_POST['bayar_oleh'],
+            );
+            $this->db->update('vendor_pengantin', $data, $key);
             $this->wedding_model->insertLog($id_wedding, "Merubah data vendor");
         } else if ($uri == "delete") {
-            $id = $_GET['id'];
+            $key['id'] = $_GET['id'];
+            $this->db->delete('vendor_pengantin', $data, $key);
             $this->wedding_model->insertLog($id_wedding, "Menghapus data vendor");
-        }
+        } else if ($uri == "get") {
+          $key['id'] = $_GET['id'];
+          $data = $this->db->get_where('vendor_pengantin', $key)->row();
+          echo json_encode($data);
+      }
     }
 
     public function meeting() {
@@ -380,29 +400,81 @@ class Wedding extends CI_Controller {
         $id = $_GET['id'];
         $this->db->where('id', $uri);
         if ($uri == "add") {
-            
+          $data = array(
+            'tanggal' => $_POST['tanggal'],
+            'waktu' => $_POST['waktu'],
+            'tempat' => $_POST['tempat'],
+            'keperluan' => $_POST['materi'],
+            'id_wedding' => $_POST['id_wedding'],
+            'kepada' => $_POST['kepada']
+          );     
+          $this->db->insert('jadwal_meeting', $data);
+          $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah jadwal meeting");
         } else if ($uri == "edit") {
+          $key['id'] = $_GET['id'];
+          $data = array(
+            'tanggal' => $_POST['tanggal'],
+            'waktu' => $_POST['waktu'],
+            'tempat' => $_POST['tempat'],
+            'keperluan' => $_POST['materi'],
+            'id_wedding' => $_POST['id_wedding'],
+            'kepada' => $_POST['kepada']
+          );     
+          $this->db->update('jadwal_meeting', $data, $key);
+          $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah jadwal meeting");
             
         } else if ($uri == "delete") {
+          $key['id'] = $_GET['id'];
+          $this->db->delete('jadwal_meeting', $data, $key);
+          $this->wedding_model->insertLog($_POST['id_wedding'], "Menghapus jadwal meeting");
             
-        }
+        }else if ($uri == "get") {
+          $key['id'] = $_GET['id'];
+          $data = $this->db->get_where('jadwal_meeting', $key)->row();
+          echo json_encode($data);
+      }
     }
 
     public function undangan() {
         $uri = $this->uri->segment(3);
         if ($uri == "add") {
-            
+            $data = array(
+              'id_wedding' => $_POST['id_wedding'],
+              // 'id_pengantin' => $_POST[''],
+              'nama' => $_POST['nama_lengkap'],
+              'alamat' => $_POST['alamat_undangan'],
+              'tipe_undangan' => $_POST['tipe_undangan']
+            );
+            $this->db->insert('undangan',$data);
+            $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah data undangan");
         } else if ($uri == "edit") {
-            
+          $key['id'] = $_GET['id'];
+          $data = array(
+            'id_wedding' => $_POST['id_wedding'],
+            // 'id_pengantin' => $_POST[''],
+            'nama' => $_POST['nama_lengkap'],
+            'alamat' => $_POST['alamat_undangan'],
+            'tipe_undangan' => $_POST['tipe_undangan']
+          );
+          $this->db->update('undangan',$data, $key);
+          $this->wedding_model->insertLog($_POST['id_wedding'], "Merubah data undangan");
         } else if ($uri == "delete") {
-            
+          $key['id'] = $_GET['id'];
+          $this->db->delete('undangan',$data, $key);
+          $this->wedding_model->insertLog($_POST['id_wedding'], "Menghapus data undangan");
         } else if ($uri == "upload") {
+            $id_wedding = $_POST['id_wedding_upload_undangan'];
             $this->uploadUndangan();
             $this->wedding_model->insertLog($id_wedding, "Mengupload data undangan");
         } else if ($uri == "barcode") {
+            $id_wedding = $_GET['id'];
             $this->barcodeUndangan();
             $this->wedding_model->insertLog($id_wedding, "Mencetak Barcode undangan");
-        }
+        }else if ($uri == "get") {
+          $key['id'] = $_GET['id'];
+          $data = $this->db->get_where('undangan', $key)->row();
+          echo json_encode($data);
+      }
     }
 
     public function uploadUndangan() {
