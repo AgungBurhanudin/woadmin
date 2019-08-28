@@ -150,7 +150,7 @@ class Wedding_model extends CI_Model {
         $group = $auth['group'];
         $id_company = $auth['company'];
         $_POST = $this->input->post();
-        $this->id_company = $id_company; //$_POST["id_company"];
+        $this->id_company = $_POST["user_company"];
         $this->title = $_POST["title"];
         $this->pengantin_pria = $_POST["nama_lengkap_pria"];
         $this->pengantin_wanita = $_POST["nama_lengkap_wanita"];
@@ -402,10 +402,12 @@ class Wedding_model extends CI_Model {
     }
 
     public function insertLog($id_wedding, $deskripsi) {
-        $_SESSION = $this->session->userdata('auth');
+        $auth = $this->session->userdata('auth');
+        $group = $auth['group'];
+        $id_company = $auth['company'];
         $data['id_wedding'] = $id_wedding;
-        $data['id_user'] = $_SESSION['noid'];
-        $data['username'] = $_SESSION['username'];
+        $data['id_user'] = $auth['noid'];
+        $data['username'] = $auth['username'];
         $data['deskripsi'] = $deskripsi;
         $data['datetime'] = date('Y-m-d H:i:s');
         $this->db->insert('log_aktivitas', $data);

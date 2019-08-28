@@ -1,6 +1,24 @@
 <div class="panel-body">
     <div>
         <div class="col-md-6" style="float: left">
+
+            <div class="form-group">        
+              <label class="control-label">Perusahaan <span class="red">*</span></label>
+                  <select name="user_company" id="user_company" class="form-control">                      
+                      <?php
+                      $auth = $this->session->userdata('auth');
+                      $group = $auth['group'];
+                      if($group == 1){
+                        echo "<option value=''>-- Pilih Perusahaan --</option>";
+                      }
+                      foreach ($data_company as $val) {
+                      ?>
+                      <option value="<?=$val->id?>"><?=$val->nama?></option>
+                      <?php
+                      }
+                      ?>
+                  </select>
+            </div>
             <div class="form-group">
                 <label class="control-label">Judul Pernikahan</label>
                 <input name="title" id="title" type="text" required="required" class="form-control" placeholder="" />
@@ -48,5 +66,5 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary nextBtn pull-right" type="button" onclick="moveStep('step-1', 'step-2')">Next</button>    
+    <button class="btn btn-primary nextBtn pull-right" type="button" onclick="moveStep('step-1', 'step-2')">Next</button>
 </div>

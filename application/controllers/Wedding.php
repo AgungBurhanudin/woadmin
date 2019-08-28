@@ -41,12 +41,22 @@ class Wedding extends CI_Controller {
                 WHERE
                     p.id_upacara=0 
                 ORDER BY 
-	 p.id, c1.urutan ASC")->result();
+   p.id, c1.urutan ASC")->result();
+   
+        $auth = $this->session->userdata('auth');
+        $group = $auth['group'];
+        $id_company = $auth['company'];
+        if ($group != 1) {
+            $company = "SELECT * FROM company WHERE id = '$id_company'";
+        } else {
+            $company = "SELECT * FROM company";
+        }
         $data = array(
             'upacara' => $data_upacara,
             'acara' => $this->db->query("SELECT * FROM acara_tipe")->result(),
             'panitia' => $this->db->query("SELECT * FROM panitia_tipe")->result(),
-            'tambahan' => $this->db->query("SELECT * FROM tambahan_tipe")->result()
+            'tambahan' => $this->db->query("SELECT * FROM tambahan_tipe")->result(),
+            'data_company' => $this->db->query($company)->result()
         );
         render('wedding/add', $data);
     }
@@ -223,6 +233,7 @@ class Wedding extends CI_Controller {
         $data['status'] = 1;
         $key['id'] = $_POST['id'];
         $this->db->update('wedding', $data, $key);
+        $this->wedding_model->insertLog($id_wedding, "Merubah data pernikahan");
     }
 
     public function saveBiodataPria() {
@@ -277,6 +288,7 @@ class Wedding extends CI_Controller {
 
         $key['id'] = $_POST['id'];
         $this->db->update('pengantin', $data, $key);
+        $this->wedding_model->insertLog($id_wedding, "Merubah biodata pengantin pria");
     }
 
     public function saveBiodataWanita() {
@@ -330,6 +342,7 @@ class Wedding extends CI_Controller {
         }
         $key['id'] = $_POST['id'];
         $this->db->update('pengantin', $data, $key);
+        $this->wedding_model->insertLog($id_wedding, "Merubah biodata pengantin wanita");
     }
 
     public function vendor() {
@@ -347,6 +360,7 @@ class Wedding extends CI_Controller {
                 'dibayaroleh' => $_POST['bayar_oleh'],
             );
             $this->db->insert('vendor_pengantin', $data);
+            $this->wedding_model->insertLog($id_wedding, "Menambah vendor");
             $return = array(
                 'code' => '200',
                 'msg' => 'Berhasil menambah vendor'
@@ -354,8 +368,10 @@ class Wedding extends CI_Controller {
             echo json_encode($return);
         } else if ($uri == "edit") {
             $id = $_GET['id'];
+            $this->wedding_model->insertLog($id_wedding, "Merubah data vendor");
         } else if ($uri == "delete") {
             $id = $_GET['id'];
+            $this->wedding_model->insertLog($id_wedding, "Menghapus data vendor");
         }
     }
 
@@ -382,8 +398,10 @@ class Wedding extends CI_Controller {
             
         } else if ($uri == "upload") {
             $this->uploadUndangan();
+            $this->wedding_model->insertLog($id_wedding, "Mengupload data undangan");
         } else if ($uri == "barcode") {
             $this->barcodeUndangan();
+            $this->wedding_model->insertLog($id_wedding, "Mencetak Barcode undangan");
         }
     }
 
@@ -662,12 +680,26 @@ class Wedding extends CI_Controller {
 
     public function cetak() {
         $id = $_GET['id'];
-        $templateFile = './files/template/template.xlsx';
-        $fileName = './files/output/exported_file.xlsx';
+        $wedding = $this->db->query("SELECT * FROM wedding WHERE id = '$id' ")->row();
+        $company_id = $wedding->id_company;
+        $company = $this->db->query("SELECT * FROM company WHERE id = '$company_id' ")->row();
+        $pria = $this->db->query("SELECT * FROM pengantin WHERE id_wedding = '$id' AND gender = 'L' ")->row();
+        $wanita = $this->db->query("SELECT * FROM pengantin WHERE id_wedding = '$id' AND gender = 'P' ")->row();
 
+        $template = $company->template;
+        $templateFile = './files/template/'.$template;
+        $fileName = './files/output/Buku_Nikah_'.$id.'.xlsx';
+
+        $tanggal_nikah = strtotime($wedding->tanggal);
         $params = [
-            '{current_date}' => date('d-m-Y'),
-            '{department}' => 'Sales department',
+            '{hari}' => $this->getHari($wedding->tanggal),
+            '{waktu}' => date('d', $tanggal_nikah),
+            '{tanggal}' => date('d', $tanggal_nikah),
+            '{bulan}' => date('m', $tanggal_nikah),
+            '{tahun}' => date('Y', $tanggal_nikah),
+            '{tanggal_indo}' => DateToIndo($wedding->tanggal),
+            '{nama_pria}' => $pria->nama_lengkap,
+            '{nama_wanita}' => $wanita->nama_lengkap,
             '[date]' => [
                 '01-06-2018',
                 '02-06-2018',
@@ -711,7 +743,28 @@ class Wedding extends CI_Controller {
             ],
         ];
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $params);
+        // $file = './files/output/'.$fileName.'.xlsx' ;
+        header("location:.$fileName");
     }
+
+    public function getHari($tanggal){
+      //fungsi mencari namahari
+      //format $tgl YYYY-MM-DD
+      //harviacode.com
+      $tgl=substr($tanggal,8,2);
+      $bln=substr($tanggal,5,2);
+      $thn=substr($tanggal,0,4);
+      $info=date('w', mktime(0,0,0,$bln,$tgl,$thn));
+      switch($info){
+          case '0': return "Minggu"; break;
+          case '1': return "Senin"; break;
+          case '2': return "Selasa"; break;
+          case '3': return "Rabu"; break;
+          case '4': return "Kamis"; break;
+          case '5': return "Jumat"; break;
+          case '6': return "Sabtu"; break;
+      };
+  }
 
 }
 
