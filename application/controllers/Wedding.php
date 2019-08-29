@@ -835,7 +835,7 @@ class Wedding extends CI_Controller {
         $templateFile = $path_template . '/' . $template;
         $fileName = $path_output . '/Buku_Nikah_' . $id . '.xlsx';
         
-        if(!file_exist($templateFile)){
+        if(!file_exists($templateFile)){
             echo "Template tidak di temukan, silahkan upload template lagi";
         }
         $tanggal_nikah = strtotime($wedding->tanggal);
