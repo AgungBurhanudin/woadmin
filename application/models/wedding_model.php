@@ -106,7 +106,7 @@ class Wedding_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result();
     }
-    
+
     public function getDataAllDashboard() {
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
@@ -387,29 +387,32 @@ class Wedding_model extends CI_Model {
         $group = $auth['group'];
         $id_company = $auth['company'];
         $_POST = $this->input->post();
-
+        $username_pria = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_pria'])) . "_" . $id_wedding;
+        $password_pria = str_replace("-", "", date('d-m-Y', strtotime($_POST['tanggal_lahir_pria'])));
         $data['id_wedding'] = $id_wedding;
-        $data['user_company'] = $id_company;
+        $data['user_company'] = $_POST['user_company'];
         $data['user_group_id'] = 37;
         $data['user_real_name'] = $_POST['nama_lengkap_pria'];
-        $data['user_user_name'] = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_pria']));
+        $data['user_user_name'] = $username_pria;
         $data['user_email'] = $_POST['email_pria'];
-        $data['user_password'] = md5($_POST['tanggal_lahir_pria']);
+        $data['user_password'] = md5($password_pria);
         $data['user_address'] = $_POST['alamat_sekarang_pria'];
         $data['user_phone'] = $_POST['no_hp_pria'];
-        $this->sendEmail($_POST['email_pria'], strtolower(str_replace(" ", "_", $_POST['nama_panggilan_pria'])), $_POST['tanggal_lahir_pria']);
+        $this->sendEmail($_POST['email_pria'], $username_pria, $password_pria);
         $this->db->insert('app_user', $data);
 
+        $username_wanita = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita'])) . "_" . $id_wedding;
+        $password_wanita = str_replace("-", "", date('d-m-Y', strtotime($_POST['tanggal_lahir_wanita'])));
         $data['id_wedding'] = $id_wedding;
-        $data['user_company'] = $id_company;
+        $data['user_company'] = $_POST['user_company'];
         $data['user_group_id'] = 37;
         $data['user_real_name'] = $_POST['nama_lengkap_wanita'];
-        $data['user_user_name'] = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita']));
+        $data['user_user_name'] = $username_wanita;
         $data['user_email'] = $_POST['email_wanita'];
         $data['user_password'] = md5($_POST['tanggal_lahir_wanita']);
         $data['user_address'] = $_POST['alamat_sekarang_wanita'];
         $data['user_phone'] = $_POST['no_hp_wanita'];
-        $this->sendEmail($_POST['email_wanita'], strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita'])), $_POST['tanggal_lahir_wanita']);
+        $this->sendEmail($_POST['email_wanita'], $username_wanita, $password_wanita);
         return $this->db->insert('app_user', $data);
     }
 
