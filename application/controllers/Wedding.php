@@ -819,6 +819,8 @@ class Wedding extends CI_Controller {
     }
 
     public function cetak() {
+        $path_template = realpath(APPPATH . '../files/template/');
+        $path_output = realpath(APPPATH . '../files/output/');
         $id = $_GET['id'];
         $wedding = $this->db->query("SELECT * FROM wedding WHERE id = '$id' ")->row();
         $company_id = $wedding->id_company;
@@ -827,9 +829,15 @@ class Wedding extends CI_Controller {
         $wanita = $this->db->query("SELECT * FROM pengantin WHERE id_wedding = '$id' AND gender = 'P' ")->row();
 
         $template = $company->template;
-        $templateFile = './files/template/' . $template;
-        $fileName = './files/output/Buku_Nikah_' . $id . '.xlsx';
-
+        if($template == ""){
+            echo "Template tidak ada, silahkan upload template lagi";
+        }
+        $templateFile = $path_template . '/' . $template;
+        $fileName = $path_output . '/Buku_Nikah_' . $id . '.xlsx';
+        
+        if(!file_exist($templateFile)){
+            echo "Template tidak di temukan, silahkan upload template lagi";
+        }
         $tanggal_nikah = strtotime($wedding->tanggal);
         $params = [
             '{hari}' => $this->getHari($wedding->tanggal),
