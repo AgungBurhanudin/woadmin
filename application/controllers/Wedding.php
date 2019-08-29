@@ -831,12 +831,14 @@ class Wedding extends CI_Controller {
         $template = $company->template;
         if($template == ""){
             echo "Template tidak ada, silahkan upload template lagi";
+            exit();
         }
         $templateFile = $path_template . '/' . $template;
         $fileName = $path_output . '/Buku_Nikah_' . $id . '.xlsx';
         
         if(!file_exists($templateFile)){
             echo "Template tidak di temukan, silahkan upload template lagi";
+            exit();
         }
         $tanggal_nikah = strtotime($wedding->tanggal);
         $params = [
