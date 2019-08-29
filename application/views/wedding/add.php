@@ -150,7 +150,7 @@
     }
 
     function simpan() {
-        $("#simpanWedding").html('Mohon tunggu...'; )
+        $("#simpanWedding").html('Mohon tunggu...');
         $("#simpanWedding").attr('disabled', 'disabled');
         var formData = new FormData($("#formWedding")[0]);
         $.ajax({
