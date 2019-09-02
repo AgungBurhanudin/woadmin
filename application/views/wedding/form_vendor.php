@@ -185,6 +185,7 @@
                             swal("success", "Berhasil menambah vendor!");
                             $("#vendorModal").modal('hide');
                             $("#tableDataVendor").load(location.href + " #tableDataVendor");
+                            document.getElementById("formVendor").reset();
                         } else {
                             swal("warning", "Gagal menambah vendor!");
                         }
@@ -208,6 +209,7 @@
         });
     }
     function editVendor(id) {
+    document.getElementById("formVendor").reset();
         $.ajax({
             url: '<?= base_url() ?>Wedding/vendor/get?id=' + id,
             dataType: "JSON",

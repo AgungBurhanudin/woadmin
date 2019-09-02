@@ -189,6 +189,7 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            document.getElementById("formUndangan").reset();
                             swal("success", "Berhasil menambah undangan!");
                             $("#myModal").modal('hide');
                             $("#dataUndangan").load(location.href + " #dataUndangan");
@@ -215,6 +216,7 @@
         });
     }
     function editUndangan(id) {
+        document.getElementById("formUndangan").reset();
         $.ajax({
             url: '<?= base_url() ?>Wedding/undangan/get?id=' + id,
             dataType: "JSON",

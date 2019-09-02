@@ -126,6 +126,7 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            document.getElementById("formJadwalMeeting").reset();
                             swal("success", "Berhasil menambah jadwal meeting!");
                             $("#modalJadwalMeeting").modal('hide');
                             $("#dataJadwalMeeting").load(location.href + " #dataJadwalMeeting");
@@ -152,6 +153,7 @@
         });
     }
     function editJadwalMeeting(id) {
+        document.getElementById("formJadwalMeeting").reset();
         $.ajax({
             url: '<?= base_url() ?>Wedding/meeting/get?id=' + id,
             dataType: "JSON",
