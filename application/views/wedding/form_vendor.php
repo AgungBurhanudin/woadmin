@@ -156,7 +156,8 @@
     }
 
     function simpanVendor() {
-        var formData = new FormData($("#formVendor")[0]);
+//        var formData = new FormData($("#formVendor")[0]);
+        var formData = $("#formVendor").serialize();
         $('#formVendor').validate({
             rules: {
                 nama_vendor: {
@@ -176,8 +177,6 @@
                 $.ajax({
                     type: 'POST',
                     url: '<?= base_url() ?>Wedding/vendor/add',
-                    processData: false,
-                    contentType: false,
                     data: formData,
                     dataType: "JSON",
                     success: function (data) {

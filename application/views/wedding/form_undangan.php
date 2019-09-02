@@ -165,7 +165,8 @@
         });
     }
     function simpanUndangan() {
-        var formData = new FormData($("#formUndangan")[0]);
+//        var formData = new FormData($("#formUndangan")[0]);
+        var formData = $("#formUndangan").serialize();
         $('#undangan').validate({
             rules: {
                 nama: {
@@ -183,8 +184,6 @@
                 $.ajax({
                     type: 'POST',
                     url: '<?= base_url() ?>Wedding/undangan/add',
-                    processData: false,
-                    contentType: false,
                     data: formData,
                     dataType: "JSON",
                     success: function (data) {
