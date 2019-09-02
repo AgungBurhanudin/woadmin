@@ -28,6 +28,11 @@
                 <?php
                 $parent = '0';
                 foreach ($upacara as $val) {
+                    if ($parent == '0') {
+                        $parent = $val->parent_id;
+                    } else if ($parent != $id_parent_child) {
+                        $parent = '0';
+                    }
                     $value = $val->id;
                     $id_parent_child = $val->parent_id;
                     $nama = $val->child_name;
@@ -43,11 +48,6 @@
                         <label class="form-check-label" for="<?= $id ?>"><?= $nama ?></label>
                     </div><br>
                     <?php
-                    if ($parent == '0') {
-                        $parent = $val->parent_id;
-                    } else if ($parent != $id_parent_child) {
-                        $parent = '0';
-                    }
                 }
                 ?>
             </fieldset>
