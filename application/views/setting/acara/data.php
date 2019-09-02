@@ -68,7 +68,7 @@
                                             <td>
                                                 <a href="<?= base_url() ?>Setting/Acara/field?id=<?= $val->id ?>" class="btn btn-sm btn-success"><i class="fa fa-list"></i></a>
                                                 <a href="<?= base_url() ?>Setting/Acara/edit?id=<?= $val->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
-                                                <a href="<?= base_url() ?>Setting/Acara/delete?id=<?= $val->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="<?= base_url() ?>Setting/Acara/delete?id=<?= $val->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
 
                                             </td>
                                         </tr>

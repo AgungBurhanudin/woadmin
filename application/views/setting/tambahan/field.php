@@ -186,7 +186,7 @@
     }
 
     function deleteField(id, e) {
-        confirmModal('Delete Field', 'Apakah anda yakin akan menghapus field ini', '<?= base_url() ?>Setting/Tambahan/deleteField?id=' + id);
+        confirmModal('Delete Field', 'Apakah anda yakin akan menghapus field ini', '<?= base_url() ?>Setting/Tambahan/deleteField?id=' + id, 'content_panitia');
 //        $(e).parent().parent().remove();
     }
 

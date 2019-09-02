@@ -50,6 +50,9 @@
                                     <a class="nav-link" data-toggle="tab" href="#undangan" role="tab" aria-controls="undangan">Daftar Undangan</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
+                                    <a class="nav-link" data-toggle="tab" href="#hadir" role="tab" aria-controls="hadir">Daftar Hadir</a>
+                                </li>
+                                <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#jadwal" role="tab" aria-controls="jadwal">Jadwal Meeting</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
@@ -97,6 +100,9 @@
                                 </div>
                                 <div class="tab-pane" id="undangan" role="tabpanel">
                                     <?php $this->load->view('wedding/form_undangan'); ?>
+                                </div>
+                                <div class="tab-pane" id="hadir" role="tabpanel">
+                                    <?php $this->load->view('wedding/form_hadir'); ?>
                                 </div>
                                 <div class="tab-pane" id="jadwal" role="tabpanel">
                                     <?php $this->load->view('wedding/jadwal_meeting'); ?>

@@ -68,7 +68,7 @@
                                             <td>
                                                 <a href="<?= base_url() ?>Setting/Panitia/field?id=<?= $val->id ?>" class="btn btn-sm btn-success"><i class="fa fa-list"></i></a>
                                                 <a href="<?= base_url() ?>Setting/Panitia/edit?id=<?= $val->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
-                                                <a href="<?= base_url() ?>Setting/Panitia/delete?id=<?= $val->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="<?= base_url() ?>Setting/Panitia/delete?id=<?= $val->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
 
                                             </td>
                                         </tr>

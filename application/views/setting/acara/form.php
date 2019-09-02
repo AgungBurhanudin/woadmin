@@ -38,7 +38,7 @@ if (empty($acara_tipe)) {
                                         <input class="form-control" type="text" name="nama_acara" id="nama_acara" placeholder="Nama Paket Acara" required="required" value="<?= $nama ?>">
                                     </div>
                                 </div>
-                                <div class="form-group row">
+<!--                                <div class="form-group row">
                                     <label class="col-md-3 col-form-label" for="text-input">Apakah menggunakan panitia?</label>
                                     <div class="col-md-9">
                                         <label>
@@ -53,7 +53,7 @@ if (empty($acara_tipe)) {
                                             <option value="">-- Pilih Daftar Panitia -- </option>
                                         </select>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label" for="text-input">Keterangan</label>
                                     <div class="col-md-9">

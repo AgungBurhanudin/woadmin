@@ -12,6 +12,7 @@
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="confirm_url">
+                <input type="hidden" id="reload">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 <button class="btn btn-info" type="button" onclick="doConfirmModal()">OK</button>
             </div>
@@ -32,20 +33,23 @@
     </div>
 </footer>
 <script>
-    function confirmModal(title, message, url) {
+    function confirmModal(title, message, url, reload) {
         $("#confirmModal").modal('show');
         $("#confirm_title").html(title);
         $("#confirm_body").html(message);
         $("#confirm_url").val(url);
+        $("#reload").val(reload);
     }
     function doConfirmModal() {
         var url = $("#confirm_url").val();
+        var reload = $("#reload").val();
         $.ajax({
             url: url,
             dataType: "JSON",
             success: function (data) {
                 if (data.resp_code == 200) {
                     $("#confirmModal").modal('hide');
+                    $("#" + reload).load(location.href + " #" + reload);
                 }
             }
         });
@@ -55,26 +59,26 @@
         var value = $(e).val();
         var msg = "<br>";
         var valid = true;
-        if($(e).attr("id") == "password"){
-            if(value.length < 6){
+        if ($(e).attr("id") == "password") {
+            if (value.length < 6) {
                 msg += "Password harus 6 karakter atau lebih";
                 valid = false;
             }
-        }else if($(e).attr("id") == "repassword"){
+        } else if ($(e).attr("id") == "repassword") {
             var password = $("#password").val();
-            if(password != value){
+            if (password != value) {
                 msg += "Password tidak sama";
                 valid = false;
             }
-        }else if($(e).attr("id") == "user_user_name"){
-            if(value.length < 6){
+        } else if ($(e).attr("id") == "user_user_name") {
+            if (value.length < 6) {
                 msg += "Username harus 6 karakter atau lebih dan tidak ada spasi";
                 valid = false;
             }
         }
-        if(valid == false){
-            $(e).parent().parent().parent().parent().parent().parent().parent().find(".submit").attr("disabled","disabled");
-        }else{
+        if (valid == false) {
+            $(e).parent().parent().parent().parent().parent().parent().parent().find(".submit").attr("disabled", "disabled");
+        } else {
             $(e).parent().parent().parent().parent().parent().parent().parent().find(".submit").removeAttr("disabled");
         }
         $(e).parent().find(".msg_form").html(msg);

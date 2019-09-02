@@ -68,8 +68,8 @@
                                             <td>
                                                 
                                                 <a href="<?= base_url() ?>Setting/Upacara/edit?id=<?= $val->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
-                                                <a href="<?= base_url() ?>Setting/Upacara/delete?id=<?= $val->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                                                <a href="#" title="Tambah Kegiatan" onclick="addKegiatan('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-plus"></i></a>
+                                                <a href="<?= base_url() ?>Setting/Upacara/delete?id=<?= $val->id ?>" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                <!--<a href="#" title="Tambah Kegiatan" onclick="addKegiatan('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-plus"></i></a>-->
 
                                             </td>
                                         </tr>
