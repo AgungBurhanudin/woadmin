@@ -200,7 +200,7 @@
             success: function (data) {
                 if (data.code == "200") {
                     swal("success", "Berhasil menghapus vendor!");
-                    $("#dataVendor").load(location.href + " #dataVendor");
+                    $("#tableDataVendor").load(location.href + " #tableDataVendor");
                 } else {
                     swal("warning", "Gagal menghapus vendor!");
                 }
