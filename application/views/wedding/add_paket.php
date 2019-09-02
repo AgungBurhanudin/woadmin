@@ -28,15 +28,15 @@
                 <?php
                 $parent = '0';
                 foreach ($upacara as $val) {
+                    $value = $val->id;
+                    $id_parent_child = $val->parent_id;
+                    $nama = $val->child_name;
+                    $id = strtolower(str_replace(array(" ","/"), array("_","_"), $nama)) . "_" . $value;
                     if ($parent == '0') {
                         $parent = $val->parent_id;
                     } else if ($parent != $id_parent_child) {
                         $parent = '0';
                     }
-                    $value = $val->id;
-                    $id_parent_child = $val->parent_id;
-                    $nama = $val->child_name;
-                    $id = strtolower(str_replace(array(" ","/"), array("_","_"), $nama)) . "_" . $value;
                     if ($parent == '0' || $parent == '00') {
                         ?>
                         <b><?= $val->parent_name ?></b><br>
