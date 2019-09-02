@@ -166,7 +166,6 @@
     }
     function simpanUndangan() {
 //        var formData = new FormData($("#formUndangan")[0]);
-        var formData = $("#formUndangan").serialize();
         $('#undangan').validate({
             rules: {
                 nama: {
@@ -181,6 +180,7 @@
                 },
             },
             submitHandler: function (form) {
+                var formData = $("#formUndangan").serialize();
                 $.ajax({
                     type: 'POST',
                     url: '<?= base_url() ?>Wedding/undangan/add',

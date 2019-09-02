@@ -104,7 +104,6 @@
 </div>
 <script>
     function simpanJadwalMeeting() {
-        var formData = $("#formJadwalMeeting").serialize();
         $('#formJadwalMeeting').validate({
             rules: {
                 kepada: {
@@ -119,6 +118,7 @@
                 },
             },
             submitHandler: function (form) {
+                var formData = $("#formJadwalMeeting").serialize();
                 $.ajax({
                     type: 'POST',
                     url: '<?= base_url() ?>Wedding/meeting/add',

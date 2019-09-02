@@ -1,6 +1,6 @@
 <h2>Daftar Vendor</h2>
 <hr>
-<a href="#" data-toggle="modal" data-target="#vendorModal">
+<a href="#" onclick="addVendor()">
     <button type="button" class="btn btn-mini btn-primary"><i class="fa fa-plus"></i> Tambah Vendor</button>
 </a>
 <br>
@@ -29,7 +29,7 @@
                     <td><?= $val->cp ?></td>
                     <td><?= $val->nohp_cp ?></td>
                     <td><?= $val->nama_kategori ?></td>
-                    <td align="right"><?= number_format($val->biaya,2) ?></td>
+                    <td align="right"><?= number_format($val->biaya, 2) ?></td>
                     <td>
                         <a href="#" onclick="editVendor('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
                         <a href="#" onclick="deleteVendor('<?= $val->id ?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
@@ -77,7 +77,7 @@
                         <div class="col-md-9">
                             <select class="form-control" name="vendor" id="vendorcombobox" onchange="setVendor(this.value)">
                                 <option value="">
-                                    
+
                             </select>
                         </div>
                     </div>
@@ -134,6 +134,15 @@
         $("#kategori_vendor").select2();
     });
 
+    function addVendor() {
+        document.getElementById("formVendor").reset();
+        $("#formVendor")[0].reset();
+        $('#formVendor').each(function () {
+            this.reset();
+        });
+        $("#vendorModal").modal('show');
+    }
+
     function getVendor(kategori) {
         $.ajax({
             url: "<?= base_url() ?>Combobox/vendor?kategori=" + kategori,
@@ -142,7 +151,7 @@
             }
         });
     }
-    
+
     function setVendor(id) {
         $.ajax({
             url: "<?= base_url() ?>Combobox/getVendor?id=" + id,
@@ -157,7 +166,7 @@
 
     function simpanVendor() {
 //        var formData = new FormData($("#formVendor")[0]);
-        var formData = $("#formVendor").serialize();
+//        var formData = $("#formVendor").serialize();
         $('#formVendor').validate({
             rules: {
                 nama_vendor: {
@@ -174,6 +183,9 @@
                 bayar_oleh: "Pilih Pembayaran"
             },
             submitHandler: function (form) {
+                var formData = $("#formVendor").serialize();
+                console.log(log);
+                console.log(formData);
                 $.ajax({
                     type: 'POST',
                     url: '<?= base_url() ?>Wedding/vendor/add',
@@ -185,6 +197,10 @@
                             $("#vendorModal").modal('hide');
                             $("#tableDataVendor").load(location.href + " #tableDataVendor");
                             document.getElementById("formVendor").reset();
+                            $("#formVendor")[0].reset();
+                            $('#formVendor').each(function () {
+                                this.reset();
+                            });
                         } else {
                             swal("warning", "Gagal menambah vendor!");
                         }
@@ -208,20 +224,26 @@
         });
     }
     function editVendor(id) {
-    document.getElementById("formVendor").reset();
+        document.getElementById("formVendor").reset();
+        $("#formVendor")[0].reset();
+        $('#formVendor').each(function () {
+            this.reset();
+        });
         $.ajax({
             url: '<?= base_url() ?>Wedding/vendor/get?id=' + id,
             dataType: "JSON",
             success: function (data) {
                 $("#vendorModal").modal('show');
-                $("#id_vendor_pengantin").val(data.id);                
+                $("#id_vendor_pengantin").val(data.id);
                 getVendor(data.id);
-                $("#kategori_vendor").select2('val',data.id_kategori);
-                setTimeout(function(){ $("#vendorcombobox").val(data.id_vendor); }, 1000);                
+                $("#kategori_vendor").select2('val', data.id_kategori);
+                setTimeout(function () {
+                    $("#vendorcombobox").val(data.id_vendor);
+                }, 1000);
                 $("#nama_vendor").val(data.nama_vendor);
                 $("#cp").val(data.cp);
                 $("#nohp").val(data.nohp_cp);
-                $("#biaya").val(data.biaya);                
+                $("#biaya").val(data.biaya);
                 $("#bayar_oleh").val(data.dibayaroleh);
             }
         });
