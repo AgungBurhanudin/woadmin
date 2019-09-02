@@ -89,7 +89,7 @@ if (empty($upacara_tipe)) {
                                                         <td>
                                                             <a href="<?= base_url() ?>Setting/Upacara/field?id=<?= $val->id ?>" class="btn btn-sm btn-success"><i class="fa fa-list"></i></a>
                                                             <a href="#" onclick="editField('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
-                                                            <a href="#" onclick="deleteField('<?= $val->id ?>', this)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                            <a href="#" onclick="deleteKegiatan('<?= $val->id ?>', this, 'kegiatan_upacara')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                     <?php
@@ -183,8 +183,13 @@ if (empty($upacara_tipe)) {
         });
     }
 
-    function deleteField(id, e) {
-        confirmModal('Delete Field', 'Apakah anda yakin akan menghapus kegiatan ini', '<?= base_url() ?>Setting/Upacara/deleteField?id=' + id);
+    function deleteKegiatan(id, e, idReplace) {
+        confirmModal('Delete Field', 'Apakah anda yakin akan menghapus kegiatan ini', '<?= base_url() ?>Setting/Upacara/deleteKegiatan?id=' + id, idReplace);
+//        $(e).parent().parent().remove();
+    }
+
+    function deleteField(id, e, idReplace) {
+        confirmModal('Delete Field', 'Apakah anda yakin akan menghapus kegiatan ini', '<?= base_url() ?>Setting/Upacara/deleteField?id=' + id, idReplace);
 //        $(e).parent().parent().remove();
     }
 
