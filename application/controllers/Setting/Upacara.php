@@ -50,7 +50,11 @@ class Upacara extends CI_Controller {
             redirect(base_url() . 'Setting/Upacara');
         } else {
             $key['id'] = $id;
-            $data = $_POST;
+            $data = array(
+                'nama_upacara' => $_POST['nama_upacara'],
+                'form' => $_POST['form'],
+            );
+            
             $this->db->update("upacara_tipe", $data, $key);
             redirect(base_url() . 'Setting/Upacara');
         }

@@ -95,7 +95,11 @@
                 <li class="nav-title">The Wedding</li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url() ?>Wedding">
-                        <i class="nav-icon icon-user"></i> Data Wedding</a>
+                        <i class="nav-icon icon-user"></i> Data Aktif Wedding</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url() ?>Weddings">
+                        <i class="nav-icon icon-user"></i> Data Semua Wedding</a>
                 </li>
             </ul>
         </nav>

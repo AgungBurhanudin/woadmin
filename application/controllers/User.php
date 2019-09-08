@@ -13,14 +13,26 @@ class User extends CI_Controller {
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
         $id_company = $auth['company'];
+        $where = "WHERE 1=1 ";
         if ($group == 1) {
-            $query = "SELECT * FROM app_user";
+            $where .= "";
         } else {
-            $query = "SELECT * FROM app_user WHERE user_company = '$id_company'";
+            $where .= "  AND user_company = '$id_company'";
         }
 
+        $jenis = isset($_POST['jenis_group']) ? $_POST['jenis_group'] : "";
+        if ($jenis == "0") {
+            $where .= " AND user_group_id IN (1,35,36)";
+        } else if ($jenis == "1") {
+            $where .= " AND user_group_id IN (37)";
+        }else{
+            $where .= " AND user_group_id IN (1,35,36)";
+            $jenis = 0;
+        }
+        $query = "SELECT * FROM app_user $where";
         $data = array(
             'data' => $this->db->query($query)->result(),
+            'jenis_group' => $jenis
         );
         render('user/data', $data);
     }
@@ -124,21 +136,20 @@ class User extends CI_Controller {
         $this->db->delete("app_user", $key);
         redirect(base_url() . 'User', 'refresh');
     }
-    
 
     public function aktif() {
         $id = $this->input->get("id");
         $key['user_id'] = $id;
         $data['user_active'] = 1;
-        $this->db->update("app_user",$data, $key);
+        $this->db->update("app_user", $data, $key);
         redirect(base_url() . 'User', 'refresh');
     }
-    
+
     public function nonaktif() {
         $id = $this->input->get("id");
         $key['user_id'] = $id;
         $data['user_active'] = 0;
-        $this->db->update("app_user",$data, $key);
+        $this->db->update("app_user", $data, $key);
         redirect(base_url() . 'User', 'refresh');
     }
 

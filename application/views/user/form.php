@@ -57,8 +57,8 @@ if (empty($data_user)) {
                                                     foreach ($data_company as $val) {
                                                         $select = ($company == $val->id) ? "selected" : "";
                                                         ?>
-                                                    <option <?= $select ?> value="<?= $val->id ?>"><?= $val->nama ?></option>
-                                                    <?php
+                                                        <option <?= $select ?> value="<?= $val->id ?>"><?= $val->nama ?></option>
+                                                        <?php
                                                     }
                                                     ?>
                                                 </select>
@@ -106,10 +106,12 @@ if (empty($data_user)) {
                                                     <option value=""> -- Pilih Grup --</option>
                                                     <?php
                                                     foreach ($app_group as $val) {
-                                                        $select = ($group == $val->group_id) ? "selected" : "";
-                                                        ?>
-                                                    <option <?= $select ?> value="<?= $val->group_id ?>"><?= $val->group_name ?></option>
-                                                    <?php
+                                                        if ($val->group_id != "37") {
+                                                            $select = ($group == $val->group_id) ? "selected" : "";
+                                                            ?>
+                                                            <option <?= $select ?> value="<?= $val->group_id ?>"><?= $val->group_name ?></option>
+                                                            <?php
+                                                        }
                                                     }
                                                     ?>
                                                 </select>

@@ -23,15 +23,35 @@
                         <div class="card-header">
                             <i class="fa fa-align-justify"></i> Data User</div>
                         <div class="card-body">
+                            <form class="form-horizontal" action="<?= base_url() ?>User" method="post">
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="text-input">Jenis User <span class="red">*</span></label>
+                                    <div class="col-md-9">
+                                        <select name="jenis_group" id="jenis_group" class="form-control" required="required">                                            
+                                            <option value="0">Karyawan</option>
+                                            <option value="1">Pengguna</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-9">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            <i class="fa fa-search"></i>
+                                             Cari
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                             <table class="table table-responsive-sm table-striped table-datatable">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
+                                        <th style="width: 20px">No</th>
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Aktif</th>
-                                        <th>Action</th>
+                                        <th style="width: 150px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +71,7 @@
                                                     ?>
                                                     <a href="<?= base_url() ?>User/nonaktif?id=<?= $val->user_id ?>" class="btn btn-sm btn-warning"><i class="fa fa-lock"></i> Nonaktifkan</a>
                                                     <a href="<?= base_url() ?>User/edit?id=<?= $val->user_id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                                                    <a href="#" onclick="swalConfirm('Apakah anda yakin akan menghapus data user?', '<?= base_url() ?>User/delete?id=<?= $val->user_id ?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                                    <!--<a href="#" onclick="swalConfirm('Apakah anda yakin akan menghapus data user?', '<?= base_url() ?>User/delete?id=<?= $val->user_id ?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>-->
 
                                                     <?php
                                                 } else {
@@ -97,3 +117,8 @@
     </div>
 </main>
 </div>
+<script>
+    $(function(){
+        $("#jenis_group").val('<?= $jenis_group ?>');
+    });
+</script>

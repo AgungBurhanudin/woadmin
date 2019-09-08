@@ -60,17 +60,17 @@ class Wedding_model extends CI_Model {
         ];
     }
 
-    public function getDataAll() {
+    public function getDataAll($status = 1) {
+        $where = " AND a.status = '$status'";
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
         $id_company = $auth['company'];
-        $where = "";
         if ($group == 35) {
-            $where = "AND a.id_company = '$id_company'";
+            $where .= "AND a.id_company = '$id_company'";
         } else if ($group == 1) {
-            $where = "";
+            $where .= "";
         } else {
-            $where = "AND a.id_company = '6s4f5dsf4ds6f4ds6f4dsf64'";
+            $where .= "AND a.id_company = '6s4f5dsf4ds6f4ds6f4dsf64'";
         }
         // return $this->db->get($this->_table)->result();
 //        $this->db->select('wedding.*', 'pengantin.id_wedding', 'pengantin.lengkap', 'pengantin.nama_panggilan', 'pengantin.alamat_nikah', 'pengantin.gender');
@@ -101,7 +101,7 @@ class Wedding_model extends CI_Model {
               ON d.id_wedding = a.id 
               LEFT JOIN app_user e 
               ON d.id_user = e.user_id 
-              WHERE a.status = 1 $where 
+              WHERE 1=1 $where 
               ORDER BY a.tanggal DESC";
         $query = $this->db->query($sql);
         return $query->result();

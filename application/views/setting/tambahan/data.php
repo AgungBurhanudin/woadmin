@@ -6,7 +6,7 @@
             <a href="<?= base_url() ?>Settings">Settings</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="#">Tambahan / Lampiran</a>
+            <a href="<?= base_url() ?>Setting/Tambahan">Tambahan / Lampiran</a>
         </li>
         <li class="breadcrumb-item active">Data</li>
         <!-- Breadcrumb Menu-->
@@ -29,7 +29,7 @@
                             <div class="col-md-6">
                                 <form class="form-horizontal" action="<?= base_url() ?>Setting/Tambahan" method="get">
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label" for="text-input">Nama Paket Acara</label>
+                                        <label class="col-md-4 col-form-label" for="text-input">Nama Paket Tambahan/Lampiran</label>
                                         <div class="col-md-5">
                                             <input class="form-control" type="text" name="nama_tambahan_paket" id="nama_tambahan_paket" placeholder="Nama Paket Tambahan / Lampiran" value="<?= isset($key['nama_tambahan_paket']) ? $key['nama_tambahan_paket'] : '' ?>">
                                         </div>

@@ -15,7 +15,7 @@ class Acara extends CI_Controller {
             $key .= "AND nama_acara LIKE '%" . $_GET['nama_acara'] . "%'";
         }
         $data = array(
-            'acara_tipe' => $this->db->query("SELECT * FROM acara_tipe $key")->result(),
+            'acara_tipe' => $this->db->query("SELECT * FROM acara_tipe $key ORDER BY nama_acara ASC")->result(),
             'key' => $_GET
         );
         render('setting/acara/data', $data);

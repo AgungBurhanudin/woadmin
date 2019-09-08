@@ -24,7 +24,7 @@
                             <table class="table">
                                 <tr>
                                     <td style="width:5%">
-                                        <input type="hidden" name="" id="" value="<?= $tambahan_tipe->id ?>">
+                                        <input type="hidden" name="id_tambahan" id="id_tambahan" value="<?= $tambahan_tipe->id ?>">
                                         <input type="hidden" name="id" id="id" value="">
                                     </td>
                                     <td style="width:20%">
@@ -59,7 +59,7 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div id="content_acara">
+                            <div id="content_tambahan">
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -119,7 +119,7 @@
     function saveField() {
         var baris = $("#table_body tr").length;
         var id = $("#id").val();
-        var  = $("#").val();
+        var id_tambahan = $("#id_tambahan").val();
         var label = $("#label").val();
         var nama_field = $("#nama_field").val();
         var jenis_field = $("#jenis_field").val();
@@ -144,12 +144,12 @@
             $.ajax({
                 url: "<?= base_url() ?>Setting/Tambahan/saveField",
                 type: "POST",
-                data: "id=" + id + "&=" +  + "&nama_label=" + label + "&nama_field=" + nama_field + "&jenis_field=" + jenis_field + "&deskripsi_field=" + deskripsi_field,
+                data: "id=" + id + "&id_tambahan=" + id_tambahan + "&nama_label=" + label + "&nama_field=" + nama_field + "&jenis_field=" + jenis_field + "&deskripsi_field=" + deskripsi_field,
                 dataType: "JSON",
                 success: function (data) {
                     if (data.resp_code == 200) {
                         showAlert('success', "Berhasil menambah/mengedit field");
-                        $("#content_acara").load(location.href + " #content_acara");
+                        $("#content_tambahan").load(location.href + " #content_tambahan");
                         $("#id").val('');
                         $("#nama_field").val('');
                         $("#label").val('');
@@ -186,7 +186,7 @@
     }
 
     function deleteField(id, e) {
-        confirmModal('Delete Field', 'Apakah anda yakin akan menghapus field ini', '<?= base_url() ?>Setting/Tambahan/deleteField?id=' + id, 'content_panitia');
+        confirmModal('Delete Field', 'Apakah anda yakin akan menghapus field ini', '<?= base_url() ?>Setting/Tambahan/deleteField?id=' + id, 'content_tambahan');
 //        $(e).parent().parent().remove();
     }
 
@@ -198,7 +198,7 @@
             data: "id=" + id + "&urutan=" + urutan,
             dataType: "JSON",
             success: function (data) {
-                $("#content_acara").load(location.href + " #content_acara");
+                $("#content_tambahan").load(location.href + " #content_tambahan");
 //                $("#urutan_" + id).focus();
             }
         });

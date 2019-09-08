@@ -6,7 +6,7 @@ ini_set('display_startup_errors', TRUE);
 defined('BASEPATH') or exit('No direct script access allowed');
 require_once dirname(__FILE__) . '/../libraries/PHPExcelTemplate/samples/Bootstrap.php';
 
-class Wedding extends CI_Controller {
+class Weddings extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -17,8 +17,8 @@ class Wedding extends CI_Controller {
     }
 
     public function index() {
-        $data['wedding'] = $this->wedding_model->getDataAll();
-        render('wedding/data', $data);
+        $data['wedding'] = $this->wedding_model->getDataAll(0);
+        render('weddings/data', $data);
     }
 
     public function delete() {
@@ -59,7 +59,7 @@ class Wedding extends CI_Controller {
             'data_company' => $this->db->query($company)->result(),
             'data_agama' => $this->db->query("SELECT * FROM agama")->result(),
         );
-        render('wedding/add', $data);
+        render('weddings/add', $data);
     }
 
     public function save() {
@@ -219,7 +219,7 @@ class Wedding extends CI_Controller {
                         ORDER BY
                                 a.urutan ASC")->result()
         );
-        render('wedding/form2', $data);
+        render('weddings/form2', $data);
     }
 
     public function saveWedding() {
