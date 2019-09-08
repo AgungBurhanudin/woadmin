@@ -15,7 +15,7 @@ class Tambahan extends CI_Controller {
             $key .= "AND nama_tambahan_paket LIKE '%" . $_GET['nama_tambahan_paket'] . "%'";
         }
         $data = array(
-            'tambahan_tipe' => $this->db->query("SELECT * FROM tambahan_tipe $key")->result(),
+            'tambahan_tipe' => $this->db->query("SELECT * FROM tambahan_tipe $key ORDER BY nama_tambahan_paket ASC")->result(),
             'key' => $_GET
         );
         render('setting/tambahan/data', $data);

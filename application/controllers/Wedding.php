@@ -41,7 +41,7 @@ class Wedding extends CI_Controller {
                 WHERE
                     p.id_upacara=0 
                 ORDER BY 
-   p.id, c1.urutan ASC")->result();
+                    p.id, c1.urutan, p.nama_upacara ASC")->result();
 
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
@@ -53,11 +53,12 @@ class Wedding extends CI_Controller {
         }
         $data = array(
             'upacara' => $data_upacara,
-            'acara' => $this->db->query("SELECT * FROM acara_tipe")->result(),
-            'panitia' => $this->db->query("SELECT * FROM panitia_tipe")->result(),
-            'tambahan' => $this->db->query("SELECT * FROM tambahan_tipe")->result(),
+            'acara' => $this->db->query("SELECT * FROM acara_tipe ORDER BY nama_acara ASC")->result(),
+            'panitia' => $this->db->query("SELECT * FROM panitia_tipe ORDER BY nama_panitia ASC")->result(),
+            'tambahan' => $this->db->query("SELECT * FROM tambahan_tipe ORDER BY nama_tambahan_paket ASC")->result(),
             'data_company' => $this->db->query($company)->result(),
-            'data_agama' => $this->db->query("SELECT * FROM agama")->result(),
+            'data_agama' => $this->db->query("SELECT * FROM agama ORDER BY agama ASC")->result(),
+            'today' => date('Y-m-d')
         );
         render('wedding/add', $data);
     }

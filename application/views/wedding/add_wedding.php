@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Tanggal Pernikahan</label>
-                <input name="tanggal_pernikahan" id="tanggal_pernikahan" type="date" required="required" class="form-control required" />
+                <input name="tanggal_pernikahan" id="tanggal_pernikahan" type="date"  min='<?= $today ?>'  required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">Waktu Pernikahan</label>

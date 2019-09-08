@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <label class="control-label">Tanggal Lahir Pengantin Wanita</label>
-                <input name="tanggal_lahir_wanita" id="tanggal_lahir_wanita" type="date" required="required" class="form-control required" />
+                <input name="tanggal_lahir_wanita" id="tanggal_lahir_wanita" type="date" max='<?= $today ?>' required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">No Hp Pengantin Wanita</label>

@@ -34,12 +34,12 @@
         <div class="col-md-6" style="float: left">
             <div class="form-group">
                 <label class="control-label">Tempat Lahir Pengantin Pria</label>
-                <input name="tempat_lahir_pria" id="tempat_lahir_pria" type="text" required="required" class="form-control" />
+                <input name="tempat_lahir_pria" id="tempat_lahir_pria" type="text"  required="required" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label class="control-label">Tanggal Lahir Pengantin Pria</label>
-                <input name="tanggal_lahir_pria" id="tanggal_lahir_pria" type="date" required="required" class="form-control required" />
+                <input name="tanggal_lahir_pria" id="tanggal_lahir_pria" type="date" max='<?= $today ?>' required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">No Hp Pengantin Pria</label>

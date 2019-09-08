@@ -15,7 +15,7 @@ class Panitia extends CI_Controller {
             $key .= "AND nama_panitia LIKE '%" . $_GET['nama_panitia'] . "%'";
         }
         $data = array(
-            'panitia_tipe' => $this->db->get("panitia_tipe")->result(),
+            'panitia_tipe' => $this->db->query("SELECT * FROM panitia_tipe $key ORDER BY nama_panitia ASC")->result(),
             'key' => $_GET
         );
         render('setting/panitia/data', $data);

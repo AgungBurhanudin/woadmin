@@ -16,7 +16,7 @@ class Upacara extends CI_Controller {
             $key .= "AND nama_upacara LIKE '%" . $_GET['nama_upacara'] . "%'";
         }
         $data = array(
-            'upacara_tipe' => $this->db->query("SELECT * FROM upacara_tipe $key")->result(),
+            'upacara_tipe' => $this->db->query("SELECT * FROM upacara_tipe $key ORDER BY nama_upacara ASC")->result(),
             'key' => $_GET
         );
         render('setting/upacara/data', $data);
@@ -35,7 +35,7 @@ class Upacara extends CI_Controller {
         $key['id'] = $this->input->get("id");
         $data = array(
             'upacara_tipe' => $this->db->get_where("upacara_tipe", $key)->result(),
-            'kegiatan' => $this->db->query("SELECT * FROM upacara_tipe WHERE id_upacara = " . $key['id'])->result(),
+            'kegiatan' => $this->db->query("SELECT * FROM upacara_tipe WHERE id_upacara = " . $key['id'] . " ORDER BY nama_upacara ASC")->result(),
             'id' => $key['id'],
             'tipe' => 'edit'
         );
