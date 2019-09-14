@@ -184,7 +184,7 @@
                 display: table-cell;
                 text-align: center;
                 position: relative;
-                width: 20%;
+                width: 33.3%;
             }
             .btn-circle {
                 width: 30px;

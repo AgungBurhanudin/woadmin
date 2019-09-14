@@ -14,7 +14,7 @@
                 <!-- /.col-->
                 <div class="col-lg-12">
 
-                    <a href="<?= base_url() ?>Wedding/add">
+                    <a href="<?= base_url() ?>Register/add">
                         <button type="button" class="btn btn-mini btn-primary"><i class="fa fa-plus"></i> <i class="fa fa-users"></i> Tambah Wedding</button>
                     </a>
                     <br><br>
