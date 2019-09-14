@@ -75,6 +75,7 @@ if (empty($upacara_tipe)) {
                                                 <tr>
                                                     <th style="width:5%">No</th>
                                                     <th>Nama Kegiatan</th>
+                                                    <th style="width:8%">Urutan</th>
                                                     <th style="width:12%">Action</th>
                                                 </tr>
                                             </thead>
@@ -86,6 +87,9 @@ if (empty($upacara_tipe)) {
                                                     <tr>
                                                         <td><?= $no++ ?></td>
                                                         <td><?= $val->nama_upacara ?></td>
+                                                        <td>
+                                                            <input type="number" id="urutan_kegiatan_<?= $val->id ?>" name="urutan_upacara" size="50" style="width: 100px" onfocusout="saveUrutanUpacara('<?= $val->id ?>')" value="<?= $val->urutan ?>">
+                                                        </td>
                                                         <td>
                                                             <a href="<?= base_url() ?>Setting/Upacara/field?id=<?= $val->id ?>" class="btn btn-sm btn-success"><i class="fa fa-list"></i></a>
                                                             <a href="#" onclick="editField('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
@@ -197,4 +201,21 @@ if (empty($upacara_tipe)) {
     $(function () {
         hideAlert();
     });
+</script>
+
+<script>
+
+    function saveUrutanUpacara(id) {
+        var urutan = $("#urutan_kegiatan_" + id).val();
+        $.ajax({
+            url: "<?= base_url() ?>Setting/Upacara/saveUrutanUpacara",
+            type: "POST",
+            data: "id=" + id + "&urutan=" + urutan,
+            dataType: "JSON",
+            success: function (data) {
+                $("#kegiatan_upacara").load(location.href + " #kegiatan_upacara ");
+//                $("#urutan_" + id).focus();
+            }
+        });
+    }
 </script>

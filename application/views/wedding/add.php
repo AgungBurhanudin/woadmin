@@ -48,7 +48,7 @@
                                 <div id="form_daftar_wedding">
                                     <form method="POST" action="#" id="formWedding">
                                         <div class="active_form panel panel-primary setup-content" id="step-1">
-                                            <?= $this->load->view('wedding/add_wedding') ?>
+                                            <?= $this->load->view('wedding/add_pria') ?>
                                         </div>
                                         <div class="hide panel panel-primary setup-content" id="step-2">
                                             <?= $this->load->view('wedding/add_pria') ?>
@@ -76,6 +76,7 @@
 </div>
 <script>
     $(function () {
+        $('.date-masked').mask('99-99-9999');
         $("#step-2").attr('class', 'hide');
         $(".required").on('focus', function () {
             $(this).removeAttr('style');

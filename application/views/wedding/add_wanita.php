@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <label class="control-label">Tanggal Lahir Pengantin Wanita</label>
-                <input name="tanggal_lahir_wanita" id="tanggal_lahir_wanita" type="date" max='<?= $today ?>' required="required" class="form-control required" />
+                <input name="tanggal_lahir_wanita" id="tanggal_lahir_wanita" onkeypress="return isNumberKey(event)" type="text" max='<?= $today ?>' required="required" class="form-control required datepicker-less date-masked" />
             </div>
             <div class="form-group">
                 <label class="control-label">No Hp Pengantin Wanita</label>
@@ -47,7 +47,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Email Pengantin Wanita</label>
-                <input name="email_wanita" id="email_wanita" type="text" required="required" class="form-control required" />
+                <input name="email_wanita" id="email_wanita" type="email" required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">Agama Pengantin Wanita</label>

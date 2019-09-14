@@ -44,7 +44,13 @@
                                     <a class="nav-link" data-toggle="tab" href="#wanita" role="tab" aria-controls="wanita">Catin Wanita</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
+                                    <a class="nav-link" data-toggle="tab" href="#keluarga" role="tab" aria-controls="keluarga">Data Keluarga</a>
+                                </li>
+                                <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#vendor" role="tab" aria-controls="vendor">Daftar Vendor</a>
+                                </li>
+                                <li class="nav-item detail-wedding">
+                                    <a class="nav-link" data-toggle="tab" href="#payment" role="tab" aria-controls="vendor">Payment Vendor</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#undangan" role="tab" aria-controls="undangan">Daftar Undangan</a>
@@ -95,8 +101,14 @@
                                 <div class="tab-pane" id="wanita" role="tabpanel">
                                     <?php $this->load->view('wedding/form_wanita'); ?>
                                 </div>
+                                <div class="tab-pane" id="keluarga" role="tabpanel">
+                                    <?php $this->load->view('wedding/form_keluarga'); ?>
+                                </div>
                                 <div class="tab-pane" id="vendor" role="tabpanel">
                                     <?php $this->load->view('wedding/form_vendor'); ?>
+                                </div>
+                                <div class="tab-pane" id="payment" role="tabpanel">
+                                    <?php $this->load->view('wedding/form_payment'); ?>
                                 </div>
                                 <div class="tab-pane" id="undangan" role="tabpanel">
                                     <?php $this->load->view('wedding/form_undangan'); ?>

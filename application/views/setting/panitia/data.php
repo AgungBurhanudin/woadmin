@@ -42,12 +42,13 @@
                                     </div>
                                 </form>
                             </div>
+                            <div id="data_panitia_tipe">
                             <table class="table table-responsive-sm table-striped">
                                 <thead>
                                     <tr>
                                         <th style="width:30px">No</th>
                                         <th>Nama Paket Panitia</th>
-                                        <!--<th style="width:80px">Status</th>-->
+                                        <th style="width:80px">Urutan</th>
                                         <th style="width:180px">Action</th>
                                     </tr>
                                 </thead>
@@ -59,6 +60,9 @@
                                         <tr>
                                             <td><?= $no++ ?></td>
                                             <td><?= $val->nama_panitia ?></td>
+                                                <td>
+                                                    <input type="number" id="urutan_panitia_<?= $val->id ?>" name="urutan_panitia" size="50" style="width: 100px" onfocusout="saveUrutanPanitia('<?= $val->id ?>')" value="<?= $val->urutan ?>">
+                                                </td>
 <!--                                            <td>
                                                 <label class="switch switch-label switch-pill switch-success">
                                                     <input class="switch-input" type="checkbox" checked="">
@@ -77,6 +81,7 @@
                                     ?>
                                 </tbody>
                             </table>
+                        </div>
                             <i>Keterangan : </i><br>
                             <a href="#" class="btn btn-sm btn-success"><i class="fa fa-list"></i></a> Untuk mengedit field inputan didalam paket<br>
                             <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a> Untuk mengedit nama paket<br>
@@ -91,3 +96,20 @@
     </div>
 </main>
 </div>
+
+<script>
+
+    function saveUrutanPanitia(id) {
+        var urutan = $("#urutan_panitia_" + id).val();
+        $.ajax({
+            url: "<?= base_url() ?>Setting/Panitia/saveUrutanPanitia",
+            type: "POST",
+            data: "id=" + id + "&urutan=" + urutan,
+            dataType: "JSON",
+            success: function (data) {
+                $("#data_panitia_tipe").load(location.href + " #data_panitia_tipe");
+//                $("#urutan_" + id).focus();
+            }
+        });
+    }
+</script>

@@ -106,12 +106,10 @@ if (empty($data_user)) {
                                                     <option value=""> -- Pilih Grup --</option>
                                                     <?php
                                                     foreach ($app_group as $val) {
-                                                        if ($val->group_id != "37") {
-                                                            $select = ($group == $val->group_id) ? "selected" : "";
-                                                            ?>
-                                                            <option <?= $select ?> value="<?= $val->group_id ?>"><?= $val->group_name ?></option>
-                                                            <?php
-                                                        }
+                                                        $select = ($group == $val->group_id) ? "selected" : "";
+                                                        ?>
+                                                        <option <?= $select ?> value="<?= $val->group_id ?>"><?= $val->group_name ?></option>
+                                                        <?php
                                                     }
                                                     ?>
                                                 </select>

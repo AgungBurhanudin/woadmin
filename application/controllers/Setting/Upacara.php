@@ -16,7 +16,7 @@ class Upacara extends CI_Controller {
             $key .= "AND nama_upacara LIKE '%" . $_GET['nama_upacara'] . "%'";
         }
         $data = array(
-            'upacara_tipe' => $this->db->query("SELECT * FROM upacara_tipe $key ORDER BY nama_upacara ASC")->result(),
+            'upacara_tipe' => $this->db->query("SELECT * FROM upacara_tipe $key ORDER BY urutan ASC")->result(),
             'key' => $_GET
         );
         render('setting/upacara/data', $data);
@@ -35,7 +35,7 @@ class Upacara extends CI_Controller {
         $key['id'] = $this->input->get("id");
         $data = array(
             'upacara_tipe' => $this->db->get_where("upacara_tipe", $key)->result(),
-            'kegiatan' => $this->db->query("SELECT * FROM upacara_tipe WHERE id_upacara = " . $key['id'] . " ORDER BY nama_upacara ASC")->result(),
+            'kegiatan' => $this->db->query("SELECT * FROM upacara_tipe WHERE id_upacara = " . $key['id'] . " ORDER BY urutan ASC")->result(),
             'id' => $key['id'],
             'tipe' => 'edit'
         );
@@ -44,8 +44,10 @@ class Upacara extends CI_Controller {
 
     public function simpan() {
         $id = $this->input->post("id");
+        $max = $this->db->query('SELECT max(urutan) as last FROM upacara_tipe WHERE id_upacara = 0')->row();
         if (empty($id)) {
             $data = $_POST;
+            $data['urutan'] = $max->last + 1;
             $this->db->insert("upacara_tipe", $data);
             redirect(base_url() . 'Setting/Upacara');
         } else {
@@ -183,6 +185,13 @@ class Upacara extends CI_Controller {
         $key['id'] = $_POST['id'];
         $data['urutan'] = $_POST['urutan'];
         $this->db->update('upacara_field', $data, $key);
+        echo json_encode(array("resp_code" => "200"));
+    }
+
+    public function saveUrutanUpacara() {
+        $key['id'] = $_POST['id'];
+        $data['urutan'] = $_POST['urutan'];
+        $this->db->update('upacara_tipe', $data, $key);
         echo json_encode(array("resp_code" => "200"));
     }
 

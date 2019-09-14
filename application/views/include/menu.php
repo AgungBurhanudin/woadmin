@@ -70,12 +70,16 @@
     <div class="sidebar">
         <nav class="sidebar-nav">
             <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>Logs">
+                            <i class="nav-icon fa fa-address-book"></i> Log Aktivitas</a>
+                    </li>
                 <li class="nav-title">Master</li>
 
                 <?php
                 $auth = $this->session->userdata('auth');
                 $group = $auth['group'];
-                if ($group== 1) {
+                if ($group == 1) {
                     ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>Company">

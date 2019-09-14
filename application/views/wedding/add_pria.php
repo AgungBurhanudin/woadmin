@@ -39,15 +39,15 @@
 
             <div class="form-group">
                 <label class="control-label">Tanggal Lahir Pengantin Pria</label>
-                <input name="tanggal_lahir_pria" id="tanggal_lahir_pria" type="date" max='<?= $today ?>' required="required" class="form-control required" />
+                <input name="tanggal_lahir_pria" id="tanggal_lahir_pria" type="text" max='<?= $today ?>' required="required" class="form-control required datepicker-less date-masked" />
             </div>
             <div class="form-group">
                 <label class="control-label">No Hp Pengantin Pria</label>
-                <input name="no_hp_pria" id="no_hp_pria" type="text" required="required" class="form-control required" />
+                <input name="no_hp_pria" id="no_hp_pria" onkeypress="return isNumberKey(event)" type="text" required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">Email Pengantin Pria</label>
-                <input name="email_pria" id="email_pria" type="text" required="required" class="form-control required" />
+                <input name="email_pria" id="email_pria" type="email" required="required" class="form-control required" />
             </div>
             <div class="form-group">
                 <label class="control-label">Agama Pengantin Pria</label>

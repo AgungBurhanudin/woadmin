@@ -95,7 +95,7 @@ if (!empty($pria)) {
             </div>
             <div class="form-group">
                 <label class="control-label">No Hp Pengantin Pria</label>
-                <input name="no_hp_pria" id="no_hp_pria" type="text" required="required" class="form-control"  />
+                <input name="no_hp_pria" id="no_hp_pria" onkeypress="return isNumberKey(event)" type="text" required="required" class="form-control"  />
             </div>
             <div class="form-group">
                 <label class="control-label">Email Pengantin Pria</label>

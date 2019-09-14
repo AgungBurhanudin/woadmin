@@ -15,7 +15,7 @@ class Tambahan extends CI_Controller {
             $key .= "AND nama_tambahan_paket LIKE '%" . $_GET['nama_tambahan_paket'] . "%'";
         }
         $data = array(
-            'tambahan_tipe' => $this->db->query("SELECT * FROM tambahan_tipe $key ORDER BY nama_tambahan_paket ASC")->result(),
+            'tambahan_tipe' => $this->db->query("SELECT * FROM tambahan_tipe $key ORDER BY urutan ASC")->result(),
             'key' => $_GET
         );
         render('setting/tambahan/data', $data);
@@ -39,8 +39,10 @@ class Tambahan extends CI_Controller {
 
     public function simpan() {
         $id = $this->input->post("id");
+        $max_acara = $this->db->query('SELECT max(urutan) as last FROM tambahan_tipe')->row();
         if (empty($id)) {
             $data = $_POST;
+            $data['urutan'] = $max_acara->last + 1;
             $this->db->insert("tambahan_tipe", $data);
             redirect(base_url() . 'Setting/Tambahan');
         } else {
@@ -135,6 +137,14 @@ class Tambahan extends CI_Controller {
         $key['id'] = $_POST['id'];
         $data['urutan'] = $_POST['urutan'];
         $this->db->update('tambahan_field', $data, $key);
+        echo json_encode(array("resp_code" => "200"));
+    }
+    
+
+    public function saveUrutanTambahan() {
+        $key['id'] = $_POST['id'];
+        $data['urutan'] = $_POST['urutan'];
+        $this->db->update('tambahan_tipe', $data, $key);
         echo json_encode(array("resp_code" => "200"));
     }
 

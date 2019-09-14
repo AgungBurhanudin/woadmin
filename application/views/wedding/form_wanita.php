@@ -95,7 +95,7 @@ if (!empty($wanita)) {
             </div>
             <div class="form-group">
                 <label class="control-label">No Hp Pengantin Wanita</label>
-                <input name="no_hp_wanita" id="no_hp_wanita" type="text" required="required" class="form-control"  />
+                <input name="no_hp_wanita" id="no_hp_wanita" onkeypress="return isNumberKey(event)" type="text" required="required" class="form-control"  />
             </div>
             <div class="form-group">
                 <label class="control-label">Email Pengantin Wanita</label>

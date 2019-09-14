@@ -15,7 +15,7 @@ class Panitia extends CI_Controller {
             $key .= "AND nama_panitia LIKE '%" . $_GET['nama_panitia'] . "%'";
         }
         $data = array(
-            'panitia_tipe' => $this->db->query("SELECT * FROM panitia_tipe $key ORDER BY nama_panitia ASC")->result(),
+            'panitia_tipe' => $this->db->query("SELECT * FROM panitia_tipe $key ORDER BY urutan ASC")->result(),
             'key' => $_GET
         );
         render('setting/panitia/data', $data);
@@ -39,8 +39,10 @@ class Panitia extends CI_Controller {
 
     public function simpan() {
         $id = $this->input->post("id");
+        $max = $this->db->query('SELECT max(urutan) as last FROM panitia_tipe')->row();
         if (empty($id)) {
             $data = $_POST;
+            $data['urutan'] = $max->last + 1;
             $this->db->insert("panitia_tipe", $data);
             redirect(base_url() . 'Setting/Panitia');
         } else {
@@ -128,6 +130,13 @@ class Panitia extends CI_Controller {
         $key['id'] = $_POST['id'];
         $data['urutan'] = $_POST['urutan'];
         $this->db->update('panitia_field', $data, $key);
+        echo json_encode(array("resp_code" => "200"));
+    }
+
+    public function saveUrutanPanitia() {
+        $key['id'] = $_POST['id'];
+        $data['urutan'] = $_POST['urutan'];
+        $this->db->update('panitia_tipe', $data, $key);
         echo json_encode(array("resp_code" => "200"));
     }
 

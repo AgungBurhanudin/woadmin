@@ -39,7 +39,7 @@
                     <?php
                 }
             } else {
-                echo "<tr><td colspan='7'>Data Vendor Masih Kosong</td></tr>";
+                echo "<tr><td colspan='7'>Jadwal Meeting Masih Kosong</td></tr>";
             }
             ?>
         </tbody>

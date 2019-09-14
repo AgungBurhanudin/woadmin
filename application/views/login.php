@@ -104,7 +104,7 @@
             });
 
             function login() {
-                var formData = new FormData($("#formLogin")[0]);
+                
                 $('#formLogin').validate({
                     rules: {
                         username: "required",
@@ -115,6 +115,7 @@
                         password: "Password  harus di isi"
                     },
                     submitHandler: function (form) {
+                        var formData = new FormData($("#formLogin")[0]);
                         $.ajax({
                             url: "<?= base_url() ?>Login/login",
                             type: "POST",

@@ -96,7 +96,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">No Telepone</label>
                         <div class="col-md-9">
-                            <input name="nohp" id="nohp" type="text" required="required" class="form-control" />
+                            <input name="nohp" id="nohp" onkeypress="return isNumberKey(event)" type="text" required="required" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -210,18 +210,20 @@
         });
     }
     function deleteVendor(id) {
-        $.ajax({
-            url: '<?= base_url() ?>Wedding/vendor/delete?id=' + id,
-            dataType: "JSON",
-            success: function (data) {
-                if (data.code == "200") {
-                    swal("success", "Berhasil menghapus vendor!");
-                    $("#tableDataVendor").load(location.href + " #tableDataVendor");
-                } else {
-                    swal("warning", "Gagal menghapus vendor!");
+        if (confirm('Apakah anda yakin akan menghapus data ini?')) {
+            $.ajax({
+                url: '<?= base_url() ?>Wedding/vendor/delete?id=' + id,
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.code == "200") {
+                        swal("success", "Berhasil menghapus vendor!");
+                        $("#tableDataVendor").load(location.href + " #tableDataVendor");
+                    } else {
+                        swal("warning", "Gagal menghapus vendor!");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
     function editVendor(id) {
         document.getElementById("formVendor").reset();

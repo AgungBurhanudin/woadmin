@@ -3,21 +3,21 @@
         <div class="col-md-6" style="float: left">
 
             <div class="form-group">        
-              <label class="control-label">Perusahaan <span class="red">*</span></label>
-                  <select name="user_company" id="user_company" class="form-control required">                      
-                      <?php
-                      $auth = $this->session->userdata('auth');
-                      $group = $auth['group'];
-                      if($group == 1){
+                <label class="control-label">Perusahaan <span class="red">*</span></label>
+                <select name="user_company" id="user_company" class="form-control required">                      
+                    <?php
+                    $auth = $this->session->userdata('auth');
+                    $group = $auth['group'];
+                    if ($group == 1) {
                         echo "<option value=''>-- Pilih Perusahaan --</option>";
-                      }
-                      foreach ($data_company as $val) {
-                      ?>
-                      <option value="<?=$val->id?>"><?=$val->nama?></option>
-                      <?php
-                      }
-                      ?>
-                  </select>
+                    }
+                    foreach ($data_company as $val) {
+                        ?>
+                        <option value="<?= $val->id ?>"><?= $val->nama ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
             </div>
             <div class="form-group">
                 <label class="control-label">Judul Pernikahan</label>
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Tanggal Pernikahan</label>
-                <input name="tanggal_pernikahan" id="tanggal_pernikahan" type="date"  min='<?= $today ?>'  required="required" class="form-control required" />
+                <input name="tanggal_pernikahan" id="tanggal_pernikahan" type="text" required="required" class="form-control required datepicker-more" />                
             </div>
             <div class="form-group">
                 <label class="control-label">Waktu Pernikahan</label>

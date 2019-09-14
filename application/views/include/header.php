@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="<?= base_url() ?>assets/css/select2.css" />
         <link rel="stylesheet" href="<?= base_url() ?>assets/css/jquery.scrolling-tabs.css" />
         <link rel="stylesheet" href="<?= base_url() ?>assets/css/datatable.min.css" />
-<!--        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />-->
+        <!--        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />-->
 
         <script>
 
@@ -61,17 +61,39 @@
         <!--<script src="<?= base_url() ?>assets/js/main.js"></script>-->
         <script src="<?= base_url() ?>assets/vendors/sweet/min/jquery.sweet-modal.min.js"></script>
         <!--<script type="text/javascript" src="<?= base_url() ?>assets/smartWizard/js/jquery.smartWizard.min.js"></script>-->
-        
+
         <script src="<?= base_url() ?>assets/js/jquery.validate.js"></script>
         <script src="<?= base_url() ?>assets/js/select2.min.js"></script>
         <script src="<?= base_url() ?>assets/js/jquery.scrolling-tabs.js"></script>
         <script src="<?= base_url() ?>assets/js/datatable.min.js"></script>
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>-->
+        <script src="<?= base_url() ?>assets/js/jquery.masked.js"></script>
+        <script src="<?= base_url() ?>assets/js/form.js"></script>
+        <link rel="stylesheet" href="<?= base_url() ?>assets/css/jquery.ui.css">
+        <script src="<?= base_url() ?>assets/js/jquery.ui.js"></script>
+
+      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>-->
         <script>
             //Image preview
+                function isNumberKey(evt) {
+                    var charCode = (evt.which) ? evt.which : evt.keyCode
+                    if (charCode > 31 && (charCode < 48 || charCode > 57))
+                        return false;
+                    return true;
+                }
             $(function () {
+                $(".datepicker-more").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    minDate: 0
+                });
+                $(".datepicker-less").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    maxDate: 'today'
+                });
+                $(".datepicker").datepicker({
+                    dateFormat: 'dd-mm-yy'
+                });
                 $(".table-datatable").DataTable();
-                
+
                 $(document).on("change", ".uploadFile", function ()
                 {
                     var uploadFile = $(this);
@@ -104,16 +126,16 @@
                     icon: icon
                 });
             }
-            function swalConfirm(content, url){
-              $.sweetModal.confirm(content, function() {
-                $.ajax({
-                  url : url,
-                  success:function(data){
-                    $.sweetModal('Thanks for confirming!');
-                    location.reload();
-                  }
-                });                
-              });
+            function swalConfirm(content, url) {
+                $.sweetModal.confirm(content, function () {
+                    $.ajax({
+                        url: url,
+                        success: function (data) {
+                            $.sweetModal('Thanks for confirming!');
+                            location.reload();
+                        }
+                    });
+                });
             }
         </script>
         <style>
@@ -206,13 +228,13 @@
             .hide{
                 display: none;
             }
-            
-            
+
+
             label .error{
                 font-size: 9px;
                 text-decoration: line-through;
                 color: red;
-                
+
             }
             .error{
                 color: red;

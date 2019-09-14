@@ -1,6 +1,6 @@
 <h2>Daftar Undangan</h2>
 <hr>
-<a href="#" data-toggle="modal" data-target="#myModal">
+<a href="#" data-toggle="modal" data-target="#undanganAddModal" onclick="document.getElementById('formUndangan').reset()">
     <button type="button" class="btn btn-mini btn-primary"><i class="fa fa-plus"></i> Tambah Undangan</button>
 </a>
 <a href="#" data-toggle="modal" data-target="#uploadUndanganModal">
@@ -18,6 +18,7 @@
                 <th>No</th>
                 <th>Nama Undangan</th>
                 <th>Alamat</th>
+                <th>No Hp/Telp</th>
                 <th>Tipe Undangan</th>
                 <th>Action</th>
             </tr>
@@ -32,6 +33,7 @@
                         <td><?= $no++ ?></td>
                         <td><?= $val->nama ?></td>
                         <td><?= $val->alamat ?></td>
+                        <td><?= $val->nohp ?></td>  
                         <td><?= $val->tipe_undangan ?></td>
                         <td>
                             <a href="#" onclick="editUndangan('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
@@ -47,7 +49,7 @@
         </tbody>
     </table>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="undanganAddModal" tabindex="-1" role="dialog" aria-labelledby="undanganAddModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -70,6 +72,12 @@
                         <label class="col-md-3 col-form-label" for="hf-password">Alamat </label>
                         <div class="col-md-9">
                             <input name="alamat_undangan" id="alamat_undangan" type="text" required="required" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="hf-password">No Hp /Telp </label>
+                        <div class="col-md-9">
+                            <input name="nohp_undangan" onkeypress="return isNumberKey(event)" id="nohp_undangan" type="text" required="required" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -98,7 +106,7 @@
     <!-- /.modal-dialog-->
 </div>
 
-<div class="modal fade" id="uploadUndanganModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="uploadUndanganModal" tabindex="-1" role="dialog" aria-labelledby="undanganAddModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -133,7 +141,7 @@
 
 <script>
     function uploadUndangan() {
-        var formData = new FormData($("#formUploadUndangan")[0]);
+        
         $('#formUploadUndangan').validate({
             rules: {
                 files: "required"
@@ -142,6 +150,7 @@
                 files: "File Excel belum di pilih"
             },
             submitHandler: function (form) {
+                var formData = new FormData($("#formUploadUndangan")[0]);
                 $.ajax({
                     type: 'POST',
                     url: '<?= base_url() ?>Wedding/undangan/upload',
@@ -154,7 +163,7 @@
                             $("#uploadUndanganModal").modal('hide');
                             swal("success", "Berhasil mengupload data undangan!");
                             $("#dataUndangan").load(location.href + " #dataUndangan");
-                            $("#tableUndangan").DataTable();
+//                            $("#tableUndangan").DataTable();
                         } else {
                             $("#uploadUndanganModal").modal('hide');
                             swal("warning", "Gagal mengupload data undangan!");
@@ -189,8 +198,8 @@
                     success: function (data) {
                         if (data.code == "200") {
                             document.getElementById("formUndangan").reset();
-                            swal("success", "Berhasil menambah undangan!");
-                            $("#myModal").modal('hide');
+//                            swal("success", "Berhasil menambah undangan!");
+                            $("#undanganAddModal").modal('hide');
                             $("#dataUndangan").load(location.href + " #dataUndangan");
                         } else {
                             swal("warning", "Gagal menambah undangan!");
@@ -220,10 +229,11 @@
             url: '<?= base_url() ?>Wedding/undangan/get?id=' + id,
             dataType: "JSON",
             success: function (data) {
-                $("#myModal").modal('show');
+                $("#undanganAddModal").modal('show');
                 $("#id_undangan").val(data.id);
                 $("#nama_lengkap").val(data.nama);
                 $("#alamat_undangan").val(data.alamat);
+                $("#nohp_undangan").val(data.nohp);
                 $("#tipe_undangan").val(data.tipe_undangan);
             }
         });

@@ -42,42 +42,47 @@
                                     </div>
                                 </form>
                             </div>
-                            <table class="table table-responsive-sm table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width:30px">No</th>
-                                        <th>Nama Paket Upacara</th>
-                                        <!--<th style="width:80px">Status</th>-->
-                                        <th style="width:150px">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 1;
-                                    foreach ($upacara_tipe as $val) {
-                                        ?>
+                            <div id="data_upacara_tipe">
+                                <table class="table table-responsive-sm table-striped">
+                                    <thead>
                                         <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $val->nama_upacara ?></td>
-<!--                                            <td>
+                                            <th style="width:30px">No</th>
+                                            <th>Nama Paket Upacara</th>
+                                            <th style="width:80px">Urutan</th>
+                                            <th style="width:150px">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($upacara_tipe as $val) {
+                                            ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= $val->nama_upacara ?></td>
+                                                <td>
+                                                    <input type="number" id="urutan_upacara_<?= $val->id ?>" name="urutan_upacara" size="50" style="width: 100px" onfocusout="saveUrutanUpacara('<?= $val->id ?>')" value="<?= $val->urutan ?>">
+                                                </td>
+        <!--                                            <td>
                                                 <label class="switch switch-label switch-pill switch-success">
                                                     <input class="switch-input" type="checkbox" checked="">
                                                     <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
                                                 </label>
                                             </td>-->
-                                            <td>
-                                                
-                                                <a href="<?= base_url() ?>Setting/Upacara/edit?id=<?= $val->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
-                                                <a href="<?= base_url() ?>Setting/Upacara/delete?id=<?= $val->id ?>" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                                                <!--<a href="#" title="Tambah Kegiatan" onclick="addKegiatan('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-plus"></i></a>-->
+                                                <td>
 
-                                            </td>
-                                        </tr>
-                                        <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
+                                                    <a href="<?= base_url() ?>Setting/Upacara/edit?id=<?= $val->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
+                                                    <a href="<?= base_url() ?>Setting/Upacara/delete?id=<?= $val->id ?>" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                    <!--<a href="#" title="Tambah Kegiatan" onclick="addKegiatan('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-plus"></i></a>-->
+
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                             <i>Keterangan : </i><br>
                             <a href="#" class="btn btn-sm btn-success"><i class="fa fa-list"></i></a> Untuk mengedit field inputan didalam paket<br>
                             <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a> Untuk mengedit nama paket<br>
@@ -93,3 +98,20 @@
     </div>
 </main>
 </div>
+
+<script>
+
+    function saveUrutanUpacara(id) {
+        var urutan = $("#urutan_upacara_" + id).val();
+        $.ajax({
+            url: "<?= base_url() ?>Setting/Upacara/saveUrutanUpacara",
+            type: "POST",
+            data: "id=" + id + "&urutan=" + urutan,
+            dataType: "JSON",
+            success: function (data) {
+                $("#data_upacara_tipe").load(location.href + " #data_upacara_tipe");
+//                $("#urutan_" + id).focus();
+            }
+        });
+    }
+</script>

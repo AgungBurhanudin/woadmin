@@ -15,7 +15,7 @@ class Acara extends CI_Controller {
             $key .= "AND nama_acara LIKE '%" . $_GET['nama_acara'] . "%'";
         }
         $data = array(
-            'acara_tipe' => $this->db->query("SELECT * FROM acara_tipe $key ORDER BY nama_acara ASC")->result(),
+            'acara_tipe' => $this->db->query("SELECT * FROM acara_tipe $key ORDER BY urutan ASC")->result(),
             'key' => $_GET
         );
         render('setting/acara/data', $data);
@@ -39,8 +39,10 @@ class Acara extends CI_Controller {
 
     public function simpan() {
         $id = $this->input->post("id");
+        $max_acara = $this->db->query('SELECT max(urutan) as last FROM acara_tipe')->row();
         if (empty($id)) {
             $data = $_POST;
+            $data['urutan'] = $max_acara->last + 1;
             $this->db->insert("acara_tipe", $data);
             redirect(base_url() . 'Setting/Acara');
         } else {
@@ -135,6 +137,13 @@ class Acara extends CI_Controller {
         $key['id'] = $_POST['id'];
         $data['urutan'] = $_POST['urutan'];
         $this->db->update('acara_field', $data, $key);
+        echo json_encode(array("resp_code" => "200"));
+    }
+
+    public function saveUrutanAcara() {
+        $key['id'] = $_POST['id'];
+        $data['urutan'] = $_POST['urutan'];
+        $this->db->update('acara_tipe', $data, $key);
         echo json_encode(array("resp_code" => "200"));
     }
 
