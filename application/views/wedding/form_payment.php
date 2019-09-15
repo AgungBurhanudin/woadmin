@@ -232,7 +232,8 @@
                                 <option value="">-- Status Pembayaran --</option>
                                 <option value="0">Belum Terbayar</option>
                                 <option value="1">Menunggu Konfirmasi</option>
-                                <option value="2">Terbayar</option>
+                                <option value="2">Terbayar Sebagian</option>
+                                <option value="3">Lunas</option>
                             </select>
                         </div>
                     </div>

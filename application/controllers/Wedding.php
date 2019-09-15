@@ -176,7 +176,7 @@ class Wedding extends CI_Controller {
                                 GROUP BY
                                         b.id_upacara 
                                 ORDER BY
-                                        a.urutan ASC")->result(),
+                                        b.urutan ASC")->result(),
             'upacara' => $this->db->query("SELECT
                                 a.*,
                                 b.id AS id_field,
@@ -189,7 +189,7 @@ class Wedding extends CI_Controller {
                                 a.id_wedding = '$id' 
                         GROUP BY b.id 
                         ORDER BY
-                                a.urutan ASC")->result(),
+                                b.urutan ASC")->result(),
             'acara' => $this->db->query("SELECT
                                 a.*,
                                 b.id AS id_field,
@@ -200,7 +200,7 @@ class Wedding extends CI_Controller {
                         WHERE 
                                 a.id_wedding = '$id'
                         ORDER BY
-                                a.urutan ASC")->result(),
+                                b.urutan ASC")->result(),
             'panitia' => $this->db->query("SELECT
                                 a.*,
                                 b.id AS id_field,
@@ -211,7 +211,7 @@ class Wedding extends CI_Controller {
                         WHERE 
                                 a.id_wedding = '$id'
                         ORDER BY
-                                a.urutan ASC")->result(),
+                                b.urutan ASC")->result(),
             'tambahan' => $this->db->query("SELECT
                                 a.*,
                                 b.id AS id_field,
@@ -222,7 +222,7 @@ class Wedding extends CI_Controller {
                         WHERE 
                                 a.id_wedding = '$id'
                         ORDER BY
-                                a.urutan ASC")->result(),
+                                b.urutan ASC")->result(),
             'layout' => $this->db->query("SELECT * FROM layout WHERE id_wedding = '$id'")->result(),
             'ayahpria' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'AYAH' AND id_pengantin = 'pria'")->row(),
             'ibupria' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'IBU' AND id_pengantin = 'pria'")->row(),
@@ -466,7 +466,7 @@ class Wedding extends CI_Controller {
             'dibayarke' => $_POST['dibayarke']
         );
         if (isset($_FILES)) {
-            $path = realpath(APPPATH . '../../files/bukti/');
+            $path = realpath(APPPATH . '../files/bukti/');
             $this->upload->initialize(array(
                 'upload_path' => $path,
                 'allowed_types' => 'png|jpg|gif|docx|doc|xls|xlsx|pdf',
@@ -1210,6 +1210,7 @@ class Wedding extends CI_Controller {
         $id_wedding = $_GET['id'];
         $key['id_wedding'] = $id_wedding;
         $data['status'] = 0;
+        $data['user_active'] = 0;
         $this->db->update('app_user', $data, $key);
         $result['code'] = 200;
         echo json_encode($result);

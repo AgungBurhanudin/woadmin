@@ -1,7 +1,7 @@
 <?php
 
 function DateToIndo($date) {
-    if(($date=="0000-00-00")or($date==NULL)){
+    if (($date == "0000-00-00")or ( $date == NULL)) {
         return($date);
     }
     $BulanIndo = array("Januari", "Februari", "Maret",
@@ -21,4 +21,20 @@ function DateToIndo($date) {
         $result = $tgl . " " . $BulanIndo[(int) $bulan - 1] . " " . $tahun . " Jam " . $jam . ":" . $menit;
     }
     return($result);
+}
+
+function toDMY($data) {
+    if ($data != "") {
+        return date('d-m-Y', strtotime($data));
+    } else {
+        return "";
+    }
+}
+
+function toYMD($data) {
+    if ($data != "") {
+        return date('d-m-Y', strtotime($data));
+    } else {
+        return "";
+    }
 }

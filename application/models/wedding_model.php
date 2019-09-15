@@ -61,7 +61,11 @@ class Wedding_model extends CI_Model {
     }
 
     public function getDataAll($status = 1) {
-        $where = " AND a.status = '$status'";
+        if ($status == "all") {
+            $where = "";
+        } else {
+            $where = " AND a.status = '$status'";
+        }
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
         $id_company = $auth['company'];

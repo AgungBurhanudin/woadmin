@@ -39,8 +39,12 @@
                                         echo "<tr><td colspan='7'>Data Wedding kosong</td></tr>";
                                     } else {
                                         foreach ($wedding as $d) {
+                                            $color = "#fff";
+                                            if ($d->status == 0) {
+                                                $color = "#e7e7e7";
+                                            }
                                             ?>
-                                            <tr>
+                                            <tr style="background-color: <?= $color ?>">
                                                 <td class="text-center" nowrap="nowarap">
                                                     <div class="avatar">
                                                         <img class="img-avatar" src="<?= base_url() ?>files/images/<?= $d->foto_pria != "" ? $d->foto_pria : "user.jpg" ?>" alt="<?= $d->nama_pria ?>">
@@ -64,7 +68,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="small text-muted">Married Date</div>
-                                                    <strong><?= $d->tanggal != ""? DateToIndo($d->tanggal) : ""; ?></strong>
+                                                    <strong><?= $d->tanggal != "" ? DateToIndo($d->tanggal) : ""; ?></strong>
                                                 </td>
                                                 <td>
                                                     <div class="small text-muted"><?= $d->user_real_name ?> : <?= $d->deskripsi ?></div>
@@ -74,7 +78,7 @@
                                                     <a href="<?= base_url() ?>Wedding/form?id=<?= $d->id ?>">
                                                         <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> </button>
                                                     </a>
-                                                    <a href="#" onclick="return swalConfirm('Apakah anda yakin akan menghapus data ini?','<?= base_url() ?>Wedding/delete?id=<?= $d->id ?>')">
+                                                    <a href="#" onclick="return swalConfirm('Apakah anda yakin akan menghapus data ini?', '<?= base_url() ?>Wedding/delete?id=<?= $d->id ?>')">
                                                         <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> </button>
                                                     </a>
                                                 </td>

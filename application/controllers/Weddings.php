@@ -17,7 +17,7 @@ class Weddings extends CI_Controller {
     }
 
     public function index() {
-        $data['wedding'] = $this->wedding_model->getDataAll(0);
+        $data['wedding'] = $this->wedding_model->getDataAll('all');
         render('weddings/data', $data);
     }
 

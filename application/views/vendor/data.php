@@ -47,7 +47,7 @@
                                             <td><?= $val->nohp_cp ?></td>
                                             <td>
                                                 <a href="<?= base_url() ?>Vendor/edit?id=<?= $val->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                                                <a href="<?= base_url() ?>Vendor/delete?id=<?= $val->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                                <a href="<?= base_url() ?>Vendor/delete?id=<?= $val->id ?>" onclick="return confirm('Apakah anda yakin akan menghapus data vendor ini?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
 
                                             </td>
                                         </tr>

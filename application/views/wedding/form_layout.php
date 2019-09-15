@@ -21,7 +21,7 @@
                         </a>
                     </div>
                     <div class="card-body" style="padding: 0">
-                        <img src="<?= base_url() ?>files/images/<?= $l->layout ?>" width="100%">
+                        <img onclick="viewImage('image_<?= $l->id ?>')" class="myImg" id="image_<?= $l->id ?>"  src="<?= base_url() ?>files/images/<?= $l->layout ?>" width="100%">
                     </div>
                 </div>
             </div>
@@ -92,11 +92,11 @@
                     success: function (data) {
                         if (data.code == "200") {
                             $("#uploadLayoutModal").modal('hide');
-                            swal("success", "Berhasil mengupload layout!");
+//                            swal("success", "Berhasil mengupload layout!");
                             $("#dataFormLayout").load(location.href + " #dataFormLayout");
                         } else {
                             $("#uploadLayoutModal").modal('hide');
-                            swal("warning", "Gagal mengupload layout!");
+//                            swal("warning", "Gagal mengupload layout!");
                         }
                     }
                 });
@@ -111,7 +111,7 @@
                 dataType: "JSON",
                 success: function (data) {
                     if (data.code == "200") {
-                        swal("success", "Berhasil menghapus layout!");
+//                        swal("success", "Berhasil menghapus layout!");
                         $("#dataFormLayout").load(location.href + " #dataFormLayout");
                     } else {
                         swal("warning", "Gagal menghapus undangan!");
