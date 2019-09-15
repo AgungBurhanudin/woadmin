@@ -1,8 +1,8 @@
-<h2>Layout</h2>
+<h2>Lampiran</h2>
 <hr>
 
 <a href="#" data-toggle="modal" data-target="#uploadLayoutModal">
-    <button type="button" class="btn btn-mini btn-primary"><i class="fa fa-upload"></i> Add Layout</button>
+    <button type="button" class="btn btn-mini btn-primary"><i class="fa fa-upload"></i> Add Lampiran</button>
 </a>
 
 <div class="clearfix"></div><br>

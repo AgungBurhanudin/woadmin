@@ -74,7 +74,7 @@
                                     <a class="nav-link" data-toggle="tab" href="#tambahan" role="tab" aria-controls="tambahan">Paket Tambahan</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
-                                    <a class="nav-link" data-toggle="tab" href="#layout" role="tab" aria-controls="layout">Layout</a>
+                                    <a class="nav-link" data-toggle="tab" href="#layout" role="tab" aria-controls="layout">Lampiran</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#log" role="tab" aria-controls="log">Log Aktivitas</a>
