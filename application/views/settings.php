@@ -52,13 +52,13 @@
                             Template Dokumen Cetak<br>&nbsp;</button>
                     </a>
                 </div>-->
-                <div class="col-md-3">
+<!--                <div class="col-md-3">
                     <a href="<?= base_url() ?>Settings/dokumen">
                         <button type="button" class="btn btn-lg btn-danger col-lg-12" >
                             <i class="fa fa-phone"></i><br>
                             Setting Aplikasi Android<br>&nbsp;</button>
                     </a>
-                </div>
+                </div>-->
                 <div class="col-md-3">
                     <a href="<?= base_url() ?>Setting/Agama">
                         <button type="button" class="btn btn-lg col-lg-12" >
