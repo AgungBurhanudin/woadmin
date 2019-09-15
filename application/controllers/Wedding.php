@@ -159,7 +159,7 @@ class Wedding extends CI_Controller {
                     . "WHERE a.id_wedding = '$id'")->result(),
             'undangan' => $this->db->query("SELECT * FROM undangan WHERE id_wedding = '$id'")->result(),
             'data_agama' => $this->db->query("SELECT * FROM agama")->result(),
-            'meeting' => $this->db->query("SELECT * FROM jadwal_meeting WHERE id_wedding = '$id'")->result(),
+            'meeting' => $this->db->query("SELECT * FROM jadwal_meeting WHERE id_wedding = '$id' ORDER BY tanggal DESC")->result(),
             'log' => $this->db->query("SELECT a.*,b.user_real_name  FROM log_aktivitas a "
                     . "LEFT JOIN app_user b "
                     . "ON a.id_user = b.user_id "
@@ -186,7 +186,8 @@ class Wedding extends CI_Controller {
                                 wedding_upacara a
                         LEFT JOIN upacara_tipe b ON a.id_upacara_tipe = b.id 
                         WHERE 
-                                a.id_wedding = '$id'
+                                a.id_wedding = '$id' 
+                        GROUP BY b.id 
                         ORDER BY
                                 a.urutan ASC")->result(),
             'acara' => $this->db->query("SELECT
@@ -228,7 +229,28 @@ class Wedding extends CI_Controller {
             'saudara_pria' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN not in ('AYAH', 'IBU') AND id_pengantin = 'pria'")->result(),
             'ayahwanita' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'AYAH' AND id_pengantin = 'wanita'")->row(),
             'ibuwanita' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'IBU' AND id_pengantin = 'wanita'")->row(),
-            'saudara_wanita' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN not in ('AYAH', 'IBU') AND id_pengantin = 'wanita'")->result()
+            'saudara_wanita' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN not in ('AYAH', 'IBU') AND id_pengantin = 'wanita'")->result(),
+            'paket_acara' => $this->db->query("SELECT a.*,b.id_acara_tipe FROM acara_tipe a "
+                    . "LEFT JOIN (SELECT * FROM wedding_acara WHERE id_wedding = '$id') b ON a.id=b.id_acara_tipe ORDER BY a.urutan ASC")->result(),
+            'paket_upacara' => $this->db->query("SELECT
+                    c1.id,b.id_upacara_tipe,
+                    p.id as parent_id,
+                    p.nama_upacara as parent_name,    
+                    c1.nama_upacara as child_name
+                FROM 
+                    upacara_tipe p
+                LEFT JOIN upacara_tipe c1
+                    ON c1.id_upacara = p.id
+                LEFT JOIN (SELECT * FROM wedding_upacara WHERE id_wedding = '$id') b ON c1.id=b.id_upacara_tipe 
+                WHERE
+                    p.id_upacara=0 
+                GROUP BY c1.id 
+                ORDER BY 
+                    p.id, c1.urutan, p.nama_upacara ASC")->result(),
+            'paket_panitia' => $this->db->query("SELECT a.*,b.id_panitia_tipe FROM panitia_tipe a "
+                    . "LEFT JOIN (SELECT * FROM wedding_panitia WHERE id_wedding = '$id') b ON a.id=b.id_panitia_tipe ORDER BY a.urutan ASC")->result(),
+            'paket_tambahan' => $this->db->query("SELECT a.*,b.id_tambahan_tipe FROM tambahan_tipe a "
+                    . "LEFT JOIN (SELECT * FROM wedding_tambahan WHERE id_wedding = '$id') b ON a.id=b.id_tambahan_tipe ORDER BY a.urutan ASC")->result(),
         );
         render('wedding/form2', $data);
     }
@@ -434,11 +456,67 @@ class Wedding extends CI_Controller {
         }
     }
 
+    public function payment() {
+        $id_wedding = isset($_POST['id_wedding']) ? $_POST['id_wedding'] : "";
+        $key['id'] = $_POST['id_payment_pengantin'];
+        $data = array(
+            'status' => $_POST['status_pembayaran'],
+            'tanggal_bayar' => date('Y-m-d', strtotime($_POST['tanggal_bayar'])),
+            'cara_pembayaran' => $_POST['cara'],
+            'dibayarke' => $_POST['dibayarke']
+        );
+        if (isset($_FILES)) {
+            $path = realpath(APPPATH . '../../files/bukti/');
+            $this->upload->initialize(array(
+                'upload_path' => $path,
+                'allowed_types' => 'png|jpg|gif|docx|doc|xls|xlsx|pdf',
+                'max_size' => '5000',
+                'max_width' => '3000',
+                'max_height' => '3000'
+            ));
+
+            if ($this->upload->do_upload('bukti')) {
+                $data_upload = $this->upload->data();
+                $this->image_lib->initialize(array(
+                    'image_library' => 'gd2',
+                    'source_image' => $path . '/' . $data_upload['file_name'],
+                    'maintain_ratio' => false,
+                    'overwrite' => TRUE
+                ));
+                if ($this->image_lib->resize()) {
+                    $data['bukti'] = $data_upload['raw_name'] . $data_upload['file_ext'];
+                } else {
+                    $data['bukti'] = $data_upload['file_name'];
+                }
+            }
+        }
+        $this->db->update('vendor_pengantin', $data, $key);
+        $this->wedding_model->insertLog($id_wedding, "Payment vendor " . $_POST['nama_vendor_payment']);
+        $result = array(
+            'code' => 200
+        );
+        echo json_encode($result);
+    }
+
     public function meeting() {
         $uri = $this->uri->segment(3);
         $id = isset($_GET['id']) ? $_GET['id'] : "";
         $id_wedding = isset($_POST['id_wedding']) ? $_POST['id_wedding'] : "";
+        $wedding = array();
+        $pria = array();
+        $wanita = array();
+        if ($id_wedding != "") {
+            $keyy['id'] = $id_wedding;
+            $wedding = $this->db->get_where('wedding', $keyy)->row();
+            $keyyy['id_wedding'] = $id_wedding;
+            $keyyy['gender'] = 'L';
+            $key_w['id_wedding'] = $id_wedding;
+            $key_w['gender'] = 'P';
+            $pria = $this->db->get_where('pengantin', $keyyy)->row();
+            $wanita = $this->db->get_where('pengantin', $key_w)->row();
+        }
         if ($uri == "add") {
+            $_POST['tanggal'] = date('Y-m-d', strtotime($_POST['tanggal']));
             if ($_POST['id_meeting'] == "") {
                 $data = array(
                     'tanggal' => $_POST['tanggal'],
@@ -446,10 +524,12 @@ class Wedding extends CI_Controller {
                     'tempat' => $_POST['tempat'],
                     'keperluan' => $_POST['materi'],
                     'id_wedding' => $_POST['id_wedding'],
-                    'kepada' => $_POST['kepada']
+//                    'kepada' => $_POST['kepada']
                 );
                 $this->db->insert('jadwal_meeting', $data);
                 $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah jadwal meeting");
+                $this->wedding_model->sendEmailMeeting($pria->email, $wedding, $data);
+                $this->wedding_model->sendEmailMeeting($wanita->email, $wedding, $data);
                 $result = array(
                     'code' => 200
                 );
@@ -462,7 +542,7 @@ class Wedding extends CI_Controller {
                     'tempat' => $_POST['tempat'],
                     'keperluan' => $_POST['materi'],
                     'id_wedding' => $_POST['id_wedding'],
-                    'kepada' => $_POST['kepada']
+//                    'kepada' => $_POST['kepada']
                 );
                 $this->db->update('jadwal_meeting', $data, $key);
                 $this->wedding_model->insertLog($_POST['id_wedding'], "Menambah jadwal meeting");
@@ -1043,6 +1123,103 @@ class Wedding extends CI_Controller {
         } else {
             $this->db->insert('keluarga', $data);
         }
+        $result['code'] = 200;
+        echo json_encode($result);
+    }
+
+    public function editAcara() {
+        $_POST = $this->input->post();
+        $acara = isset($_POST['acara']) ? $_POST['acara'] : array();
+        $id_wedding = $_POST['id_wedding'];
+        $key['id_wedding'] = $id_wedding;
+        $this->db->delete('wedding_acara', $key);
+        $no = 1;
+        if (!empty($acara)) {
+            foreach ($acara as $val) {
+                $data['id_wedding'] = $id_wedding;
+                $data['id_acara_tipe'] = $val;
+                $data['urutan'] = $no++;
+                $this->db->insert('wedding_acara', $data);
+            }
+        }
+        $result['code'] = 200;
+        echo json_encode($result);
+    }
+
+    public function editUpacara() {
+        $_POST = $this->input->post();
+        $id_wedding = $_POST['id_wedding'];
+        $key['id_wedding'] = $id_wedding;
+        $this->db->delete('wedding_upacara', $key);
+        $upacara = isset($_POST['upacara']) ? $_POST['upacara'] : array();
+        $no = 1;
+        if (!empty($upacara)) {
+            foreach ($upacara as $val) {
+
+                $data['id_wedding'] = $id_wedding;
+                $data['id_upacara_tipe'] = $val;
+                $data['urutan'] = $no++;
+                $this->db->insert('wedding_upacara', $data);
+            }
+        }
+        $result['code'] = 200;
+        echo json_encode($result);
+    }
+
+    public function editPanitia() {
+        $_POST = $this->input->post();
+        $id_wedding = $_POST['id_wedding'];
+        $key['id_wedding'] = $id_wedding;
+        $this->db->delete('wedding_panitia', $key);
+        $panitia = isset($_POST['panitia']) ? $_POST['panitia'] : array();
+        $no = 1;
+        if (!empty($panitia)) {
+            foreach ($panitia as $val) {
+
+                $data['id_wedding'] = $id_wedding;
+                $data['id_panitia_tipe'] = $val;
+                $data['urutan'] = $no++;
+                $this->db->insert('wedding_panitia', $data);
+            }
+        }
+        $result['code'] = 200;
+        echo json_encode($result);
+    }
+
+    public function editTambahan() {
+        $_POST = $this->input->post();
+        $tambahan = isset($_POST['tambahan']) ? $_POST['tambahan'] : array();
+        $id_wedding = $_POST['id_wedding'];
+        $key['id_wedding'] = $id_wedding;
+        $this->db->delete('wedding_tambahan', $key);
+        $no = 1;
+        if (!empty($tambahan)) {
+            foreach ($tambahan as $val) {
+
+                $data['id_wedding'] = $id_wedding;
+                $data['id_tambahan_tipe'] = $val;
+                $data['urutan'] = $no++;
+                $this->db->insert('wedding_tambahan', $data);
+            }
+        }
+        $result['code'] = 200;
+        echo json_encode($result);
+    }
+
+    public function nonaktifkanUser() {
+        $id_wedding = $_GET['id'];
+        $key['id_wedding'] = $id_wedding;
+        $data['status'] = 0;
+        $this->db->update('app_user', $data, $key);
+        $result['code'] = 200;
+        echo json_encode($result);
+    }
+
+    public function finishWedding() {
+        $id_wedding = $_GET['id'];
+        $key['id'] = $id_wedding;
+        $data['status'] = 0;
+        $this->db->update('wedding', $data, $key);
         $result['code'] = 200;
         echo json_encode($result);
     }

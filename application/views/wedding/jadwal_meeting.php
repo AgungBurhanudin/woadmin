@@ -10,7 +10,6 @@
         <thead class="thead-light">
             <tr>
                 <th>No</th>
-                <th>Kepada</th>
                 <th>Tanggal</th>
                 <th>Waktu</th>
                 <th>Tempat</th>
@@ -23,11 +22,16 @@
             $no = 1;
             if (!empty($meeting)) {
                 foreach ($meeting as $val) {
+                    $color = "#ffffff";
+                    if (date('Y-m-d') == $val->tanggal) {
+                        $color = "#20a8d8";
+                    } else if (date('Y-m-d') > $val->tanggal) {
+                        $color = "#909090";
+                    }
                     ?>
-                    <tr>
+                    <tr style="background-color: <?= $color ?>">
                         <td><?= $no++ ?></td>
-                        <td><?= $val->kepada ?></td>
-                        <td><?= $val->tanggal ?></td>
+                        <td><?= DateToIndo($val->tanggal) ?></td>
                         <td><?= $val->waktu ?></td>
                         <td><?= $val->tempat ?></td>
                         <td><?= $val->keperluan ?></td>
@@ -58,16 +62,16 @@
                 <form class="form-horizontal" action="#" method="post" id="formJadwalMeeting">
                     <input type="hidden" name="id_wedding" id="id_wedding" value="<?= $id_wedding ?>">
                     <input type="hidden" name="id_meeting" id="id_meeting" value="">
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="hf-email">Kepada</label>
-                        <div class="col-md-9">
-                            <input name="kepada" id="kepada" type="text" required="required" class="form-control" placeholder="" />                            
-                        </div>
-                    </div>
+                    <!--                    <div class="form-group row">
+                                            <label class="col-md-3 col-form-label" for="hf-email">Kepada</label>
+                                            <div class="col-md-9">
+                                                <input name="kepada" id="kepada" type="text" required="required" class="form-control" placeholder="" />                            
+                                            </div>
+                                        </div>-->
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="hf-email">Tanggal</label>
                         <div class="col-md-9">
-                            <input name="tanggal" id="tanggal" type="date" required="required" class="form-control" placeholder="" />                            
+                            <input name="tanggal" id="tanggal" type="text" required="required" class="form-control datepicker" placeholder="" />                            
                         </div>
                     </div>
                     <div class="form-group row">
@@ -83,7 +87,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="hf-password">Materi </label>
+                        <label class="col-md-3 col-form-label" for="hf-password">Keperluan </label>
                         <div class="col-md-9">
                             <textarea class="form-control" name="materi" id="materi"></textarea>
                         </div>
@@ -119,6 +123,8 @@
             },
             submitHandler: function (form) {
                 var formData = $("#formJadwalMeeting").serialize();
+                $("#buttonSavePayment").html('Mohon tunggu .. ');
+                $("#buttonSavePayment").attr('disabled', 'disabled');
                 $.ajax({
                     type: 'POST',
                     url: '<?= base_url() ?>Wedding/meeting/add',
@@ -126,11 +132,15 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            $("#buttonSavePayment").html('Simpan');
+                            $("#buttonSavePayment").removeAttr('disabled');
                             document.getElementById("formJadwalMeeting").reset();
                             swal("success", "Berhasil menambah jadwal meeting!");
                             $("#modalJadwalMeeting").modal('hide');
                             $("#dataJadwalMeeting").load(location.href + " #dataJadwalMeeting");
                         } else {
+                            $("#buttonSavePayment").html('Simpan');
+                            $("#buttonSavePayment").removeAttr('disabled');
                             swal("warning", "Gagal menambah jadwal meeting!");
                         }
                     }
@@ -139,18 +149,20 @@
         });
     }
     function deleteJadwalMeeting(id) {
-        $.ajax({
-            url: '<?= base_url() ?>Wedding/meeting/delete?id=' + id,
-            dataType: "JSON",
-            success: function (data) {
-                if (data.code == "200") {
-                    swal("success", "Berhasil menghapus jadwal meeting!");
-                    $("#dataJadwalMeeting").load(location.href + " #dataJadwalMeeting");
-                } else {
-                    swal("warning", "Gagal menghapus jadwal meeting!");
+        if (confirm('Apakah anda yakin akan menghapus jadwal meeting ini?')) {
+            $.ajax({
+                url: '<?= base_url() ?>Wedding/meeting/delete?id=' + id,
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.code == "200") {
+                        swal("success", "Berhasil menghapus jadwal meeting!");
+                        $("#dataJadwalMeeting").load(location.href + " #dataJadwalMeeting");
+                    } else {
+                        swal("warning", "Gagal menghapus jadwal meeting!");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
     function editJadwalMeeting(id) {
         document.getElementById("formJadwalMeeting").reset();

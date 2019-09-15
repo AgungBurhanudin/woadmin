@@ -85,9 +85,9 @@
                                 <a href="<?= base_url() ?>Wedding/cetak?id=<?= $id_wedding ?>" target="_blank">
                                     <button type="button" class="btn btn-sm btn-success" style="width:100%"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
                                 </a>
-                                <button type="button" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
+                                <button type="button" onclick="nonAktifkanUser('<?= $id_wedding ?>')" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
                                 <br><br>
-                                <button type="button" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Pernikahan Selesai</button>
+                                <button type="button" onclick="finishWedding('<?= $id_wedding ?>')" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Pernikahan Selesai</button>
                             </div>
                         </nav>
                         <main>
@@ -176,6 +176,10 @@
             }
         }, 1000);
         $(function () {
+            var status_wedding = "<?= $wedding->status ?>";
+            if (status_wedding == '0') {
+                $("#detail_wedding *").attr("disabled", "disabled").off('click');
+            }
 //        $('#tabAcara').scrollingTabs();
 //        $('#tabPanitia').scrollingTabs();
 //        $('#tabTambahan').scrollingTabs();
@@ -311,5 +315,30 @@
                     }
                 });
         }
+        }
+
+        function nonAktifkanUser(id_wedding) {
+            if (confirm('Apakah anda yakin akan menonaktifkan user pengantin wedding ini?')) {
+                $.ajax({
+                    url: "<?= base_url() ?>Wedding/nonaktifkanUser?id=" + id_wedding,
+                    type: "GET",
+                    success: function (data) {
+                        alert('Berhasil menonaktifkan user');
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+        function finishWedding(id_wedding) {
+            if (confirm('Apakah anda yakin akan merubah status wedding ini menjadi selesai?')) {
+                $.ajax({
+                    url: "<?= base_url() ?>Wedding/finishWedding?id=" + id_wedding,
+                    type: "GET",
+                    success: function (data) {
+                        alert('Berhasil menyelesaikan wedding');
+                        window.location.reload();
+                    }
+                });
+            }
         }
 </script>

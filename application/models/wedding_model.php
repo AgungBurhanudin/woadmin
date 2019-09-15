@@ -154,7 +154,6 @@ class Wedding_model extends CI_Model {
         return $query->result();
     }
 
-    
     public function getDataAllLogs() {
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
@@ -497,6 +496,49 @@ class Wedding_model extends CI_Model {
         $this->email->to($email);
         $this->email->from('afnanafifudin@gmail.com', 'Mahkota Wedding Organizer');
         $this->email->subject('Konfirmasi Akun Mahkota Wedding Organizer');
+        $this->email->message($htmlContent);
+
+//Send email
+        $this->email->send();
+    }
+
+    public function sendEmailMeeting($email, $data, $meeting) {
+        //Load email library
+//        $this->load->library('encrypt');
+        $this->load->library('email');
+
+//SMTP & mail configuration
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'afnanafifudin@gmail.com',
+            'smtp_pass' => 'afnan2016',
+            'mailtype' => 'html',
+            'charset' => 'utf-8'
+        );
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+
+//Email content
+        $htmlContent = '<h1>Wedding Organizer</h1>';
+        $htmlContent .= '<p>INFO</p>';
+        $htmlContent .= '<p><b> Wedding ' . $data->pengantin_pria . ' & ' . $data->pengantin_wanita . ' </b></p>';
+        $htmlContent .= '<p><b> ' . DateToIndo($data->tanggal) . ' </b></p>';
+        $htmlContent .= '<p><b> ' . $data->tempat . ' </b></p>';
+        $htmlContent .= '<p><b> ' . $data->alamat . ' </b></p>';
+        $htmlContent .= '<p></p>';
+        $htmlContent .= '<p>Mohon kehadirannya pada :</p>';
+        $htmlContent .= '<p> ' . DateToIndo($meeting['tanggal']) . ' </p>';
+        $htmlContent .= '<p> ' . $meeting['waktu'] . ' </p>';
+        $htmlContent .= '<p> ' . $meeting['tempat'] . ' </p>';
+        $htmlContent .= '<p> ' . $meeting['keperluan'] . ' </p>';
+        $htmlContent .= '<p></p>';
+
+        $this->email->to($email);
+        $this->email->from('afnanafifudin@gmail.com', 'Mahkota Wedding Organizer');
+        $this->email->subject('Undangan Meeting Mahkota Wedding Organizer');
         $this->email->message($htmlContent);
 
 //Send email

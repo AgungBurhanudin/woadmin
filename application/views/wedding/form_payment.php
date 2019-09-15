@@ -40,6 +40,8 @@
                                 } else if ($val->status == 1) {
                                     echo "Menunggu konfirmasi";
                                 } else if ($val->status == 2) {
+                                    echo "Terbayar Sebagian";
+                                } else if ($val->status == 3) {
                                     echo "Terbayar";
                                 }
                                 ?>
@@ -52,11 +54,15 @@
                                     <?php
                                 } else if ($val->status == 1) {
                                     ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i> Bayar</a>
+                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i> Konfirmasi</a>
                                     <?php
                                 } else if ($val->status == 2) {
                                     ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Bayar</a>
+                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Bayar Sisa</a>
+                                    <?php
+                                } else if ($val->status == 3) {
+                                    ?>
+                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
                                     <?php
                                 }
                                 ?>
@@ -114,11 +120,15 @@
                                     <?php
                                 } else if ($val->status == 1) {
                                     ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i> Bayar</a>
+                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i> Konfirmasi</a>
                                     <?php
                                 } else if ($val->status == 2) {
                                     ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Bayar</a>
+                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Bayar Sisa</a>
+                                    <?php
+                                } else if ($val->status == 3) {
+                                    ?>
+                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
                                     <?php
                                 }
                                 ?>
@@ -182,20 +192,19 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Status Pembayaran</label>
+                        <label class="col-md-3 col-form-label">Cara Bayar</label>
                         <div class="col-md-9">
-                            <select class="form-control" name="status_pembayaran" id="status_pembayaran">
-                                <option value="">-- Status Pembayaran --</option>
-                                <option value="0">Belum Terbayar</option>
-                                <option value="1">Menunggu Konfirmasi</option>
-                                <option value="2">Terbayar</option>
+                            <select class="form-control" name="cara" id="cara">
+                                <option value="">-- Cara Pembayaran --</option>
+                                <option value="CASH">CASH</option>
+                                <option value="TRANSFER">TRANSFER</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Di Bayarkan ke</label>
                         <div class="col-md-9">
-                            <select class="form-control" name="cara" id="cara">
+                            <select class="form-control" name="dibayarke" id="dibayarke">
                                 <option value="">-- Di Bayar ke --</option>
                                 <option value="WO">WO</option>
                                 <option value="VENDOR">VENDOR</option>
@@ -265,7 +274,7 @@
                 var formData = new FormData($("#formPaymentVendor")[0]);
                 $.ajax({
                     type: 'POST',
-                    url: '<?= base_url() ?>Wedding/vendor/payment',
+                    url: '<?= base_url() ?>Wedding/payment',
                     processData: false,
                     contentType: false,
                     data: formData,
@@ -273,7 +282,7 @@
                     success: function (data) {
                         if (data.code == "200") {
                             swal("success", "Berhasil menambah pembayaran!");
-                            $("#vendorModal").modal('hide');
+                            $("#paymentModal").modal('hide');
                             $("#dataPaymentVendor").load(location.href + " #dataPaymentVendor");
                             document.getElementById("formPaymentVendor").reset();
                         } else {
@@ -297,10 +306,11 @@
                 $("#nohp_payment").val(data.nohp_cp);
                 $("#biaya_payment").val(data.biaya);
                 $("#bayar_oleh").val(data.dibayaroleh);
+                $("#dibayarke").val(data.dibayarke);
 
                 $("#cara").val(data.cara_pembayaran);
                 $("#tanggal_bayar").val(data.tanggal_bayar);
-                if (data.bukti != "") {
+                if (data.bukti != "" & data.bukti != null) {
                     $("#bukti_download").html("<a href='<?= base_url() ?>/files/bukti/" + data.bukti + "'>Download</a>");
                 }
                 $("#status_pembayaran").val(data.status);
