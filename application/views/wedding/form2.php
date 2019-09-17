@@ -82,7 +82,7 @@
                             </ul>
                             <br>
                             <div>
-                                <a href="<?= base_url() ?>Wedding/cetak?id=<?= $id_wedding ?>" target="_blank">
+                                <a href="<?= base_url() ?>Cetak/cetak?id=<?= $id_wedding ?>" target="_blank">
                                     <button type="button" class="btn btn-sm btn-success" style="width:100%"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
                                 </a>
                                 <button type="button" onclick="nonAktifkanUser('<?= $id_wedding ?>')" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
@@ -93,7 +93,7 @@
                         <main>
                             <div class="tab-content" style="border: 0;" id="detail_wedding">
                                 <div class="tab-pane active" id="wedding" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_payment'); ?>
+                                    <?php $this->load->view('wedding/form_wedding'); ?>
                                 </div>
                                 <div class="tab-pane" id="pria" role="tabpanel">
                                     <?php $this->load->view('wedding/form_pria'); ?>
