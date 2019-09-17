@@ -16,7 +16,7 @@
                 <div class="col-lg-12">
 
                     <a href="<?= base_url() ?>User/add">
-                        <button type="button" class="btn btn-mini btn-primary"><i class="fa fa-plus"></i> Tambah User</button>
+                        <button type="button" class="btn btn-mini btn-primary"><i class="fa fa-plus"></i> Tambah User (Khusus karyawan)</button>
                     </a>
                     <br><br>
                     <div class="card">

@@ -38,10 +38,10 @@
                                     <a class="nav-link active" data-toggle="tab" href="#wedding" role="tab" aria-controls="wedding">Data Wedding</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
-                                    <a class="nav-link" data-toggle="tab" href="#pria" role="tab" aria-controls="pria">Catin Pria</a>
+                                    <a class="nav-link" data-toggle="tab" href="#pria" role="tab" aria-controls="pria">Groom</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
-                                    <a class="nav-link" data-toggle="tab" href="#wanita" role="tab" aria-controls="wanita">Catin Wanita</a>
+                                    <a class="nav-link" data-toggle="tab" href="#wanita" role="tab" aria-controls="wanita">Bridge</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#keluarga" role="tab" aria-controls="keluarga">Data Keluarga</a>
@@ -87,11 +87,24 @@
                                 </a>
                                 <button type="button" onclick="nonAktifkanUser('<?= $id_wedding ?>')" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
                                 <br><br>
-                                <button type="button" onclick="finishWedding('<?= $id_wedding ?>')" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Pernikahan Selesai</button>
+                                <?php
+                                if ($wedding->status == 1) {
+                                    ?>
+                                    <button type="button" onclick="finishWedding('<?= $id_wedding ?>')" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Pernikahan Selesai</button>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <b>Acara Selesai</b>
+                                    <br>
+                                    Klik tombol di bawah apabila ingin mengaktifkan kembali
+                                    <button type="button" onclick="openWedding('<?= $id_wedding ?>')" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Aktifkan Lagi</button>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </nav>
                         <main>
-                            <div class="tab-content" style="border: 0;" id="detail_wedding">
+                            <div class="tab-content" style="border: 0;" id="formDetailWedding">
                                 <div class="tab-pane active" id="wedding" role="tabpanel">
                                     <?php $this->load->view('wedding/form_wedding'); ?>
                                 </div>
@@ -172,13 +185,13 @@
             if (distance < 0) {
                 clearInterval(x);
                 $("#countdown").html("Waktu Pengisian Data Sudah Habis");
-                $("#detail_wedding *").attr("disabled", "disabled").off('click');
+                $("#formDetailWedding *").attr("disabled", "disabled").off('click');
             }
         }, 1000);
         $(function () {
             var status_wedding = "<?= $wedding->status ?>";
             if (status_wedding == '0') {
-                $("#detail_wedding *").attr("disabled", "disabled").off('click');
+                $("#formDetailWedding *").attr("disabled", "disabled").off('click');
             }
 //        $('#tabAcara').scrollingTabs();
 //        $('#tabPanitia').scrollingTabs();
@@ -186,7 +199,7 @@
 //        $('#tabUpacara').scrollingTabs();
         });
         $(".id_wedding").val('<?= $id_wedding ?>');
-//    $("#detail_wedding *").attr("disabled", "disabled").off('click');
+//    $("#formDetailWedding *").attr("disabled", "disabled").off('click');
 
         function saveacara(id, value, type = null) {
             var id_wedding = $("#id_wedding").val();
@@ -336,6 +349,18 @@
                     type: "GET",
                     success: function (data) {
                         alert('Berhasil menyelesaikan wedding');
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+        function openWedding(id_wedding) {
+            if (confirm('Apakah anda yakin akan merubah status wedding ini menjadi selesai?')) {
+                $.ajax({
+                    url: "<?= base_url() ?>Wedding/openWedding?id=" + id_wedding,
+                    type: "GET",
+                    success: function (data) {
+                        alert('Berhasil mengaktifkan wedding');
                         window.location.reload();
                     }
                 });

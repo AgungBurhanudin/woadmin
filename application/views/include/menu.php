@@ -14,9 +14,9 @@
         <li class="nav-item px-3">
             <a class="nav-link" href="<?= base_url() ?>Dashboard">Dashboard</a>
         </li>
-        <li class="nav-item px-3">
+<!--        <li class="nav-item px-3">
             <a class="nav-link" href="<?= base_url() ?>User">Users</a>
-        </li>
+        </li>-->
         <li class="nav-item px-3">
             <a class="nav-link" href="<?= base_url() ?>Settings">Settings</a>
         </li>

@@ -20,8 +20,8 @@
                             <span class="badge badge-pill badge-danger float-right"><i class="fa fa-close"></i> Delete</span>
                         </a>
                     </div>
-                    <div class="card-body" style="padding: 0">
-                        <img onclick="viewImage('image_<?= $l->id ?>')" class="myImg" id="image_<?= $l->id ?>"  src="<?= base_url() ?>files/images/<?= $l->layout ?>" width="100%">
+                    <div class="card-body" style="padding: 0" onclick="viewImage('image_<?= $l->id ?>')">
+                        <img  class="myImg" id="image_<?= $l->id ?>"  src="<?= base_url() ?>files/images/<?= $l->layout ?>" width="100%">
                     </div>
                 </div>
             </div>

@@ -94,7 +94,7 @@ if (empty($data_vendor)) {
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label" for="text-input">Keterangan</label>
                                     <div class="col-md-9">
-                                        <input class="form-control" type="text" name="keterangan" id="keterangan" placeholder="No HP CP" required="required"  value="<?= $keterangan ?>">
+                                        <input class="form-control" type="text" name="keterangan" id="keterangan" placeholder="Keterangan" required="required"  value="<?= $keterangan ?>">
                                     </div>
                                 </div>
                             </div>

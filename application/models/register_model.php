@@ -297,8 +297,8 @@ class Register_model extends CI_Model {
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.gmail.com',
             'smtp_port' => 465,
-            'smtp_user' => 'afnanafifudin@gmail.com',
-            'smtp_pass' => 'afnan2016',
+            'smtp_user' => 'klikmahkota@gmail.com',
+            'smtp_pass' => 'mahkota1990',
             'mailtype' => 'html',
             'charset' => 'utf-8'
         );

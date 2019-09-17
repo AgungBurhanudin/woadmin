@@ -1,11 +1,12 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-   $method = $_SERVER['REQUEST_METHOD'];
-   if ($method == "OPTIONS") {
-       die();
-   }
+$method = $_SERVER['REQUEST_METHOD'];
+if ($method == "OPTIONS") {
+    die();
+}
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -13,7 +14,7 @@ class Login extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-
+        checkTokenLogin();
         $this->ip = getenv('REMOTE_ADDR');
         $this->tipebrowser = getenv('HTTP_USER_AGENT') . getenv('HTTP_ACCEPT_LANGUAGE');
         $this->browserid = substr(base64_encode($this->tipebrowser), 15, 50);
@@ -21,7 +22,6 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-        checkTokenLogin();
         $this->load->view('login');
     }
 
@@ -44,7 +44,7 @@ class Login extends CI_Controller {
             $group = $arr_cek->user_group_id;
             $company = $arr_cek->user_company;
             $aplikasiid_add = $this->browserid . '#' . $aplikasiid;
-            if($group != 1 && $group != 35){   
+            if ($group != 1 && $group != 35) {
                 $reply['code'] = '401';
                 $reply['message'] = 'Anda tidak punya akses di halaman ini';
                 echo json_encode($reply);

@@ -328,32 +328,25 @@
                 var img = document.getElementById(id);
                 var modalImg = document.getElementById("img01");
 //                var captionText = document.getElementById("caption");
-                img.onclick = function () {
-                    modal.style.display = "block";
-                    modalImg.src = this.src;
+//                img.onclick = function () {
+                $("#myModalViewImage").modal('show');
+                modalImg.src = $("#" + id).attr('src');
+                ;
 //                    captionText.innerHTML = this.alt;
-                }
-
-                // Get the <span> element that closes the modal
-                var span = document.getElementsByClassName("close")[0];
-
-                // When the user clicks on <span> (x), close the modal
-                span.onclick = function () {
-                    modal.style.display = "none";
-                }
+//                }
             }
             function closeModalImage() {
                 var modal = document.getElementById('myModalViewImage');
                 modal.style.display = "none";
             }
         </script>
-        <div id="myModalViewImage" class="modalku">
-
-            <div class="modal-content">
-                <span class="close" onclick="closeModalImage()">×</span>
-                <img id="img01">
+        <div class="modal fade" id="myModalViewImage" tabindex="-1" role="dialog" aria-labelledby="undanganAddModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <img id="img01" width="100%" height="auto">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">Close</span>
+                    </button>
+                </div>
             </div>
-            <br>
-            <a id="caption" href="#"></a>
-            <div>Close</div>
         </div>

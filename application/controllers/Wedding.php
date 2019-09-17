@@ -1254,6 +1254,28 @@ class Wedding extends CI_Controller {
         $key['id'] = $id_wedding;
         $data['status'] = 0;
         $this->db->update('wedding', $data, $key);
+        //update user juga
+        
+        $key2['id_wedding'] = $id_wedding;
+        $data2['status'] = 0;
+        $data2['user_active'] = 0;
+        $this->db->update('app_user', $data2, $key2);
+        
+        $result['code'] = 200;
+        echo json_encode($result);
+    }
+    
+    public function openWedding() {
+        $id_wedding = $_GET['id'];
+        $key['id'] = $id_wedding;
+        $data['status'] = 1;
+        $this->db->update('wedding', $data, $key);
+        
+        $key2['id_wedding'] = $id_wedding;
+        $data2['status'] = 1;
+        $data2['user_active'] = 1;
+        $this->db->update('app_user', $data2, $key2);
+        
         $result['code'] = 200;
         echo json_encode($result);
     }
