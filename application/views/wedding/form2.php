@@ -93,7 +93,7 @@
                         <main>
                             <div class="tab-content" style="border: 0;" id="detail_wedding">
                                 <div class="tab-pane active" id="wedding" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_wedding'); ?>
+                                    <?php $this->load->view('wedding/form_payment'); ?>
                                 </div>
                                 <div class="tab-pane" id="pria" role="tabpanel">
                                     <?php $this->load->view('wedding/form_pria'); ?>

@@ -1,8 +1,18 @@
+<style>
+    .table_biasa {
+        border-collapse: collapse;
+    }
+
+    .table_biasa, .table_biasa td,.table_biasa th {
+        border: 1px solid #e7e7e7;
+        padding: 5px;
+    }
+</style>
 <h2>Payment Vendor</h2>
 <hr>
 <br>
-<h3>Di Bayarkan Oleh WO</h3>
 <div id="dataPaymentVendor">
+
     <table class="table table-responsive-sm table-hover table-outline mb-0" id="tablePaymentVendor">
         <thead class="thead-light">
             <tr>
@@ -11,150 +21,110 @@
                 <th style="width: 15%">CP</th>
                 <th style="width: 10%">Phone</th>
                 <th style="width: 15%">Biaya</th>
-                <th style="width: 15%">Status</th>
-                <th style="width: 100px">Action</th>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <h5>Di  Bayarkan Oleh WO</h5>
-                </td>
+                <th style="width: 15%">Terbayar</th>
+                <th style="width: 15%">Kekurangan</th>
             </tr>
         </thead>
-        <tbody>
-            <?php
-            $no = 1;
-            $total = 0;
-            if (!empty($vendor)) {
-                foreach ($vendor as $val) {
-                    if ($val->dibayaroleh == "wo") {
-                        ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $val->nama_vendor ?></td>
-                            <td><?= $val->cp ?></td>
-                            <td><?= $val->nohp_cp ?></td>
-                            <td align="right"><?= number_format($val->biaya, 2) ?></td>
-                            <td><?php
-                                if ($val->status == 0) {
-                                    echo "Belum Terbayar";
-                                } else if ($val->status == 1) {
-                                    echo "Menunggu konfirmasi";
-                                } else if ($val->status == 2) {
-                                    echo "Terbayar Sebagian";
-                                } else if ($val->status == 3) {
-                                    echo "Terbayar";
-                                }
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                if ($val->status == 0) {
-                                    ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-success"><i class="fa fa-dollar"></i> Bayar</a>
-                                    <?php
-                                } else if ($val->status == 1) {
-                                    ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i> Konfirmasi</a>
-                                    <?php
-                                } else if ($val->status == 2) {
-                                    ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Bayar Sisa</a>
-                                    <?php
-                                } else if ($val->status == 3) {
-                                    ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                                    <?php
-                                }
-                                ?>
-
-                            </td>
-                        </tr>
-                        <?php
-                        $total += $val->biaya;
-                    }
-                }
-            } else {
-                echo "<tr><td colspan='7'>Payment Vendor Masih Kosong</td></tr>";
-            }
+    </table>
+    <?php
+    $no = 1;
+    $total = 0;
+    $total_terbayar = 0;
+    if (!empty($vendor)) {
+        foreach ($vendor as $val) {
             ?>
-            <tr>
-                <td colspan="4">Total</td>
-                <td align="right"><?= number_format($total, 2) ?></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <h5>Di  Bayarkan Sendiri</h5>
-                </td>
-            </tr>
-            <?php
-            $no = 1;
-            $total = 0;
-            if (!empty($vendor)) {
-                foreach ($vendor as $val) {
-                    if ($val->dibayaroleh == "sendiri") {
+            <a href="#demo" data-toggle="collapse" style="width: 100%">
+                <table class="table table-responsive-sm table-hover table-outline mb-0" id="tablePaymentVendor">            
+
+                    <tr>
+                        <th style="width: 3%; text-align: center"><?= $no++ ?></th>
+                        <th><?= $val->nama_vendor ?></th>
+                        <th style="width: 15%"><?= $val->cp ?></th>
+                        <th style="width: 10%"><?= $val->nohp_cp ?></th>
+                        <th style="width: 15%; text-align: right;"><?= number_format($val->biaya, 2) ?></th>
+                        <th style="width: 15%; text-align: right;"><?= number_format($val->terbayar, 2) ?></th>
+                        <th style="width: 15%; text-align: right;"><?= number_format($val->biaya - $val->terbayar, 2) ?></th>
+                    </tr>
+                </table>
+            </a>
+            <div id="demo" class="collapse" style="border-left: 1px solid #c8ced3;border-right: 1px solid #c8ced3; padding: 10px ">
+                <b>History Pembayaran</b>
+                <div style="float:right">
+                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-success"><i class="fa fa-dollar"></i> Bayar</a>
+                </div>
+                <table style="width: 100%" class="table_biasa">
+                    <tr>
+                        <td style="width: 5%; text-align: center;">No</td>
+                        <td style="width: 20%; text-align: center;">Tanggal Bayar</td>
+                        <td style="width: 15%; text-align: center;">Cara Bayar</td>
+                        <td style="width: 30%">Nominal</td>
+                        <td style="width: 30%; text-align: center;">Status</td>
+                        <td style="width: 10%; text-align: center;">Action</td>
+                    </tr>
+                    <?php
+                    $i = 1;
+                    $id = $val->id;
+                    $detail = $this->db->query("SELECT * FROM payment WHERE id_vendor = '$id' ORDER BY tanggal_bayar ASC")->result();
+                    foreach ($detail as $d) {
                         ?>
                         <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $val->nama_vendor ?></td>
-                            <td><?= $val->cp ?></td>
-                            <td><?= $val->nohp_cp ?></td>
-                            <td align="right"><?= number_format($val->biaya, 2) ?></td>
-                            <td><?php
-                                if ($val->status == 0) {
-                                    echo "Belum Terbayar";
-                                } else if ($val->status == 1) {
-                                    echo "Menunggu konfirmasi";
-                                } else if ($val->status == 2) {
-                                    echo "Terbayar";
+                            <td style="text-align: center"><?= $i++ ?></td>
+                            <td style="text-align: center"><?= DateToIndo($d->tanggal_bayar) ?></td>
+                            <td style="text-align: center"><?= $d->cara_pembayaran ?></td>
+                            <td style="text-align: right"><?= number_format($d->terbayar, 2) ?></td>
+                            <td style="text-align: center">
+                                <?php
+                                if ($d->status == 0) {
+                                    echo "MENUNGGU KONFIRMASI";
+                                } else if ($d->status == 1) {
+                                    echo "TERKONFIRMASI";
+                                } else if ($d->status == 2) {
+                                    echo "PEMBAYARAN GAGAL";
                                 }
                                 ?>
                             </td>
-                            <td>
-
+                            <td style="text-align: center">
                                 <?php
-                                if ($val->status == 0) {
+                                if ($d->status == 0) {
                                     ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-success"><i class="fa fa-dollar"></i> Bayar</a>
-                                    <?php
-                                } else if ($val->status == 1) {
-                                    ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i> Konfirmasi</a>
-                                    <?php
-                                } else if ($val->status == 2) {
-                                    ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Bayar Sisa</a>
-                                    <?php
-                                } else if ($val->status == 3) {
-                                    ?>
-                                    <a href="#" onclick="editPayment('<?= $val->id ?>')" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+                                    <a href="#" onclick="confirmPayment('<?= $d->id ?>')">
+                                        <button type="button" class="btn btn-mini btn-primary" title="Konfirmasi">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    </a>
                                     <?php
                                 }
                                 ?>
                             </td>
                         </tr>
                         <?php
-                        $total += $val->biaya;
                     }
-                }
-            } else {
-                echo "<tr><td colspan='7'>Payment Vendor Masih Kosong</td></tr>";
-            }
-            ?>
-        </tbody>
+                    ?>
+                </table>
+            </div>
+            <?php
+            $total += $val->biaya;
+            $total_terbayar += $val->terbayar;
+        }
+    } else {
+        echo "<tr><td colspan='7'>Payment Vendor Masih Kosong</td></tr>";
+    }
+    ?>
+    <table class="table table-responsive-sm table-hover table-outline mb-0">
         <tfoot>
             <tr>
-                <td colspan="4">Total</td>
-                <td align="right"><?= number_format($total, 2) ?></td>
-                <td></td>
-                <td></td>
+                <th style="width: 3%"></th>
+                <th><b>Total</b></th>
+                <th style="width: 15%"></th>
+                <th style="width: 10%"></th>
+                <th style="width: 15%; text-align: right;"><b><?= number_format($total, 2) ?></b></th>
+                <th style="width: 15%; text-align: right;"><b><?= number_format($total_terbayar, 2) ?></b></th>
+                <th style="width: 15%; text-align: right;"><b><?= number_format($total - $total_terbayar, 2) ?></b></th>
             </tr>
         </tfoot>
     </table>
 </div>
-
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -192,6 +162,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Kekurangan</label>
+                        <div class="col-md-9">
+                            <input readonly="readonly" name="sisa" id="sisa" type="text" required="required" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Total Pembayaran</label>
+                        <div class="col-md-9">
+                            <input name="terbayar" id="terbayar" type="number" required="required" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-md-3 col-form-label">Cara Bayar</label>
                         <div class="col-md-9">
                             <select class="form-control" name="cara" id="cara">
@@ -205,8 +187,6 @@
                         <label class="col-md-3 col-form-label">Di Bayarkan ke</label>
                         <div class="col-md-9">
                             <select class="form-control" name="dibayarke" id="dibayarke">
-                                <option value="">-- Di Bayar ke --</option>
-                                <option value="WO">WO</option>
                                 <option value="VENDOR">VENDOR</option>
                             </select>
                         </div>
@@ -229,11 +209,8 @@
                         <label class="col-md-3 col-form-label">Status Pembayaran</label>
                         <div class="col-md-9">
                             <select class="form-control" name="status_pembayaran" id="status_pembayaran">
-                                <option value="">-- Status Pembayaran --</option>
-                                <option value="0">Belum Terbayar</option>
-                                <option value="1">Menunggu Konfirmasi</option>
-                                <option value="2">Terbayar Sebagian</option>
-                                <option value="3">Lunas</option>
+                                
+                                <option value="1">Terkonfirmasi</option>
                             </select>
                         </div>
                     </div>
@@ -306,6 +283,8 @@
                 $("#cp_payment").val(data.cp);
                 $("#nohp_payment").val(data.nohp_cp);
                 $("#biaya_payment").val(data.biaya);
+                var sisa = parseInt(data.biaya) - parseInt(data.terbayar);
+                $("#sisa").val(sisa);
                 $("#bayar_oleh").val(data.dibayaroleh);
                 $("#dibayarke").val(data.dibayarke);
 
@@ -315,6 +294,17 @@
                     $("#bukti_download").html("<a href='<?= base_url() ?>/files/bukti/" + data.bukti + "'>Download</a>");
                 }
                 $("#status_pembayaran").val(data.status);
+            }
+        });
+    }
+    function confirmPayment(id) {
+        $.ajax({
+            url: '<?= base_url() ?>Wedding/confirmPayment?id=' + id,
+            success: function (data) {
+                swal("success", "Berhasil menambah pembayaran!");
+                $("#paymentModal").modal('hide');
+                $("#dataPaymentVendor").load(location.href + " #dataPaymentVendor");
+                document.getElementById("formPaymentVendor").reset();
             }
         });
     }

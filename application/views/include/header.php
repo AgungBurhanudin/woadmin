@@ -267,12 +267,6 @@
             }
 
             /* Modal Content (image) */
-            .modal-content {
-                margin: auto;
-                display: block;
-                width: 80%;
-                max-width: 700px;
-            }
 
             /* Caption of Modal Image */
             #caption {
@@ -305,7 +299,7 @@
             }
 
             /* The Close Button */
-            .close {
+            .closek {
                 position: absolute;
                 top: 15px;
                 right: 15px;
@@ -316,19 +310,13 @@
                 z-index: 99999;
             }
 
-            .close:hover,
-            .close:focus {
+            .closek:hover,
+            .closek:focus {
                 color: #bbb;
                 text-decoration: none;
                 cursor: pointer;
             }
 
-            /* 100% Image Width on Smaller Screens */
-            @media only screen and (max-width: 700px){
-                .modal-content {
-                    width: 100%;
-                }
-            }
         </style>
 
         <script>

@@ -456,10 +456,43 @@ class Wedding extends CI_Controller {
         }
     }
 
+    public function confirmPayment() {
+        $id = $_GET['id'];
+        $key['id'] = $id;
+        $data['status'] = 1;
+        $detail = $this->db->get_where('payment', $key)->row();
+        $key2['id'] = $detail->id_vendor;
+        $vendor = $this->db->get_where('vendor_pengantin', $key2)->row();
+        if ($vendor->biaya == $vendor->terbayar) {
+            $status = 3;
+        } else {
+            $status = 2;
+        }
+        $data2['status'] = $status;
+
+        $this->db->update('payment', $data, $key);
+        $this->db->update('vendor_pengantin', $data2, $key2);
+    }
+
     public function payment() {
         $id_wedding = isset($_POST['id_wedding']) ? $_POST['id_wedding'] : "";
         $key['id'] = $_POST['id_payment_pengantin'];
+        $vendor = $this->db->get_where('vendor_pengantin', $key)->row();
+        $total_terbayar = $vendor->terbayar;
+        $total_biaya = $vendor->biaya;
+        $temp_terbayar = $total_terbayar + $_POST['terbayar'];
+        if ($temp_terbayar >= $total_biaya) {
+            $status = 2;
+        } else if ($temp_terbayar < $total_biaya) {
+            $status = 1;
+        }
+        $upvendor['status'] = $status;
+        $upvendor['terbayar'] = $temp_terbayar;
+        $this->db->update('vendor_pengantin', $upvendor, $key);
+        $key['id'] = $_POST['id_payment_pengantin'];
         $data = array(
+            'id_vendor' => $_POST['id_payment_pengantin'],
+            'terbayar' => $_POST['terbayar'],
             'status' => $_POST['status_pembayaran'],
             'tanggal_bayar' => date('Y-m-d', strtotime($_POST['tanggal_bayar'])),
             'cara_pembayaran' => $_POST['cara'],
@@ -490,7 +523,7 @@ class Wedding extends CI_Controller {
                 }
             }
         }
-        $this->db->update('vendor_pengantin', $data, $key);
+        $this->db->insert('payment', $data);
         $this->wedding_model->insertLog($id_wedding, "Payment vendor " . $_POST['nama_vendor_payment']);
         $result = array(
             'code' => 200
