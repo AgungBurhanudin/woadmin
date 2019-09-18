@@ -275,18 +275,18 @@ class Register_model extends CI_Model {
 
         $username_wanita = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita'])) . "_" . $id_wedding;
         $password_wanita = $this->generateRandomString(6);
-        $data['id_wedding'] = $id_wedding;
-        $data['user_company'] = $_POST['user_company'];
-        $data['user_group_id'] = 37;
-        $data['user_real_name'] = $_POST['nama_panggilan_wanita'];
-        $data['user_user_name'] = $username_wanita;
-//        $data['user_email'] = $_POST['email_wanita'];
-        $data['user_password'] = md5($password_wanita);
+        $data2['id_wedding'] = $id_wedding;
+        $data2['user_company'] = $_POST['user_company'];
+        $data2['user_group_id'] = 37;
+        $data2['user_real_name'] = $_POST['nama_panggilan_wanita'];
+        $data2['user_user_name'] = $username_wanita;
+        $data2['user_email'] = $_POST['email_wanita'];
+        $data2['user_password'] = md5($password_wanita);
 //        $data['user_address'] = $_POST['alamat_sekarang_wanita'];
-        $data['user_phone'] = $_POST['no_hp_wanita'];
-        $data['id_pengantin'] = $catin_wanita;
+        $data2['user_phone'] = $_POST['no_hp_wanita'];
+        $data2['id_pengantin'] = $catin_wanita;
         $this->sendEmail($_POST['email_wanita'], $username_wanita, $password_wanita);
-        return $this->db->insert('app_user', $data);
+        return $this->db->insert('app_user', $data2);
     }
 
     public function sendEmail($email, $username, $password) {
@@ -314,8 +314,8 @@ class Register_model extends CI_Model {
         $htmlContent .= '<p>Pastikan untuk langsung merubah password setelah anda login.</p>';
 
         $this->email->to($email);
-        $this->email->from('afnanafifudin@gmail.com', 'Mahkota Wedding Organizer');
-        $this->email->subject('Konfirmasi Akun Mahkota Wedding Organizer');
+        $this->email->from('klikmahkota@gmail.com', 'Mahkota Enterprise Wedding Organizer');
+        $this->email->subject('Konfirmasi Akun Enterprise Mahkota Wedding Organizer');
         $this->email->message($htmlContent);
 
 //Send email

@@ -498,8 +498,8 @@ class Wedding_model extends CI_Model {
         $htmlContent .= '<p>Pastikan untuk langsung merubah password setelah anda login.</p>';
 
         $this->email->to($email);
-        $this->email->from('afnanafifudin@gmail.com', 'Mahkota Wedding Organizer');
-        $this->email->subject('Konfirmasi Akun Mahkota Wedding Organizer');
+        $this->email->from('klikmahkota@gmail.com', 'Mahkota Enterprise Wedding Organizer');
+        $this->email->subject('Konfirmasi Akun Enterprise Mahkota Wedding Organizer');
         $this->email->message($htmlContent);
 
 //Send email
@@ -516,8 +516,8 @@ class Wedding_model extends CI_Model {
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.gmail.com',
             'smtp_port' => 465,
-            'smtp_user' => 'afnanafifudin@gmail.com',
-            'smtp_pass' => 'afnan2016',
+            'smtp_user' => 'klikmahkota@gmail.com',
+            'smtp_pass' => 'mahkota1990',
             'mailtype' => 'html',
             'charset' => 'utf-8'
         );
@@ -541,8 +541,8 @@ class Wedding_model extends CI_Model {
         $htmlContent .= '<p></p>';
 
         $this->email->to($email);
-        $this->email->from('afnanafifudin@gmail.com', 'Mahkota Wedding Organizer');
-        $this->email->subject('Undangan Meeting Mahkota Wedding Organizer');
+        $this->email->from('klikmahkota@gmail.com', 'Mahkota Enterprise Wedding Organizer');
+        $this->email->subject('Undangan Meeting Mahkota Enterprise Wedding Organizer');
         $this->email->message($htmlContent);
 
 //Send email

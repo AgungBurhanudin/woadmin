@@ -24,12 +24,12 @@
 <footer class="app-footer">
     <div>
         <!--<button class="btn btn-info mb-1" type="button" data-toggle="modal" data-target="#infoModal">Info modal</button>-->
-        <a href="salatigaweb.com">MAHKOTA ENTERPRISE</a>
+        <a href="#">MAHKOTA ENTERPRISE</a>
         <span>&copy; 2019 .</span>
     </div>
     <div class="ml-auto">
         <span>Powered by</span>
-        <a href="salatigaweb.com">SALATIGA WEB</a>
+        <a href="http://www.salatigaweb.com">SALATIGA WEB</a>
     </div>
 </footer>
 <script>
