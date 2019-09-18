@@ -150,8 +150,12 @@ class Cetak extends CI_Controller {
                     for ($ii = 0; $ii < count($ukurans); $ii++) {
                         $tag = $nama_field . "." . str_replace(' ', '_', strtolower($ukurans[$ii]));
                         //echo $tag . "<br>";
-                        for ($jj = 0; $jj < count($values); $jj++) {
-                            $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                        if ($value != "" && !empty($values)) {
+                            for ($jj = 0; $jj < count($values); $jj++) {
+                                $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                            }
+                        } else {
+                            $print['[' . $tag . ']'][] = "";
                         }
                     }
                 }
@@ -178,8 +182,12 @@ class Cetak extends CI_Controller {
                     for ($ii = 0; $ii < count($ukurans); $ii++) {
                         $tag = $nama_field . "." . str_replace(' ', '_', strtolower($ukurans[$ii]));
                         //echo $tag . "<br>";
-                        for ($jj = 0; $jj < count($values); $jj++) {
-                            $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                        if ($value != "" && !empty($values)) {
+                            for ($jj = 0; $jj < count($values); $jj++) {
+                                $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                            }
+                        } else {
+                            $print['[' . $tag . ']'][] = "";
                         }
                     }
                 }
@@ -206,8 +214,12 @@ class Cetak extends CI_Controller {
                     for ($ii = 0; $ii < count($ukurans); $ii++) {
                         $tag = $nama_field . "." . str_replace(' ', '_', strtolower($ukurans[$ii]));
                         //echo $tag . "<br>";
-                        for ($jj = 0; $jj < count($values); $jj++) {
-                            $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                        if ($value != "" && !empty($values)) {
+                            for ($jj = 0; $jj < count($values); $jj++) {
+                                $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                            }
+                        } else {
+                            $print['[' . $tag . ']'][] = "";
                         }
                     }
                 }
@@ -234,8 +246,12 @@ class Cetak extends CI_Controller {
                     for ($ii = 0; $ii < count($ukurans); $ii++) {
                         $tag = $nama_field . "." . str_replace(' ', '_', strtolower($ukurans[$ii]));
                         //echo $tag . "<br>";
-                        for ($jj = 0; $jj < count($values); $jj++) {
-                            $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                        if ($value != "" && !empty($values)) {
+                            for ($jj = 0; $jj < count($values); $jj++) {
+                                $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                            }
+                        } else {
+                            $print['[' . $tag . ']'][] = "";
                         }
                     }
                 }
