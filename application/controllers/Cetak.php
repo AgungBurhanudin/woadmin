@@ -137,13 +137,13 @@ class Cetak extends CI_Controller {
                 $value = $val->value;
                 if ($type == "text" || $type == "textarea" || $type == "angka" || $type == "combobox") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? $value : "";
+                    $print['{' . $nama_field . '}'] = $value != "" ? $value : "";
                 } else if ($type == "tanggal") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? DateToIndo($value) : "";
+                    $print['{' . $nama_field . '}'] = $value != "" ? DateToIndo($value) : "";
                 } else if ($type == "checkbox") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? "Ada" : "Tidak Ada";
+                    $print['{' . $nama_field . '}'] = $value != "" ? "Ada" : "Tidak Ada";
                 } else if ($type == "addabletext") {
                     $ukurans = explode("||", $ukuran);
                     $values = json_decode($value, true);
@@ -165,13 +165,13 @@ class Cetak extends CI_Controller {
                 $value = $val->value;
                 if ($type == "text" || $type == "textarea" || $type == "angka" || $type == "combobox") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? $value : "";
+                    $print['{' . $nama_field . '}'] = $value != "" ? $value : "";
                 } else if ($type == "tanggal") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? DateToIndo($value) : "";
+                    $print['{' . $nama_field . '}'] = $value != "" ? DateToIndo($value) : "";
                 } else if ($type == "checkbox") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? "Ada" : "Tidak Ada";
+                    $print['{' . $nama_field . '}'] = $value != "" ? "Ada" : "Tidak Ada";
                 } else if ($type == "addabletext") {
                     $ukurans = explode("||", $ukuran);
                     $values = json_decode($value, true);
@@ -193,13 +193,13 @@ class Cetak extends CI_Controller {
                 $value = $val->value;
                 if ($type == "text" || $type == "textarea" || $type == "angka" || $type == "combobox") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? $value : "";
+                    $print['{' . $nama_field . '}'] = $value != "" ? $value : "";
                 } else if ($type == "tanggal") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? DateToIndo($value) : "";
+                    $print['{' . $nama_field . '}'] = $value != "" ? DateToIndo($value) : "";
                 } else if ($type == "checkbox") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? "Ada" : "Tidak Ada";
+                    $print['{' . $nama_field . '}'] = $value != "" ? "Ada" : "Tidak Ada";
                 } else if ($type == "addabletext") {
                     $ukurans = explode("||", $ukuran);
                     $values = json_decode($value, true);
@@ -221,13 +221,13 @@ class Cetak extends CI_Controller {
                 $value = $val->value;
                 if ($type == "text" || $type == "textarea" || $type == "angka" || $type == "combobox") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? $value : "";
+                    $print['{' . $nama_field . '}'] = $value != "" ? $value : "";
                 } else if ($type == "tanggal") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? DateToIndo($value) : "";
+                    $print['{' . $nama_field . '}'] = $value != "" ? DateToIndo($value) : "";
                 } else if ($type == "checkbox") {
                     $tag = $nama_field;
-                    $print['[' . $nama_field . ']'] = $value != "" ? "Ada" : "Tidak Ada";
+                    $print['{' . $nama_field . '}'] = $value != "" ? "Ada" : "Tidak Ada";
                 } else if ($type == "addabletext") {
                     $ukurans = explode("||", $ukuran);
                     $values = json_decode($value, true);
