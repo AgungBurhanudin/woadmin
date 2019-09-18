@@ -24,7 +24,10 @@ class Cetak extends CI_Controller {
         $path_output = realpath(APPPATH . '../files/output/');
         $id = $_GET['id'];
         $wedding = $this->db->query("SELECT * FROM wedding WHERE id = '$id' ")->row();
-
+        if (empty($wedding)) {
+            echo "Data Not Found";
+            exit();
+        }
         $print = array();
         foreach ($wedding as $w => $val) {
             $print['{' . $w . '}'] = $val;
@@ -257,57 +260,6 @@ class Cetak extends CI_Controller {
             exit();
         }
         $tanggal_nikah = strtotime($wedding->tanggal);
-        $params = [
-            '{hari}' => $this->getHari($wedding->tanggal),
-            '{waktu}' => date('d', $tanggal_nikah),
-            '{tanggal}' => date('d', $tanggal_nikah),
-            '{bulan}' => date('m', $tanggal_nikah),
-            '{tahun}' => date('Y', $tanggal_nikah),
-            '{tanggal_indo}' => DateToIndo($wedding->tanggal),
-            '{nama_pria}' => $pria->nama_lengkap,
-            '{nama_wanita}' => $wanita->nama_lengkap,
-            '[date]' => [
-                '01-06-2018',
-                '02-06-2018',
-                '03-06-2018',
-                '04-06-2018',
-                '05-06-2018',
-            ],
-            '[code]' => [
-                '0001543',
-                '0003274',
-                '000726',
-                '0012553',
-                '0008245',
-            ],
-            '[manager]' => [
-                'Adams D.',
-                'Baker A.',
-                'Clark H.',
-                'Davis O.',
-                'Evans P.',
-            ],
-            '[sales_amount]' => [
-                '10 230 $',
-                '45 100 $',
-                '70 500 $',
-                '362 180 $',
-                '5 900 $',
-            ],
-            '[sales_manager]' => [
-                'Nalty A.',
-                'Ochoa S.',
-                'Patel O.',
-            ],
-            '[[hours]]' => [
-                ['01', '02', '03', '04', '05', '06', '07', '08'],
-            ],
-            '[[sales_amount_by_hours]]' => [
-                ['100', '200', '300', '400', '500', '600', '700', '800'],
-                ['1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000'],
-                ['10000', '20000', '30000', '40000', '50000', '60000', '70000', '80000'],
-            ],
-        ];
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
         // $file = './files/output/'.$fileName.'.xlsx' ;
         header("location:.$fileName");
