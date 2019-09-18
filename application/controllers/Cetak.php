@@ -12,6 +12,9 @@ class Cetak extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model(array('wedding_model'));
+        $this->load->library('form_validation');
+        $this->PhpExcelTemplator = new alhimik1986\PhpExcelTemplator\PhpExcelTemplator;
         checkToken();
     }
 
@@ -51,10 +54,31 @@ class Cetak extends CI_Controller {
         foreach ($ibupria as $ip => $val) {
             $print['{' . $ip . '_ibu_pria}'] = $val;
         }
-//        $kakak_pria = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'KAKAK' AND id_pengantin = 'pria'")->result();
-//        foreach ($kakak_pria as $sp => $val) {
-//            $print['[' . $sp . '_kakak_pria]'][] = $val->nama;
-//        }
+        //Kakak Adik Kandung
+        $kakak_pria = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'KAKAK' AND id_pengantin = 'pria'")->result();
+        foreach ($kakak_pria as $sp => $val) {
+            $print['[nama_kakak_pria]'][] = $val->nama;
+            $print['[nohp_kakak_pria]'][] = $val->no_hp;
+        }
+        $adik_pria = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'ADIK' AND id_pengantin = 'pria'")->result();
+        foreach ($adik_pria as $ap => $val) {
+            $print['[nama_adik_pria]'][] = $val->nama;
+            $print['[nohp_adik_pria]'][] = $val->no_hp;
+        }
+
+        //Kakak Adik IPAR
+
+        $kakak_pria = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'KAKAK_IPAR' AND id_pengantin = 'pria'")->result();
+        foreach ($kakak_pria as $sp => $val) {
+            $print['[nama_kakak_ipar_pria]'][] = $val->nama;
+            $print['[nohp_kakak_ipar_pria]'][] = $val->no_hp;
+        }
+        $adik_pria = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'ADIK_IPAR' AND id_pengantin = 'pria'")->result();
+        foreach ($adik_pria as $ap => $val) {
+            $print['[nama_adik_ipar_pria]'][] = $val->nama;
+            $print['[nohp_adik_ipar_pria]'][] = $val->no_hp;
+        }
+
         $ayahwanita = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'AYAH' AND id_pengantin = 'wanita'")->row();
         foreach ($ayahwanita as $aw => $val) {
             $print['{' . $aw . '_ayah_wanita}'] = $val;
@@ -63,11 +87,163 @@ class Cetak extends CI_Controller {
         foreach ($ibuwanita as $iw => $val) {
             $print['{' . $iw . '_ibu_wanita}'] = $val;
         }
-//        $saudara_wanita = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN not in ('AYAH', 'IBU') AND id_pengantin = 'wanita'")->result();
-//        foreach ($saudara_wanita as $sw => $val) {
-//            $print['{' . $sw . '_saudara_wanita}'] = $val;
-//        }
 
+        //Kakak Adik Kandung
+        $kakak_wanita = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'KAKAK' AND id_pengantin = 'wanita'")->result();
+        foreach ($kakak_wanita as $sp => $val) {
+            $print['[nama_kakak_wanita]'][] = $val->nama;
+            $print['[nohp_kakak_wanita]'][] = $val->no_hp;
+        }
+        $adik_wanita = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'ADIK' AND id_pengantin = 'wanita'")->result();
+        foreach ($adik_wanita as $ap => $val) {
+            $print['[nama_adik_wanita]'][] = $val->nama;
+            $print['[nohp_adik_wanita]'][] = $val->no_hp;
+        }
+
+        //Kakak Adik IPAR
+
+        $kakak_wanita = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'KAKAK_IPAR' AND id_pengantin = 'wanita'")->result();
+        foreach ($kakak_wanita as $sp => $val) {
+            $print['[nama_kakak_ipar_wanita]'][] = $val->nama;
+            $print['[nohp_kakak_ipar_wanita]'][] = $val->no_hp;
+        }
+        $adik_wanita = $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'ADIK_IPAR' AND id_pengantin = 'wanita'")->result();
+        foreach ($adik_wanita as $ap => $val) {
+            $print['[nama_adik_ipar_wanita]'][] = $val->nama;
+            $print['[nohp_adik_ipar_wanita]'][] = $val->no_hp;
+        }
+
+        //Paket Acara 
+        $paket_acara = $this->db->query("SELECT a.nama_field, a.nama_label, a.type, a.ukuran, b.value 
+                    FROM acara_field a
+                    LEFT JOIN ( SELECT * FROM acara_data WHERE id_wedding = '$id' ) b ON a.id = b.id_acara_field")->result();
+        $paket_upacara = $this->db->query("SELECT a.nama_field, a.nama_label, a.type, a.ukuran, b.value 
+                    FROM upacara_field a
+                    LEFT JOIN ( SELECT * FROM upacara_data WHERE id_wedding = '$id' ) b ON a.id = b.id_upacara_field")->result();
+        $paket_panitia = $this->db->query("SELECT a.nama_field, a.nama_label, a.type, a.ukuran, b.value 
+                    FROM panitia_field a
+                    LEFT JOIN ( SELECT * FROM panitia_data WHERE id_wedding = '$id' ) b ON a.id = b.id_panitia_field")->result();
+        $paket_tambahan = $this->db->query("SELECT a.nama_field, a.nama_label, a.type, a.ukuran, b.value 
+                    FROM tambahan_field a
+                    LEFT JOIN ( SELECT * FROM tambahan_data WHERE id_wedding = '$id' ) b ON a.id = b.id_tambahan_field")->result();
+        if (!empty($paket_acara)) {
+            foreach ($paket_acara as $pa => $val) {
+                $nama_field = $val->nama_field;
+                $type = $val->type;
+                $ukuran = $val->ukuran;
+                $value = $val->value;
+                if ($type == "text" || $type == "textarea" || $type == "angka" || $type == "combobox") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? $value : "";
+                } else if ($type == "tanggal") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? DateToIndo($value) : "";
+                } else if ($type == "checkbox") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? "Ada" : "Tidak Ada";
+                } else if ($type == "addabletext") {
+                    $ukurans = explode("||", $ukuran);
+                    $values = json_decode($value, true);
+                    for ($ii = 0; $ii < count($ukurans); $ii++) {
+                        $tag = $nama_field . "." . str_replace(' ', '_', strtolower($ukurans[$ii]));
+                        //echo $tag . "<br>";
+                        for ($jj = 0; $jj < count($values); $jj++) {
+                            $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                        }
+                    }
+                }
+            }
+        }
+        if (!empty($paket_upacara)) {
+            foreach ($paket_upacara as $pa => $val) {
+                $nama_field = $val->nama_field;
+                $type = $val->type;
+                $ukuran = $val->ukuran;
+                $value = $val->value;
+                if ($type == "text" || $type == "textarea" || $type == "angka" || $type == "combobox") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? $value : "";
+                } else if ($type == "tanggal") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? DateToIndo($value) : "";
+                } else if ($type == "checkbox") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? "Ada" : "Tidak Ada";
+                } else if ($type == "addabletext") {
+                    $ukurans = explode("||", $ukuran);
+                    $values = json_decode($value, true);
+                    for ($ii = 0; $ii < count($ukurans); $ii++) {
+                        $tag = $nama_field . "." . str_replace(' ', '_', strtolower($ukurans[$ii]));
+                        //echo $tag . "<br>";
+                        for ($jj = 0; $jj < count($values); $jj++) {
+                            $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                        }
+                    }
+                }
+            }
+        }
+        if (!empty($paket_panitia)) {
+            foreach ($paket_panitia as $pa => $val) {
+                $nama_field = $val->nama_field;
+                $type = $val->type;
+                $ukuran = $val->ukuran;
+                $value = $val->value;
+                if ($type == "text" || $type == "textarea" || $type == "angka" || $type == "combobox") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? $value : "";
+                } else if ($type == "tanggal") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? DateToIndo($value) : "";
+                } else if ($type == "checkbox") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? "Ada" : "Tidak Ada";
+                } else if ($type == "addabletext") {
+                    $ukurans = explode("||", $ukuran);
+                    $values = json_decode($value, true);
+                    for ($ii = 0; $ii < count($ukurans); $ii++) {
+                        $tag = $nama_field . "." . str_replace(' ', '_', strtolower($ukurans[$ii]));
+                        //echo $tag . "<br>";
+                        for ($jj = 0; $jj < count($values); $jj++) {
+                            $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                        }
+                    }
+                }
+            }
+        }
+        if (!empty($paket_tambahan)) {
+            foreach ($paket_tambahan as $pa => $val) {
+                $nama_field = $val->nama_field;
+                $type = $val->type;
+                $ukuran = $val->ukuran;
+                $value = $val->value;
+                if ($type == "text" || $type == "textarea" || $type == "angka" || $type == "combobox") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? $value : "";
+                } else if ($type == "tanggal") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? DateToIndo($value) : "";
+                } else if ($type == "checkbox") {
+                    $tag = $nama_field;
+                    $print['[' . $nama_field . ']'] = $value != "" ? "Ada" : "Tidak Ada";
+                } else if ($type == "addabletext") {
+                    $ukurans = explode("||", $ukuran);
+                    $values = json_decode($value, true);
+                    for ($ii = 0; $ii < count($ukurans); $ii++) {
+                        $tag = $nama_field . "." . str_replace(' ', '_', strtolower($ukurans[$ii]));
+                        //echo $tag . "<br>";
+                        for ($jj = 0; $jj < count($values); $jj++) {
+                            $print['[' . $tag . ']'][] = isset($values[$jj][$ii]) ? $values[$jj][$ii] : "";
+                        }
+                    }
+                }
+            }
+        }
+
+        if (isset($_GET['list'])) {
+            echo "<pre>";
+            print_r($print);
+            exit();
+        }
         $template = $company->template;
         if ($template == "") {
             echo "Template tidak ada, silahkan upload template lagi";
