@@ -186,6 +186,7 @@
                 <a href="<?= $href ?>" class="<?= $class_download ?>" id="downloadBukuNikah"><br>
                     <button class="btn btn-success btn-sm" type="button"><i class="fa fa-download"></i> Download</button>
                 </a>
+                <button class="btn btn-primary btn-sm" type="button" onclick="generateBukuNikah('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>
                 <button class="btn btn-primary btn-sm" type="button" onclick="cetak('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>
                 <div id="prosesGenerate">
 
