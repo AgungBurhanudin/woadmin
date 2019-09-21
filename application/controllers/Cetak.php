@@ -865,6 +865,8 @@ class Cetak extends CI_Controller {
             exit();
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
+        header("location:.$fileName");
+        exit();
         if (file_exists($fileName)) {
             $result['code'] = 200;
             $result['template'] = 'Buku_Nikah_' . $id . '.xlsx';
