@@ -2579,7 +2579,7 @@ class Worksheet implements IComparable
                     }
                 } else {
                     // Cell doesn't exist
-                    $returnValue[$rRef][$cRef] = $nullValue;
+                    //$returnValue[$rRef][$cRef] = $nullValue;
                 }
             }
         }

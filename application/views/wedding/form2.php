@@ -2,6 +2,12 @@
     .nav-item{
         detail-wedding: 0.1px solid gray;
     }
+    .show{
+        display: block;
+    }
+    .hidden{
+        display: none;
+    }
 </style>
 <main class="main">
     <!-- Breadcrumb-->
@@ -82,9 +88,10 @@
                             </ul>
                             <br>
                             <div>
-                                <a href="<?= base_url() ?>Cetak/cetak?id=<?= $id_wedding ?>" target="_blank">
+<!--                                <a href="<?= base_url() ?>Cetak/cetak?id=<?= $id_wedding ?>" target="_blank">
                                     <button type="button" class="btn btn-sm btn-success" style="width:100%"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
-                                </a>
+                                </a>-->
+                                <button type="button" class="btn btn-sm btn-success" style="width:100%"  data-toggle="modal" data-target="#modalBukuNikah"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
                                 <button type="button" onclick="nonAktifkanUser('<?= $id_wedding ?>')" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
                                 <br><br>
                                 <?php
@@ -157,6 +164,43 @@
                 <br>
             </div>
         </div>
+    </div>
+</div>
+<div id="modalBukuNikah" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: right">
+                <h4 class="modal-title">Export Buku Nikah</h4>
+            </div>
+            <div class="modal-body">
+                <?php
+                $href = "#";
+                $class_download = "hidden";
+                if ($wedding->buku_nikah != "") {
+                    $href = base_url() . "files/output/" . $wedding->buku_nikah;
+                    $class_download = "show";
+                }
+                ?>
+                <a href="<?= $href ?>" class="<?= $class_download ?>" id="downloadBukuNikah"><br>
+                    <button class="btn btn-success btn-sm" type="button"><i class="fa fa-download"></i> Download</button>
+                </a>
+                <button class="btn btn-primary btn-sm" type="button" onclick="cetak('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>
+                <div id="prosesGenerate">
+
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: left">
+                <span style="font-size: 10px; float: left; position: absolute; left: 20px">
+                    <i>
+                        Proses generate membutuhkan waktu
+                    </i>
+                </span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>
 <script>
@@ -362,6 +406,122 @@
                     success: function (data) {
                         alert('Berhasil mengaktifkan wedding');
                         window.location.reload();
+                    }
+                });
+            }
+        }
+
+        function showDownload(href) {
+            $("#downloadBukuNikah").attr('class', 'show');
+            $("#downloadBukuNikah").attr('href', href);
+        }
+        function cetak(id) {
+            if (id != "") {
+                $.ajax({
+                    url: "<?= base_url() ?>Cetak/cetak?id=" + id,
+                    dataType: "JSON",
+                    success: function (data) {
+                        
+                    },
+                    timeout: 0
+                });
+            }
+        }
+
+        function generateBukuNikah(id) {
+            if (id != "") {
+                $.ajax({
+                    url: "<?= base_url() ?>Cetak/generateWedding?id=" + id,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.code == "200") {
+                            generateBiodata(id, data.template);
+                        } else {
+                        }
+                    }
+                });
+            }
+        }
+        function generateBiodata(id, template) {
+            if (id != "") {
+                $.ajax({
+                    url: "<?= base_url() ?>Cetak/generateBiodata?id=" + id + "&template=" + template,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.code == "200") {
+                            generateFamily(id, data.template);
+                        } else {
+                        }
+                    }
+                });
+            }
+        }
+        function generateFamily(id, template) {
+            if (id != "") {
+                $.ajax({
+                    url: "<?= base_url() ?>Cetak/generateFamily?id=" + id + "&template=" + template,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.code == "200") {
+                            generateAcara(id, data.template);
+                        } else {
+                        }
+                    }
+                });
+            }
+        }
+        function generateAcara(id, template) {
+            if (id != "") {
+                $.ajax({
+                    url: "<?= base_url() ?>Cetak/generateAcara?id=" + id + "&template=" + template,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.code == "200") {
+                            generateUpacara(id, data.template);
+                        } else {
+                        }
+                    }
+                });
+            }
+        }
+        function generateUpacara(id, template) {
+            if (id != "") {
+                $.ajax({
+                    url: "<?= base_url() ?>Cetak/generateUpacara?id=" + id + "&template=" + template,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.code == "200") {
+                            generatePanitia(id, data.template);
+                        } else {
+                        }
+                    }
+                });
+            }
+        }
+        function generatePanitia(id, template) {
+            if (id != "") {
+                $.ajax({
+                    url: "<?= base_url() ?>Cetak/generatePanitia?id=" + id + "&template=" + template,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.code == "200") {
+                            generateTambahan(id, data.template);
+                        } else {
+                        }
+                    }
+                });
+            }
+        }
+        function generateTambahan(id, template) {
+            if (id != "") {
+                $.ajax({
+                    url: "<?= base_url() ?>Cetak/generateTambahan?id=" + id + "&template=" + template,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.code == "200") {
+                            alert("ok");
+                        } else {
+                        }
                     }
                 });
             }
