@@ -435,7 +435,7 @@ class Cetak extends CI_Controller {
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
         if (file_exists($fileName)) {
             $result['code'] = 200;
-            $result['template'] = $template;
+            $result['template'] = 'Buku_Nikah_' . $id . '_' . $his . '.xlsx';
             echo json_encode($result);
             exit();
         } else {
@@ -596,7 +596,7 @@ class Cetak extends CI_Controller {
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
         if (file_exists($fileName)) {
             $result['code'] = 200;
-            $result['template'] = $template;
+            $result['template'] = 'Buku_Nikah_' . $id . '_' . $his . '.xlsx';
             echo json_encode($result);
             exit();
         } else {
@@ -665,7 +665,7 @@ class Cetak extends CI_Controller {
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
         if (file_exists($fileName)) {
             $result['code'] = 200;
-            $result['template'] = $template;
+            $result['template'] = 'Buku_Nikah_' . $id . '_' . $his . '.xlsx';
             echo json_encode($result);
             exit();
         } else {
@@ -732,7 +732,7 @@ class Cetak extends CI_Controller {
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
         if (file_exists($fileName)) {
             $result['code'] = 200;
-            $result['template'] = $template;
+            $result['template'] = 'Buku_Nikah_' . $id . '_' . $his . '.xlsx';
             echo json_encode($result);
             exit();
         } else {
@@ -799,7 +799,7 @@ class Cetak extends CI_Controller {
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
         if (file_exists($fileName)) {
             $result['code'] = 200;
-            $result['template'] = $template;
+            $result['template'] = 'Buku_Nikah_' . $id . '_' . $his . '.xlsx';
             echo json_encode($result);
             exit();
         } else {
@@ -865,9 +865,10 @@ class Cetak extends CI_Controller {
             exit();
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
-        header("location:.$fileName");
-        exit();
         if (file_exists($fileName)) {
+            $key4['id'] = $id;
+            $data4['buku_nikah'] = 'Buku_Nikah_' . $id . '.xlsx';
+            $this->db->update('wedding', $data4, $key4);
             $result['code'] = 200;
             $result['template'] = 'Buku_Nikah_' . $id . '.xlsx';
             echo json_encode($result);
@@ -877,6 +878,8 @@ class Cetak extends CI_Controller {
             echo json_encode($result);
             exit();
         }
+//        header("location:.$fileName");
+//        exit();
     }
 
     public function getHari($tanggal) {

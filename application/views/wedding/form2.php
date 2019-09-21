@@ -166,7 +166,7 @@
         </div>
     </div>
 </div>
-<div id="modalBukuNikah" class="modal fade" role="dialog">
+<div id="modalBukuNikah" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -183,13 +183,25 @@
                     $class_download = "show";
                 }
                 ?>
-                <a href="<?= $href ?>" class="<?= $class_download ?>" id="downloadBukuNikah"><br>
-                    <button class="btn btn-success btn-sm" type="button"><i class="fa fa-download"></i> Download</button>
-                </a>
-                <button class="btn btn-primary btn-sm" id="generateBukuNikah" type="button" onclick="generateBukuNikah('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>
+                <a href="<?= $href ?>" class="<?= $class_download ?>" id="downloadBukuNikah">
+                    <button class="btn btn-success btn-sm" type="button" style="width: 100%"><i class="fa fa-download"></i> Download</button>
+                </a><br>
+                <button class="btn btn-primary btn-sm" id="generateBukuNikah" type="button" onclick="generateBukuNikah('<?= $id_wedding ?>')" style="width: 100%">
+                    <i class="fa fa-refresh" id="iconBukuNikah"></i> 
+                    <img src="<?= base_url() ?>assets/loading.gif" id="loadingBukuNikah" width="auto" height="20px" style="display: none">
+                    &nbsp;&nbsp;Generate Buku Nikah</button>
                 <!--<button class="btn btn-primary btn-sm" type="button" onclick="cetak('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>-->
                 <div id="prosesGenerate">
-
+                    <br>
+                    <table class="table table-bordered" id="tableProsesGenerate">
+                        <tr id="generateWedding"></tr>
+                        <tr id="generateBiodata"></tr>
+                        <tr id="generateFamily"></tr>
+                        <tr id="generateAcara"></tr>
+                        <tr id="generateUpacara"></tr>
+                        <tr id="generatePanitia"></tr>
+                        <tr id="generateTambahan"></tr>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer" style="text-align: left">
@@ -198,7 +210,7 @@
                         Proses generate membutuhkan waktu
                     </i>
                 </span>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeGenerate">Close</button>
             </div>
         </div>
 
@@ -413,16 +425,50 @@
         }
 
         function showDownload(href) {
-            $("#downloadBukuNikah").attr('class', 'show');
+            $("#downloadBukuNikah").attr('style', 'display: block !important');
             $("#downloadBukuNikah").attr('href', href);
         }
 
         function enabledGenerate() {
             $("#generateBukuNikah").removeAttr('disabled');
+            $("#generateBukuNikah").removeAttr('disabled');
+            $("#downloadBukuNikah").removeAttr('disabled');
+            $("#loadingBukuNikah").attr('style', 'display: none');
+            $("#iconBukuNikah").attr('style', 'display: block; float: left');
         }
 
         function disabledGenerate() {
             $("#generateBukuNikah").attr('disabled', 'disabled');
+            $("#closeGenerate").attr('disabled', 'disabled');
+            $("#downloadBukuNikah").attr('disabled', 'disabled');
+            $("#loadingBukuNikah").attr('style', 'display: block; float: left');
+            $("#iconBukuNikah").attr('style', 'display: none');
+        }
+
+        function replaceIsi(bodyId, icon, message) {
+            var labelIcon = "";
+            if (icon == "otw") {
+                labelIcon = '<img src="<?= base_url() ?>assets/loading.gif" width="auto" height="20px">';
+            } else if (icon == "ok") {
+                labelIcon = '<i class="fa fa-check"></i>';
+            } else if (icon == "error") {
+                labelIcon = '<i class="fa fa-close"></i>';
+            }
+            var data = '<td style="width:40px">' + labelIcon + '</td><td>' + message + '</td>';
+            $("#" + bodyId).html(data);
+        }
+
+        function appendTable(bodyId, icon, message) {
+            var labelIcon = "";
+            if (icon == "otw") {
+                labelIcon = '<img src="<?= base_url() ?>assets/loading.gif" width="auto" height="20px">';
+            } else if (icon == "ok") {
+                labelIcon = '<i class="fa fa-check"></i>';
+            } else if (icon == "error") {
+                labelIcon = '<i class="fa fa-close"></i>';
+            }
+            var data = '<td style="width:40px">' + labelIcon + '</td><td>' + message + '</td>';
+            $("#" + bodyId).html(data);
         }
 
         function cetak(id) {
@@ -440,14 +486,18 @@
 
         function generateBukuNikah(id) {
             disabledGenerate();
+            replaceIsi('generateWedding', 'otw', 'Prosess Generate Data Pernikahan');
             if (id != "") {
                 $.ajax({
                     url: "<?= base_url() ?>Cetak/generateWedding?id=" + id,
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            replaceIsi('generateWedding', 'ok', 'Prosess Generate Data Pernikahan Berhasil');
+                            appendTable('generateBiodata', 'otw', 'Proses Generate Data Biodata');
                             setTimeout(generateBiodata(id, data.template), 3000);
                         } else {
+                            replaceIsi('generateWedding', 'error', 'Prosess Generate Data Pernikahan Gagal');
                             enabledGenerate();
                         }
                     }
@@ -461,8 +511,11 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            replaceIsi('generateBiodata', 'ok', 'Prosess Generate Data Biodata Berhasil');
+                            appendTable('generateFamily', 'otw', 'Proses Generate Data Keluarga');
                             setTimeout(generateFamily(id, data.template), 3000);
                         } else {
+                            replaceIsi('generateBiodata', 'error', 'Prosess Generate Data Biodata Gagal');
                             enabledGenerate();
                         }
                     }
@@ -476,8 +529,11 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            replaceIsi('generateFamily', 'ok', 'Prosess Generate Data Keluarga Berhasil');
+                            appendTable('generateAcara', 'otw', 'Proses Generate Data Acara');
                             setTimeout(generateAcara(id, data.template), 3000);
                         } else {
+                            replaceIsi('generateFamily', 'error', 'Prosess Generate Data Keluarga Gagal');
                             enabledGenerate();
                         }
                     }
@@ -491,8 +547,11 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            replaceIsi('generateAcara', 'ok', 'Prosess Generate Data Acara Berhasil');
+                            appendTable('generateUpacara', 'otw', 'Proses Generate Data Upacara');
                             setTimeout(generateUpacara(id, data.template), 3000);
                         } else {
+                            replaceIsi('generateAcara', 'error', 'Prosess Generate Data Acara Gagal');
                             enabledGenerate();
                         }
                     }
@@ -506,8 +565,11 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            replaceIsi('generateUpacara', 'ok', 'Prosess Generate Data Upacara Berhasil');
+                            appendTable('generatePanitia', 'otw', 'Proses Generate Data Panitia');
                             setTimeout(generatePanitia(id, data.template), 3000);
                         } else {
+                            replaceIsi('generateUpacara', 'error', 'Prosess Generate Data Upacara Gagal');
                             enabledGenerate();
                         }
                     }
@@ -521,8 +583,11 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
+                            replaceIsi('generatePanitia', 'ok', 'Prosess Generate Data Panitia Berhasil');
+                            appendTable('generateTambahan', 'otw', 'Proses Generate Data Tambahan');
                             setTimeout(generateTambahan(id, data.template), 3000);
                         } else {
+                            replaceIsi('generatePanitia', 'error', 'Prosess Generate Data Panitia Gagal');
                             enabledGenerate();
                         }
                     }
@@ -535,10 +600,23 @@
                     url: "<?= base_url() ?>Cetak/generateTambahan?id=" + id + "&template=" + template,
                     dataType: "JSON",
                     success: function (data) {
-                        enabledGenerate();
+//                        replaceIsi('generateTambahan', 'ok', 'Prosess Generate Data Tambahan Berhasil');
+//                        enabledGenerate();
                         if (data.code == "200") {
+                            replaceIsi('generateTambahan', 'ok', 'Prosess Generate Data Tambahan Berhasil');
                             enabledGenerate();
+//                            e.preventDefault();
+//                            window.location.href = '<?= base_url() ?>files/output/' + data.template;
+                            var file_path = '<?= base_url() ?>files/output/' + data.template;
+                            showDownload(file_path);
+                            var a = document.createElement('A');
+                            a.href = file_path;
+                            a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
                         } else {
+                            replaceIsi('generateTambahan', 'error', 'Prosess Generate Data Tambahan Gagal');
                             enabledGenerate();
                         }
                     }
