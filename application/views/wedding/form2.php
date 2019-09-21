@@ -432,7 +432,7 @@
 
         function enabledGenerate() {
             $("#generateBukuNikah").removeAttr('disabled');
-            $("#generateBukuNikah").removeAttr('disabled');
+            $("#closeGenerate").removeAttr('disabled');
             $("#downloadBukuNikah").removeAttr('disabled');
             $("#loadingBukuNikah").attr('style', 'display: none');
             $("#iconBukuNikah").attr('style', 'display: block; float: left');
