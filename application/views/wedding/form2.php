@@ -605,15 +605,16 @@
 //                        enabledGenerate();
                         if (data.code == "200") {
                             replaceIsi('generateTambahan', 'ok', 'Prosess Generate Data Tambahan Berhasil');
+                            appendTable('generateTambahan', 'download', '<b>Klik tombol download mengunduh file</b>');
                             enabledGenerate();
                             var file_path = '<?= base_url() ?>files/output/' + data.template;
                             showDownload(file_path);
-                            var a = document.createElement('A');
-                            a.href = file_path;
-                            a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
-                            document.body.appendChild(a);
-                            a.click();
-                            document.body.removeChild(a);
+//                            var a = document.createElement('A');
+//                            a.href = file_path;
+//                            a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
+//                            document.body.appendChild(a);
+//                            a.click();
+//                            document.body.removeChild(a);
                         } else {
                             replaceIsi('generateTambahan', 'error', 'Prosess Generate Data Tambahan Gagal');
                             enabledGenerate();
