@@ -183,9 +183,11 @@
                     $class_download = "show";
                 }
                 ?>
-                <a href="<?= $href ?>" class="<?= $class_download ?>" id="downloadBukuNikah">
-                    <button class="btn btn-success btn-sm" type="button" style="width: 100%"><i class="fa fa-download"></i> Download</button>
-                </a><br>
+                <div id="downloadBukuNikah">
+                    <a href="<?= $href ?>" class="<?= $class_download ?>" target="_blank">
+                        <button class="btn btn-success btn-sm" type="button" style="width: 100%"><i class="fa fa-download"></i> Download</button>
+                    </a>
+                </div><br>
                 <button class="btn btn-primary btn-sm" id="generateBukuNikah" type="button" onclick="generateBukuNikah('<?= $id_wedding ?>')" style="width: 100%">
                     <i class="fa fa-refresh" id="iconBukuNikah"></i> 
                     <img src="<?= base_url() ?>assets/loading.gif" id="loadingBukuNikah" width="auto" height="20px" style="display: none">
@@ -425,8 +427,7 @@
         }
 
         function showDownload(href) {
-            $("#downloadBukuNikah").attr('style', 'display: block !important');
-            $("#downloadBukuNikah").attr('href', href);
+            $("#downloadBukuNikah").load(location.href + " #downloadBukuNikah");
         }
 
         function enabledGenerate() {
@@ -605,8 +606,6 @@
                         if (data.code == "200") {
                             replaceIsi('generateTambahan', 'ok', 'Prosess Generate Data Tambahan Berhasil');
                             enabledGenerate();
-//                            e.preventDefault();
-//                            window.location.href = '<?= base_url() ?>files/output/' + data.template;
                             var file_path = '<?= base_url() ?>files/output/' + data.template;
                             showDownload(file_path);
                             var a = document.createElement('A');
