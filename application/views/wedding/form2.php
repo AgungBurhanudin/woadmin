@@ -186,8 +186,8 @@
                 <a href="<?= $href ?>" class="<?= $class_download ?>" id="downloadBukuNikah"><br>
                     <button class="btn btn-success btn-sm" type="button"><i class="fa fa-download"></i> Download</button>
                 </a>
-                <button class="btn btn-primary btn-sm" type="button" onclick="generateBukuNikah('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>
-                <button class="btn btn-primary btn-sm" type="button" onclick="cetak('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>
+                <button class="btn btn-primary btn-sm" id="generateBukuNikah" type="button" onclick="generateBukuNikah('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>
+                <!--<button class="btn btn-primary btn-sm" type="button" onclick="cetak('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>-->
                 <div id="prosesGenerate">
 
                 </div>
@@ -416,13 +416,22 @@
             $("#downloadBukuNikah").attr('class', 'show');
             $("#downloadBukuNikah").attr('href', href);
         }
+
+        function enabledGenerate() {
+            $("#generateBukuNikah").removeAttr('disabled');
+        }
+
+        function disabledGenerate() {
+            $("#generateBukuNikah").attr('disabled', 'disabled');
+        }
+
         function cetak(id) {
             if (id != "") {
                 $.ajax({
                     url: "<?= base_url() ?>Cetak/cetak?id=" + id,
                     dataType: "JSON",
                     success: function (data) {
-                        
+
                     },
                     timeout: 0
                 });
@@ -430,14 +439,16 @@
         }
 
         function generateBukuNikah(id) {
+            disabledGenerate();
             if (id != "") {
                 $.ajax({
                     url: "<?= base_url() ?>Cetak/generateWedding?id=" + id,
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
-                            generateBiodata(id, data.template);
+                            setTimeout(generateBiodata(id, data.template), 3000);
                         } else {
+                            enabledGenerate();
                         }
                     }
                 });
@@ -450,8 +461,9 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
-                            generateFamily(id, data.template);
+                            setTimeout(generateFamily(id, data.template), 3000);
                         } else {
+                            enabledGenerate();
                         }
                     }
                 });
@@ -464,8 +476,9 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
-                            generateAcara(id, data.template);
+                            setTimeout(generateAcara(id, data.template), 3000);
                         } else {
+                            enabledGenerate();
                         }
                     }
                 });
@@ -478,8 +491,9 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
-                            generateUpacara(id, data.template);
+                            setTimeout(generateUpacara(id, data.template), 3000);
                         } else {
+                            enabledGenerate();
                         }
                     }
                 });
@@ -492,8 +506,9 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
-                            generatePanitia(id, data.template);
+                            setTimeout(generatePanitia(id, data.template), 3000);
                         } else {
+                            enabledGenerate();
                         }
                     }
                 });
@@ -506,8 +521,9 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
-                            generateTambahan(id, data.template);
+                            setTimeout(generateTambahan(id, data.template), 3000);
                         } else {
+                            enabledGenerate();
                         }
                     }
                 });
@@ -520,8 +536,9 @@
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
-                            alert("ok");
+                            enabledGenerate();
                         } else {
+                            enabledGenerate();
                         }
                     }
                 });
