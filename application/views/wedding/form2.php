@@ -535,6 +535,7 @@
                     url: "<?= base_url() ?>Cetak/generateTambahan?id=" + id + "&template=" + template,
                     dataType: "JSON",
                     success: function (data) {
+                        enabledGenerate();
                         if (data.code == "200") {
                             enabledGenerate();
                         } else {
