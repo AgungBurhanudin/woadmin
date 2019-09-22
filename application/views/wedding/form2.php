@@ -91,7 +91,7 @@
 <!--                                <a href="<?= base_url() ?>Cetak/cetak?id=<?= $id_wedding ?>" target="_blank">
                                     <button type="button" class="btn btn-sm btn-success" style="width:100%"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
                                 </a>-->
-                                <button type="button" class="btn btn-sm btn-success" style="width:100%"  data-toggle="modal" data-target="#modalBukuNikah"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
+                                <button type="button" class="btn btn-sm btn-success" style="width:100%"  data-toggle="modal" data-target="#modalBukuNikah" onclick="hideProsesAll()"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
                                 <button type="button" onclick="nonAktifkanUser('<?= $id_wedding ?>')" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
                                 <br><br>
                                 <?php
@@ -426,6 +426,16 @@
             }
         }
 
+        function hideProsesAll() {
+            $("#generateWedding").html('');
+            $("#generateFamily").html('');
+            $("#generateBiodata").html('');
+            $("#generateAcara").html('');
+            $("#generateUpacara").html('');
+            $("#generatePanitia").html('');
+            $("#generateTambahan").html('');
+        }
+
         function showDownload(href) {
             $("#downloadBukuNikah").load(location.href + " #downloadBukuNikah");
         }
@@ -498,7 +508,7 @@
                             appendTable('generateBiodata', 'otw', 'Proses Generate Data Biodata');
                             setTimeout(generateBiodata(id, data.template), 3000);
                         } else {
-                            replaceIsi('generateWedding', 'error', 'Prosess Generate Data Pernikahan Gagal');
+                            replaceIsi('generateWedding', 'error', 'Gagal!  ' + data.message);
                             enabledGenerate();
                         }
                     }
@@ -516,7 +526,7 @@
                             appendTable('generateFamily', 'otw', 'Proses Generate Data Keluarga');
                             setTimeout(generateFamily(id, data.template), 3000);
                         } else {
-                            replaceIsi('generateBiodata', 'error', 'Prosess Generate Data Biodata Gagal');
+                            replaceIsi('generateBiodata', 'error', 'Gagal!  ' + data.message);
                             enabledGenerate();
                         }
                     }
@@ -534,7 +544,7 @@
                             appendTable('generateAcara', 'otw', 'Proses Generate Data Acara');
                             setTimeout(generateAcara(id, data.template), 3000);
                         } else {
-                            replaceIsi('generateFamily', 'error', 'Prosess Generate Data Keluarga Gagal');
+                            replaceIsi('generateFamily', 'error', 'Gagal!  ' + data.message);
                             enabledGenerate();
                         }
                     }
@@ -552,7 +562,7 @@
                             appendTable('generateUpacara', 'otw', 'Proses Generate Data Upacara');
                             setTimeout(generateUpacara(id, data.template), 3000);
                         } else {
-                            replaceIsi('generateAcara', 'error', 'Prosess Generate Data Acara Gagal');
+                            replaceIsi('generateAcara', 'error', 'Gagal!  ' + data.message);
                             enabledGenerate();
                         }
                     }
@@ -570,7 +580,7 @@
                             appendTable('generatePanitia', 'otw', 'Proses Generate Data Panitia');
                             setTimeout(generatePanitia(id, data.template), 3000);
                         } else {
-                            replaceIsi('generateUpacara', 'error', 'Prosess Generate Data Upacara Gagal');
+                            replaceIsi('generateUpacara', 'error', 'Gagal!  ' + data.message);
                             enabledGenerate();
                         }
                     }
@@ -588,7 +598,7 @@
                             appendTable('generateTambahan', 'otw', 'Proses Generate Data Tambahan');
                             setTimeout(generateTambahan(id, data.template), 3000);
                         } else {
-                            replaceIsi('generatePanitia', 'error', 'Prosess Generate Data Panitia Gagal');
+                            replaceIsi('generatePanitia', 'error', 'Gagal!  ' + data.message);
                             enabledGenerate();
                         }
                     }
@@ -616,7 +626,7 @@
 //                            a.click();
 //                            document.body.removeChild(a);
                         } else {
-                            replaceIsi('generateTambahan', 'error', 'Prosess Generate Data Tambahan Gagal');
+                            replaceIsi('generateTambahan', 'error', 'Gagal!  ' + data.message);
                             enabledGenerate();
                         }
                     }

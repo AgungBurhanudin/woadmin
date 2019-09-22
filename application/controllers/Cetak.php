@@ -329,6 +329,9 @@ class Cetak extends CI_Controller {
             }
         }
 
+        echo "<pre>";
+        print_r($print);
+        exit();
         if (isset($_GET['list'])) {
             echo "<pre>";
             print_r($print);
@@ -363,8 +366,12 @@ class Cetak extends CI_Controller {
         $path_output = realpath(APPPATH . '../files/temp/');
         $wedding = $this->db->query("SELECT * FROM wedding WHERE id = '$id' ")->row();
         if (empty($wedding)) {
-            echo "Data Not Found";
+            $result['code'] = 400;
+            $result['message'] = "Data Not Found";
+            echo json_encode($result);
             exit();
+//            echo "Data Not Found";
+//            exit();
         }
         $print = array();
         foreach ($wedding as $w => $val) {
@@ -374,18 +381,22 @@ class Cetak extends CI_Controller {
         $company = $this->db->query("SELECT * FROM company WHERE id = '$company_id' ")->row();
         $template = $company->template;
         if ($template == "") {
-            echo "Template tidak ada, silahkan upload template lagi";
+            $result['code'] = 400;
+            $result['message'] = "Template tidak ada, silahkan upload template lagi";
+            echo json_encode($result);
             exit();
         }
         $templateFile = $path_template . '/' . $template;
         $his = date('His');
         $fileName = './files/temp/Buku_Nikah_' . $id . '_' . $his . '.xlsx';
         if (!file_exists($templateFile)) {
-            echo "Template tidak di temukan, silahkan upload template lagi";
+            $result['code'] = 400;
+            $result['message'] = "Template tidak ada, silahkan upload template lagi";
+            echo json_encode($result);
             exit();
         }
         $tanggal_nikah = strtotime($wedding->tanggal);
-        
+
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
         if (file_exists($fileName)) {
             $result['code'] = 200;
@@ -429,7 +440,9 @@ class Cetak extends CI_Controller {
         $fileName = './files/temp/Buku_Nikah_' . $id . '_' . $his . '.xlsx';
 
         if (!file_exists($templateFile)) {
-            echo "Template tidak di temukan, silahkan upload template lagi";
+            $result['code'] = 400;
+            $result['message'] = "Template tidak di temukan, silahkan upload template lagi";
+            echo json_encode($result);
             exit();
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
@@ -440,6 +453,7 @@ class Cetak extends CI_Controller {
             exit();
         } else {
             $result['code'] = 400;
+            $result['message'] = "Process Generate Gagal";
             echo json_encode($result);
             exit();
         }
@@ -590,7 +604,9 @@ class Cetak extends CI_Controller {
         $fileName = './files/temp/Buku_Nikah_' . $id . '_' . $his . '.xlsx';
 
         if (!file_exists($templateFile)) {
-            echo "Template tidak di temukan, silahkan upload template lagi";
+            $result['code'] = 400;
+            $result['message'] = "Template tidak di temukan, silahkan upload template lagi";
+            echo json_encode($result);
             exit();
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
@@ -601,6 +617,7 @@ class Cetak extends CI_Controller {
             exit();
         } else {
             $result['code'] = 400;
+            $result['message'] = "Process Generate Gagal";
             echo json_encode($result);
             exit();
         }
@@ -659,7 +676,9 @@ class Cetak extends CI_Controller {
         $fileName = './files/temp/Buku_Nikah_' . $id . '_' . $his . '.xlsx';
 
         if (!file_exists($templateFile)) {
-            echo "Template tidak di temukan, silahkan upload template lagi";
+            $result['code'] = 400;
+            $result['message'] = "Template tidak di temukan, silahkan upload template lagi";
+            echo json_encode($result);
             exit();
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
@@ -670,6 +689,7 @@ class Cetak extends CI_Controller {
             exit();
         } else {
             $result['code'] = 400;
+            $result['message'] = "Process Generate Gagal";
             echo json_encode($result);
             exit();
         }
@@ -726,7 +746,9 @@ class Cetak extends CI_Controller {
         $fileName = './files/temp/Buku_Nikah_' . $id . '_' . $his . '.xlsx';
 
         if (!file_exists($templateFile)) {
-            echo "Template tidak di temukan, silahkan upload template lagi";
+            $result['code'] = 400;
+            $result['message'] = "Template tidak di temukan, silahkan upload template lagi";
+            echo json_encode($result);
             exit();
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
@@ -737,6 +759,7 @@ class Cetak extends CI_Controller {
             exit();
         } else {
             $result['code'] = 400;
+            $result['message'] = "Process Generate Gagal";
             echo json_encode($result);
             exit();
         }
@@ -793,7 +816,9 @@ class Cetak extends CI_Controller {
         $fileName = './files/temp/Buku_Nikah_' . $id . '_' . $his . '.xlsx';
 
         if (!file_exists($templateFile)) {
-            echo "Template tidak di temukan, silahkan upload template lagi";
+            $result['code'] = 400;
+            $result['message'] = "Template tidak di temukan, silahkan upload template lagi";
+            echo json_encode($result);
             exit();
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
@@ -804,6 +829,7 @@ class Cetak extends CI_Controller {
             exit();
         } else {
             $result['code'] = 400;
+            $result['message'] = "Process Generate Gagal";
             echo json_encode($result);
             exit();
         }
@@ -861,7 +887,9 @@ class Cetak extends CI_Controller {
         $fileName = './files/output/Buku_Nikah_' . $id . '.xlsx';
 
         if (!file_exists($templateFile)) {
-            echo "Template tidak di temukan, silahkan upload template lagi";
+            $result['code'] = 400;
+            $result['message'] = "Template tidak di temukan, silahkan upload template lagi";
+            echo json_encode($result);
             exit();
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $print);
@@ -875,6 +903,7 @@ class Cetak extends CI_Controller {
             exit();
         } else {
             $result['code'] = 400;
+            $result['message'] = "Process Generate Gagal";
             echo json_encode($result);
             exit();
         }
