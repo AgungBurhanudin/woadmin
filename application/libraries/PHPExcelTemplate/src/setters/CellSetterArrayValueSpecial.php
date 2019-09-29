@@ -28,7 +28,7 @@ class CellSetterArrayValueSpecial implements ICellSetter
 		$pColumnIndex = $insertedCells->getCurrentColIndex($row_key, $col_key);
 		$pRow = $insertedCells->getCurrentRowIndex($row_key, $col_key);
 		$values = $param->value;
-		$this->_insertNewRowsIfNeed($sheet, $values, $insertedCells, $col_key, $row_key, $pColumnIndex, $pRow);
+		// $this->_insertNewRowsIfNeed($sheet, $values, $insertedCells, $col_key, $row_key, $pColumnIndex, $pRow);
 
 		foreach($values as $row_index=>$value) {
 			$currCellCoordinates = $pColumn.($pRow + $row_index);

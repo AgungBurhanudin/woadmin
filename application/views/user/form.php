@@ -86,14 +86,14 @@ if (empty($data_user)) {
                                         <div class="form-group row">
                                             <label class="col-md-3 col-form-label" for="text-input">Password <span class="red">*</span></label>
                                             <div class="col-md-9">
-                                                <input onkeyup="validationForm(this)" class="form-control" type="password" name="password" id="password" placeholder="Password" required="required">
+                                                <input onkeyup="validationForm(this)" class="form-control" type="password" name="password" id="password" placeholder="Password">
                                                 <span class="msg_form"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 col-form-label" for="text-input">Konfirmasi Password <span class="red">*</span></label>
                                             <div class="col-md-9">
-                                                <input onkeyup="validationForm(this)" class="form-control" type="password" name="repassword" id="repassword" placeholder="Konfirmasi Password" required="required">
+                                                <input onkeyup="validationForm(this)" class="form-control" type="password" name="repassword" id="repassword" placeholder="Konfirmasi Password" >
                                                 <span class="msg_form"></span>
                                             </div>
                                         </div>

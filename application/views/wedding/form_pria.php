@@ -48,6 +48,9 @@ if (!empty($pria)) {
     <input type="hidden" name="id_wedding" value="<?= $id_wedding ?>">
     <div style="float: right">
         <button type="submit" onclick="simpanPengantinPria()" class="btn btn-mini btn-primary"><i class="fa fa-save"></i> Simpan</button>
+        <a href="<?= base_url() ?>Printout/printBiodataPria?id=<?= $id_wedding ?>" target="_blank">
+            <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print Data</button>
+        </a>
     </div>
     <h2>Biodata Pengantin Pria</h2>
     <hr>
@@ -124,8 +127,12 @@ if (!empty($pria)) {
                 <input name="hobi_pria" id="hobi_pria" type="text" required="required" class="form-control"  />
             </div>
             <div class="form-group">
-                <label class="control-label">Sosmed Pengantin Pria</label>
+                <label class="control-label">Akun Facebook Pengantin Pria</label>
                 <input name="sosmed_pria" id="sosmed_pria" type="text" required="required" class="form-control"  />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Akun Instagram Pengantin Pria</label>
+                <input name="instagram_pria" id="instagram_pria" type="text" required="required" class="form-control" />
             </div>
         </div>
     </div>

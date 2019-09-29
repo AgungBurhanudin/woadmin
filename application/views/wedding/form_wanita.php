@@ -48,6 +48,10 @@ if (!empty($wanita)) {
     <input type="hidden" name="id_wedding" value="<?= $id_wedding ?>">
     <div style="float: right">
         <button type="submit" onclick="simpanPengantinWanita()" class="btn btn-mini btn-primary"><i class="fa fa-save"></i> Simpan</button>
+
+        <a href="<?= base_url() ?>Printout/printBiodataWanita?id=<?= $id_wedding ?>" target="_blank">
+            <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print Data</button>
+        </a>
     </div>
     <h2>Biodata Pengantin Wanita</h2>
     <hr>
@@ -125,8 +129,12 @@ if (!empty($wanita)) {
                 <input name="hobi_wanita" id="hobi_wanita" type="text" required="required" class="form-control"  />
             </div>
             <div class="form-group">
-                <label class="control-label">Sosmed Pengantin Wanita</label>
+                <label class="control-label">Akun Facebook Pengantin Wanita</label>
                 <input name="sosmed_wanita" id="sosmed_wanita" type="text" required="required" class="form-control"  />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Akun Instagram Pengantin Wanita</label>
+                <input name="instagram_wanita" id="instagram_wanita" type="text" required="required" class="form-control" />
             </div>
         </div>
     </div>

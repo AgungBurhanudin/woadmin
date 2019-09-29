@@ -9,6 +9,10 @@
 <a href="<?= base_url() ?>Wedding/undangan/barcode?id=<?= $id_wedding ?>" target="_blank" style="float: right">
     <button type="button" class="btn btn-mini btn-success"><i class="fa fa-print"></i> Cetak Barcode Undangan</button>
 </a>
+
+<a href="<?= base_url() ?>Printout/printUndangan?id=<?= $id_wedding ?>" target="_blank" style="float: right; margin-left:10px">
+    <button type="button" class="btn btn-mini btn-success"><i class="fa fa-print"></i> Cetak Undangan</button>
+</a>
 <br>
 <br>
 <div id="dataUndangan">

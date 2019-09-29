@@ -288,7 +288,8 @@ class Wedding extends CI_Controller {
         $data['agama'] = $_POST['agama_pria'];
         $data['pendidikan'] = $_POST['pendidikan_pria'];
         $data['hobi'] = $_POST['hobi_pria'];
-        $data['sosmed'] = 1;
+        $data['sosmed'] = $_POST['sosmed_pria'];
+        $data['instagram'] = $_POST['instagram_pria'];
         $data['status'] = 1;
 
         $user['user_real_name'] = $_POST['nama_lengkap_pria'];
@@ -354,6 +355,7 @@ class Wedding extends CI_Controller {
         $data['pendidikan'] = $_POST['pendidikan_wanita'];
         $data['hobi'] = $_POST['hobi_wanita'];
         $data['sosmed'] = $_POST['sosmed_wanita'];
+        $data['instagram'] = $_POST['instagram_wanita'];
         $data['status'] = 1;
 
         $user['user_real_name'] = $_POST['nama_lengkap_wanita'];
@@ -768,6 +770,8 @@ class Wedding extends CI_Controller {
                             . "WHERE a.id_upacara_tipe = '$id' "
                             . "ORDER BY a.urutan ASC")->result();
             $data = array(
+                'id_wedding' => $id_wedding,
+                'id' => $id,
                 'field' => $field,
                 'type' => 'upacara'
             );
@@ -813,6 +817,8 @@ class Wedding extends CI_Controller {
                             . "WHERE a.id_acara_tipe = '$id' "
                             . "ORDER BY a.urutan ASC")->result();
             $data = array(
+                'id_wedding' => $id_wedding,
+                'id' => $id,
                 'field' => $field,
                 'type' => 'acara'
             );
@@ -857,6 +863,8 @@ class Wedding extends CI_Controller {
                             . "WHERE a.id_panitia_tipe = '$id' "
                             . "ORDER BY a.urutan ASC")->result();
             $data = array(
+                'id_wedding' => $id_wedding,
+                'id' => $id,
                 'field' => $field,
                 'type' => 'panitia'
             );
@@ -901,6 +909,8 @@ class Wedding extends CI_Controller {
                             . "WHERE id_tambahan_tipe = '$id' "
                             . "ORDER BY urutan ASC")->result();
             $data = array(
+                'id_wedding' => $id_wedding,
+                'id' => $id,
                 'field' => $field,
                 'type' => 'tambahan'
             );

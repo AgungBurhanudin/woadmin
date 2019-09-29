@@ -63,7 +63,9 @@ class User extends CI_Controller {
         $data['user_company'] = $post['user_company'];
         $data['user_real_name'] = $post['user_real_name'];
         $data['user_user_name'] = $post['user_user_name'];
-        $data['user_password'] = md5($post['password']);
+        if($post['password'] != ""){
+            $data['user_password'] = md5($post['password']);
+        }        
         $data['user_phone'] = $post['user_phone'];
         $data['user_email'] = $post['user_email'];
         $data['user_address'] = $post['user_address'];

@@ -6,4 +6,10 @@ function render($main_content=null, $data=null) {
     $ci->load->view('include/template', $data);
 }
 
+function renderPrint($main_content=null, $data=null) {
+    $ci = & get_instance();
+    $data['main_content'] = $main_content;
+    $ci->load->view('include/templatePrint', $data);
+}
+
 

@@ -40,7 +40,7 @@
                 <input name="alamat_pernikahan" id="alamat_pernikahan" type="text" required="required" class="form-control required" />
             </div>
             <div class="form-group">
-                <label class="control-label">Tema Pernikahan</label>
+                <label class="control-label">Sistem Jamuan Pernikahan</label>
                 <input name="tema_pernikahan" id="tema_pernikahan" type="text" required="required" class="form-control required" />
             </div>
             <div class="form-group">

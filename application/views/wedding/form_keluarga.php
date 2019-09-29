@@ -55,6 +55,9 @@ if (!empty($ibuwanita)) {
             <input type="hidden" name="id_wedding" value="<?= $id_wedding ?>">
             <div style="float: right">
                 <button type="button" onclick="saveOrtu('pria')" class="btn btn-mini btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                <a href="<?= base_url() ?>Printout/printKeluargaPria?id=<?= $id_wedding ?>" target="_blank">
+                    <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print Data</button>
+                </a>
             </div>
             <div class="clearfix"></div><br>
             <div class="form-group row">
@@ -146,6 +149,9 @@ if (!empty($ibuwanita)) {
             <input type="hidden" name="id_wedding" value="<?= $id_wedding ?>">
             <div style="float: right">
                 <button type="button" onclick="saveOrtu('wanita')" class="btn btn-mini btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                <a href="<?= base_url() ?>Printout/printKeluargaWanita?id=<?= $id_wedding ?>" target="_blank">
+                    <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print Data</button>
+                </a>
             </div>
             <div class="clearfix"></div><br>
             <div class="form-group row">

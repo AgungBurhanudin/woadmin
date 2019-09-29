@@ -28,7 +28,7 @@ class CellSetterArray2DValue implements ICellSetter
 		$pColumn = $insertedCells->getCurrentColIndex($row_key, $col_key);
 		$pRow = $insertedCells->getCurrentRowIndex($row_key, $col_key);
 		$values = $param->value;
-		$this->_insertNewRowsAndColsIfNeed($sheet, $values, $insertedCells, $col_key, $row_key, $pColumn, $pRow);
+		// $this->_insertNewRowsAndColsIfNeed($sheet, $values, $insertedCells, $col_key, $row_key, $pColumn, $pRow);
 
 		foreach($values as $row_index=>$value_arr) {
 			foreach($value_arr as $col_index=>$value) {

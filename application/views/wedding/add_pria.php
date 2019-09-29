@@ -80,8 +80,12 @@
                 <input name="hobi_pria" id="hobi_pria" type="text" required="required" class="form-control" />
             </div>
             <div class="form-group">
-                <label class="control-label">Sosmed Pengantin Pria</label>
+                <label class="control-label">Akun Facebook Pengantin Pria</label>
                 <input name="sosmed_pria" id="sosmed_pria" type="text" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Akun Instagram Pengantin Pria</label>
+                <input name="instagram_pria" id="instagram_pria" type="text" required="required" class="form-control" />
             </div>
         </div>
     </div>

@@ -3,6 +3,9 @@
 <a href="#" onclick="addVendor()">
     <button type="button" class="btn btn-mini btn-primary"><i class="fa fa-plus"></i> Tambah Vendor</button>
 </a>
+<a href="<?= base_url() ?>Printout/printVendor?id=<?= $id_wedding ?>" target="_blank" style="float: right; margin-left:10px">
+    <button type="button" class="btn btn-mini btn-success"><i class="fa fa-print"></i> Cetak Vendor</button>
+</a>
 <br>
 <br>
 <table class="table table-responsive-sm table-hover table-outline mb-0" id="tableDataVendor">

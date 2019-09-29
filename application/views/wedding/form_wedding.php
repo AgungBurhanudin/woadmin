@@ -36,6 +36,9 @@ if (!empty($wedding)) {
     <input type="hidden" name="id_wedding" value="<?= $id_wedding ?>">
 <div style="float: right">
     <button type="submit" onclick="simpanWedding()" class="btn btn-mini btn-primary"><i class="fa fa-save"></i> Simpan</button>
+    <a href="<?= base_url() ?>Printout/printWedding?id=<?= $id_wedding ?>" target="_blank">
+        <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print Data</button>
+    </a>
 </div>
 <h2>Data Pernikahan</h2>
 <hr>
@@ -65,7 +68,7 @@ if (!empty($wedding)) {
     <div class="col-md-6" style="float: left">
 
         <div class="form-group">
-            <label class="control-label">Tema Pernikahan</label>
+            <label class="control-label">Sistem Jamuan Pernikahan</label>
             <input name="tema_pernikahan" id="tema_pernikahan" type="text" required="required" class="form-control" value="<?= $tema ?>"  />
         </div>
         <div class="form-group">

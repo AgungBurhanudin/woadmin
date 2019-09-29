@@ -1,3 +1,10 @@
+<div style="float: right">
+<a href="<?= base_url() ?>Printout/print<?= ucwords($type) ?>?id_wedding=<?= $id_wedding ?>&id=<?= $id ?>" target="_blank">
+    <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print Data</button>
+</a>
+</div>
+<div style="clear: both"></div>
+<br>
 <?php
 if (!empty($field)) {
     foreach ($field as $val) {

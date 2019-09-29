@@ -10,6 +10,9 @@
 </style>
 <h2>Payment Vendor</h2>
 <hr>
+<a href="<?= base_url() ?>Printout/printPayment?id=<?= $id_wedding ?>" target="_blank" style="float: right; margin-left:10px">
+    <button type="button" class="btn btn-mini btn-success"><i class="fa fa-print"></i> Cetak Payment Vendor</button>
+</a>
 <br>
 <div id="dataPaymentVendor">
 

@@ -43,7 +43,7 @@
         <div class="col-md-6" style="float: left">
 
             <div class="form-group">
-                <label class="control-label">Tema Pernikahan</label>
+                <label class="control-label">Sistem Jamuan</label>
                 <input name="tema_pernikahan" id="tema_pernikahan" type="text" required="required" class="form-control required" />
             </div>
             <div class="form-group">
