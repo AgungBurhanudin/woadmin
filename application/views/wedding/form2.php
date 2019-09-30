@@ -14,7 +14,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">The Wedding</li>
         <li class="breadcrumb-item">
-            <a href="<?= base_url() ?>Wedding">Data Wedding</a>
+            <a href="<?=base_url()?>Wedding">Data Wedding</a>
         </li>
         <li class="breadcrumb-item active">Detail</li>
         <!-- Breadcrumb Menu-->
@@ -27,12 +27,12 @@
                     <div class="email-app">
                         <nav>
                             <center>
-                                <input type="hidden" name="id_wedding" id="id_wedding" value="<?= $id_wedding ?>">
+                                <input type="hidden" name="id_wedding" id="id_wedding" value="<?=$id_wedding?>">
                                 <div class="avatar">
-                                    <img class="img-avatar" src="<?= base_url() ?>files/images/<?= $pria->photo != "" ? $pria->photo : "user.jpg" ?>" alt="<?= $pria->nama_lengkap ?>">
+                                    <img class="img-avatar" src="<?=base_url()?>files/images/<?=$pria->photo != "" ? $pria->photo : "user.jpg"?>" alt="<?=$pria->nama_lengkap?>">
                                 </div>
                                 <div class="avatar">
-                                    <img class="img-avatar" src="<?= base_url() ?>files/images/<?= $wanita->photo != "" ? $wanita->photo : "user.jpg" ?>" alt="<?= $wanita->nama_lengkap ?>">
+                                    <img class="img-avatar" src="<?=base_url()?>files/images/<?=$wanita->photo != "" ? $wanita->photo : "user.jpg"?>" alt="<?=$wanita->nama_lengkap?>">
                                 </div>
                                 <br><br>
                                 <b id="countdown">-- </b><br>
@@ -47,7 +47,7 @@
                                     <a class="nav-link" data-toggle="tab" href="#pria" role="tab" aria-controls="pria">Groom</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
-                                    <a class="nav-link" data-toggle="tab" href="#wanita" role="tab" aria-controls="wanita">Bridge</a>
+                                    <a class="nav-link" data-toggle="tab" href="#wanita" role="tab" aria-controls="wanita">Bride</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#keluarga" role="tab" aria-controls="keluarga">Data Keluarga</a>
@@ -88,74 +88,74 @@
                             </ul>
                             <br>
                             <div>
-<!--                                <a href="<?= base_url() ?>Cetak/cetak?id=<?= $id_wedding ?>" target="_blank">
+<!--                                <a href="<?=base_url()?>Cetak/cetak?id=<?=$id_wedding?>" target="_blank">
                                     <button type="button" class="btn btn-sm btn-success" style="width:100%"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
                                 </a>-->
                                 <button type="button" class="btn btn-sm btn-success" style="width:100%"  data-toggle="modal" data-target="#modalBukuNikah" onclick="hideProsesAll()"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
-                                <button type="button" onclick="nonAktifkanUser('<?= $id_wedding ?>')" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
+                                <button type="button" onclick="nonAktifkanUser('<?=$id_wedding?>')" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
                                 <br><br>
                                 <?php
-                                if ($wedding->status == 1) {
-                                    ?>
-                                    <button type="button" onclick="finishWedding('<?= $id_wedding ?>')" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Pernikahan Selesai</button>
+if ($wedding->status == 1) {
+    ?>
+                                    <button type="button" onclick="finishWedding('<?=$id_wedding?>')" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Pernikahan Selesai</button>
                                     <?php
-                                } else {
-                                    ?>
+} else {
+    ?>
                                     <b>Acara Selesai</b>
                                     <br>
                                     Klik tombol di bawah apabila ingin mengaktifkan kembali
-                                    <button type="button" onclick="openWedding('<?= $id_wedding ?>')" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Aktifkan Lagi</button>
+                                    <button type="button" onclick="openWedding('<?=$id_wedding?>')" class="btn btn-sm btn-danger" style="width:100%"><i class="fa fa-check"></i> Aktifkan Lagi</button>
                                     <?php
-                                }
-                                ?>
+}
+?>
                             </div>
                         </nav>
                         <main>
                             <div class="tab-content" style="border: 0;" id="formDetailWedding">
                                 <div class="tab-pane active" id="wedding" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_wedding'); ?>
+                                    <?php $this->load->view('wedding/form_wedding');?>
                                 </div>
                                 <div class="tab-pane" id="pria" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_pria'); ?>
+                                    <?php $this->load->view('wedding/form_pria');?>
                                 </div>
                                 <div class="tab-pane" id="wanita" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_wanita'); ?>
+                                    <?php $this->load->view('wedding/form_wanita');?>
                                 </div>
                                 <div class="tab-pane" id="keluarga" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_keluarga'); ?>
+                                    <?php $this->load->view('wedding/form_keluarga');?>
                                 </div>
                                 <div class="tab-pane" id="vendor" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_vendor'); ?>
+                                    <?php $this->load->view('wedding/form_vendor');?>
                                 </div>
                                 <div class="tab-pane" id="payment" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_payment'); ?>
+                                    <?php $this->load->view('wedding/form_payment');?>
                                 </div>
                                 <div class="tab-pane" id="undangan" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_undangan'); ?>
+                                    <?php $this->load->view('wedding/form_undangan');?>
                                 </div>
                                 <div class="tab-pane" id="hadir" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_hadir'); ?>
+                                    <?php $this->load->view('wedding/form_hadir');?>
                                 </div>
                                 <div class="tab-pane" id="jadwal" role="tabpanel">
-                                    <?php $this->load->view('wedding/jadwal_meeting'); ?>
+                                    <?php $this->load->view('wedding/jadwal_meeting');?>
                                 </div>
                                 <div class="tab-pane" id="acara" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_acara'); ?>
+                                    <?php $this->load->view('wedding/form_acara');?>
                                 </div>
                                 <div class="tab-pane" id="upacara" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_upacara'); ?>
+                                    <?php $this->load->view('wedding/form_upacara');?>
                                 </div>
                                 <div class="tab-pane" id="panitia" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_panitia'); ?>
+                                    <?php $this->load->view('wedding/form_panitia');?>
                                 </div>
                                 <div class="tab-pane" id="tambahan" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_tambahan'); ?>
+                                    <?php $this->load->view('wedding/form_tambahan');?>
                                 </div>
                                 <div class="tab-pane" id="layout" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_layout'); ?>
+                                    <?php $this->load->view('wedding/form_layout');?>
                                 </div>
                                 <div class="tab-pane" id="log" role="tabpanel">
-                                    <?php $this->load->view('wedding/form_log'); ?>
+                                    <?php $this->load->view('wedding/form_log');?>
                                 </div>
                             </div>
                         </main>
@@ -176,23 +176,23 @@
             </div>
             <div class="modal-body">
                 <?php
-                $href = "#";
-                $class_download = "hidden";
-                if ($wedding->buku_nikah != "") {
-                    $href = base_url() . "files/output/" . $wedding->buku_nikah;
-                    $class_download = "show";
-                }
-                ?>
+$href = "#";
+$class_download = "hidden";
+if ($wedding->buku_nikah != "") {
+    $href = base_url() . "files/output/" . $wedding->buku_nikah;
+    $class_download = "show";
+}
+?>
                 <div id="downloadBukuNikah">
-                    <a href="<?= $href ?>" class="<?= $class_download ?>" target="_blank">
+                    <a href="<?=$href?>" class="<?=$class_download?>" target="_blank">
                         <button class="btn btn-success btn-sm" type="button" style="width: 100%"><i class="fa fa-download"></i> Download</button>
                     </a>
                 </div><br>
-                <button class="btn btn-primary btn-sm" id="generateBukuNikah" type="button" onclick="generateBukuNikah('<?= $id_wedding ?>')" style="width: 100%">
-                    <i class="fa fa-refresh" id="iconBukuNikah"></i> 
-                    <img src="<?= base_url() ?>assets/loading.gif" id="loadingBukuNikah" width="auto" height="20px" style="display: none">
+                <button class="btn btn-primary btn-sm" id="generateBukuNikah" type="button" onclick="generateBukuNikah('<?=$id_wedding?>')" style="width: 100%">
+                    <i class="fa fa-refresh" id="iconBukuNikah"></i>
+                    <img src="<?=base_url()?>assets/loading.gif" id="loadingBukuNikah" width="auto" height="20px" style="display: none">
                     &nbsp;&nbsp;Generate Buku Nikah</button>
-                <!--<button class="btn btn-primary btn-sm" type="button" onclick="cetak('<?= $id_wedding ?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>-->
+                <!--<button class="btn btn-primary btn-sm" type="button" onclick="cetak('<?=$id_wedding?>')"><i class="fa fa-refresh"></i> Generate Buku Nikah</button>-->
                 <div id="prosesGenerate">
                     <br>
                     <table class="table table-bordered" id="tableProsesGenerate">
@@ -221,7 +221,7 @@
 <script>
 
 // Set the date we're counting down to
-    var countDownDate = new Date("<?= $wedding->tanggal ?> <?= $wedding->waktu ?>").getTime();
+    var countDownDate = new Date("<?=$wedding->tanggal?> <?=$wedding->waktu?>").getTime();
 
 // Update the count down every 1 second
         var x = setInterval(function () {
@@ -248,7 +248,7 @@
             }
         }, 1000);
         $(function () {
-            var status_wedding = "<?= $wedding->status ?>";
+            var status_wedding = "<?=$wedding->status?>";
             if (status_wedding == '0') {
                 $("#formDetailWedding *").attr("disabled", "disabled").off('click');
             }
@@ -257,7 +257,7 @@
 //        $('#tabTambahan').scrollingTabs();
 //        $('#tabUpacara').scrollingTabs();
         });
-        $(".id_wedding").val('<?= $id_wedding ?>');
+        $(".id_wedding").val('<?=$id_wedding?>');
 //    $("#formDetailWedding *").attr("disabled", "disabled").off('click');
 
         function saveacara(id, value, type = null) {
@@ -269,7 +269,7 @@
                 dataForm.append('type', type);
                 dataForm.append('value', value);
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/acara/add",
+                    url: "<?=base_url()?>Wedding/acara/add",
                     type: "POST",
                     data: dataForm,
                     processData: false,
@@ -280,7 +280,7 @@
             } else {
                 dataForm = "id=" + id + "&value=" + value + "&id_wedding=" + id_wedding;
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/acara/add",
+                    url: "<?=base_url()?>Wedding/acara/add",
                     type: "POST",
                     data: dataForm,
                     success: function (data) {
@@ -298,7 +298,7 @@
                 dataForm.append('type', type);
                 dataForm.append('value', value);
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/upacara/add",
+                    url: "<?=base_url()?>Wedding/upacara/add",
                     type: "POST",
                     data: dataForm,
                     processData: false,
@@ -313,7 +313,7 @@
                 }
                 dataForm = "id=" + id + "&value=" + val + "&id_wedding=" + id_wedding;
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/upacara/add",
+                    url: "<?=base_url()?>Wedding/upacara/add",
                     type: "POST",
                     data: dataForm,
                     success: function (data) {
@@ -322,7 +322,7 @@
             } else {
                 dataForm = "id=" + id + "&value=" + value + "&id_wedding=" + id_wedding;
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/upacara/add",
+                    url: "<?=base_url()?>Wedding/upacara/add",
                     type: "POST",
                     data: dataForm,
                     success: function (data) {
@@ -340,7 +340,7 @@
                 dataForm.append('type', type);
                 dataForm.append('value', value);
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/panitia/add",
+                    url: "<?=base_url()?>Wedding/panitia/add",
                     type: "POST",
                     data: dataForm,
                     processData: false,
@@ -351,7 +351,7 @@
             } else {
                 dataForm = "id=" + id + "&value=" + value + "&id_wedding=" + id_wedding;
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/panitia/add",
+                    url: "<?=base_url()?>Wedding/panitia/add",
                     type: "POST",
                     data: dataForm,
                     success: function (data) {
@@ -369,7 +369,7 @@
                 dataForm.append('type', type);
                 dataForm.append('value', value);
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/tambahan/add",
+                    url: "<?=base_url()?>Wedding/tambahan/add",
                     type: "POST",
                     data: dataForm,
                     processData: false,
@@ -380,7 +380,7 @@
             } else {
                 dataForm = "id=" + id + "&value=" + value + "&id_wedding=" + id_wedding;
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/tambahan/add",
+                    url: "<?=base_url()?>Wedding/tambahan/add",
                     type: "POST",
                     data: dataForm,
                     success: function (data) {
@@ -392,7 +392,7 @@
         function nonAktifkanUser(id_wedding) {
             if (confirm('Apakah anda yakin akan menonaktifkan user pengantin wedding ini?')) {
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/nonaktifkanUser?id=" + id_wedding,
+                    url: "<?=base_url()?>Wedding/nonaktifkanUser?id=" + id_wedding,
                     type: "GET",
                     success: function (data) {
                         alert('Berhasil menonaktifkan user');
@@ -404,7 +404,7 @@
         function finishWedding(id_wedding) {
             if (confirm('Apakah anda yakin akan merubah status wedding ini menjadi selesai?')) {
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/finishWedding?id=" + id_wedding,
+                    url: "<?=base_url()?>Wedding/finishWedding?id=" + id_wedding,
                     type: "GET",
                     success: function (data) {
                         alert('Berhasil menyelesaikan wedding');
@@ -416,7 +416,7 @@
         function openWedding(id_wedding) {
             if (confirm('Apakah anda yakin akan merubah status wedding ini menjadi selesai?')) {
                 $.ajax({
-                    url: "<?= base_url() ?>Wedding/openWedding?id=" + id_wedding,
+                    url: "<?=base_url()?>Wedding/openWedding?id=" + id_wedding,
                     type: "GET",
                     success: function (data) {
                         alert('Berhasil mengaktifkan wedding');
@@ -459,7 +459,7 @@
         function replaceIsi(bodyId, icon, message) {
             var labelIcon = "";
             if (icon == "otw") {
-                labelIcon = '<img src="<?= base_url() ?>assets/loading.gif" width="auto" height="20px">';
+                labelIcon = '<img src="<?=base_url()?>assets/loading.gif" width="auto" height="20px">';
             } else if (icon == "ok") {
                 labelIcon = '<i class="fa fa-check"></i>';
             } else if (icon == "error") {
@@ -472,7 +472,7 @@
         function appendTable(bodyId, icon, message) {
             var labelIcon = "";
             if (icon == "otw") {
-                labelIcon = '<img src="<?= base_url() ?>assets/loading.gif" width="auto" height="20px">';
+                labelIcon = '<img src="<?=base_url()?>assets/loading.gif" width="auto" height="20px">';
             } else if (icon == "ok") {
                 labelIcon = '<i class="fa fa-check"></i>';
             } else if (icon == "error") {
@@ -485,7 +485,7 @@
         function cetak(id) {
             if (id != "") {
                 $.ajax({
-                    url: "<?= base_url() ?>Cetak/cetak?id=" + id,
+                    url: "<?=base_url()?>Cetak/cetak?id=" + id,
                     dataType: "JSON",
                     success: function (data) {
 
@@ -500,7 +500,7 @@
             replaceIsi('generateWedding', 'otw', 'Prosess Generate Data Pernikahan');
             if (id != "") {
                 $.ajax({
-                    url: "<?= base_url() ?>Cetak/generateWedding?id=" + id,
+                    url: "<?=base_url()?>Cetak/generateWedding?id=" + id,
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
@@ -518,7 +518,7 @@
         function generateBiodata(id, template) {
             if (id != "") {
                 $.ajax({
-                    url: "<?= base_url() ?>Cetak/generateBiodata?id=" + id + "&template=" + template,
+                    url: "<?=base_url()?>Cetak/generateBiodata?id=" + id + "&template=" + template,
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
@@ -536,7 +536,7 @@
         function generateFamily(id, template) {
             if (id != "") {
                 $.ajax({
-                    url: "<?= base_url() ?>Cetak/generateFamily?id=" + id + "&template=" + template,
+                    url: "<?=base_url()?>Cetak/generateFamily?id=" + id + "&template=" + template,
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
@@ -554,7 +554,7 @@
         function generateAcara(id, template) {
             if (id != "") {
                 $.ajax({
-                    url: "<?= base_url() ?>Cetak/generateAcara?id=" + id + "&template=" + template,
+                    url: "<?=base_url()?>Cetak/generateAcara?id=" + id + "&template=" + template,
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
@@ -572,7 +572,7 @@
         function generateUpacara(id, template) {
             if (id != "") {
                 $.ajax({
-                    url: "<?= base_url() ?>Cetak/generateUpacara?id=" + id + "&template=" + template,
+                    url: "<?=base_url()?>Cetak/generateUpacara?id=" + id + "&template=" + template,
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
@@ -590,7 +590,7 @@
         function generatePanitia(id, template) {
             if (id != "") {
                 $.ajax({
-                    url: "<?= base_url() ?>Cetak/generatePanitia?id=" + id + "&template=" + template,
+                    url: "<?=base_url()?>Cetak/generatePanitia?id=" + id + "&template=" + template,
                     dataType: "JSON",
                     success: function (data) {
                         if (data.code == "200") {
@@ -608,7 +608,7 @@
         function generateTambahan(id, template) {
             if (id != "") {
                 $.ajax({
-                    url: "<?= base_url() ?>Cetak/generateTambahan?id=" + id + "&template=" + template,
+                    url: "<?=base_url()?>Cetak/generateTambahan?id=" + id + "&template=" + template,
                     dataType: "JSON",
                     success: function (data) {
 //                        replaceIsi('generateTambahan', 'ok', 'Prosess Generate Data Tambahan Berhasil');
@@ -617,7 +617,7 @@
                             replaceIsi('generateTambahan', 'ok', 'Prosess Generate Data Tambahan Berhasil');
                             appendTable('generateTambahan', 'download', '<b>Klik tombol download mengunduh file</b>');
                             enabledGenerate();
-                            var file_path = '<?= base_url() ?>files/output/' + data.template;
+                            var file_path = '<?=base_url()?>files/output/' + data.template;
                             showDownload(file_path);
 //                            var a = document.createElement('A');
 //                            a.href = file_path;

@@ -1,6 +1,7 @@
 <?php
 
-function Form($nameInputPrefix, $id, $name, $value, $type, $ukuran, $is_wajib, $form = '') {
+function Form($nameInputPrefix, $id, $name, $value, $type, $ukuran, $is_wajib, $form = '')
+{
     $number_format = 'id';
     $addToInputHtml = '';
     if ($number_format = 'id') {
@@ -81,7 +82,7 @@ function Form($nameInputPrefix, $id, $name, $value, $type, $ukuran, $is_wajib, $
             $size_field = 100;
             $columns = explode("||", $ukuran);
             $field_input = "<button type='button' onclick='add$nameInputPrefix()'><i class='fa fa-plus'></i></button>"
-                    . "<form action='#' id='form$nameInputPrefix'><table class='table'><thead><tr>";
+                . "<form action='#' id='form$nameInputPrefix'><table class='table'><thead><tr>";
             foreach ($columns as $v) {
                 $field_input .= "<td>$v</td>";
             }
@@ -122,12 +123,12 @@ function Form($nameInputPrefix, $id, $name, $value, $type, $ukuran, $is_wajib, $
 
             $field_input .= "function remove$nameInputPrefix(e){";
             $field_input .= "$(e).parent().parent().remove();";
+            $field_input .= 'save' . $form . '(' . $id . ',' . "'$nameInputPrefix'" . ', ' . "'addabletext'" . ')';
             $field_input .= "};";
 
             $field_input .= "</script>";
             break;
     }
-
 
     return $field_input;
 }
