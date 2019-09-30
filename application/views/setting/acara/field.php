@@ -41,7 +41,7 @@
                                             <option value="angka">Angka</option>
                                             <option value="tanggal">Tanggal</option>
                                             <option value="combobox">Combobox</option>
-                                            <option value="checkbox">Checkbox</option>
+                                            <!-- <option value="checkbox">Checkbox</option> -->
                                             <option value="addabletext">Textbox Add</option>
                                         </select>
                                     </td>
