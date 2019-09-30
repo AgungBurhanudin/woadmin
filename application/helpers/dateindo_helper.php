@@ -33,7 +33,7 @@ function toDMY($data) {
 
 function toYMD($data) {
     if ($data != "") {
-        return date('d-m-Y', strtotime($data));
+        return date('Y-m-d', strtotime($data));
     } else {
         return "";
     }

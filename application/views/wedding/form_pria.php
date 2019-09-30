@@ -8,13 +8,14 @@ if (!empty($pria)) {
     $alamat_sekarang = $pria->alamat_sekarang;
     $alamat_nikah = $pria->alamat_nikah;
     $tempat_lahir = $pria->tempat_lahir;
-    $tanggal_lahir = $pria->tanggal_lahir;
+    $tanggal_lahir = $pria->tanggal_lahir != "" ? toDMY($pria->tanggal_lahir) : "";
     $no_hp = $pria->no_hp;
     $email = $pria->email;
     $agama = $pria->agama;
     $pendidikan = $pria->pendidikan;
     $hobi = $pria->hobi;
     $sosmed = $pria->sosmed;
+    $instagram = $pria->instagram;
     $status = $pria->status;
     $photo = $pria->photo;
     if ($photo == "") {
@@ -39,16 +40,17 @@ if (!empty($pria)) {
     $pendidikan = "";
     $hobi = "";
     $sosmed = "";
+    $instagram = "";
     $status = "";
     $photo = "user.jpg";
 }
 ?>
 <form class="form-horizontal" action="#" id="formPengantinPria" method="post">
-    <input type="hidden" name="id" value="<?= $id ?>">
-    <input type="hidden" name="id_wedding" value="<?= $id_wedding ?>">
+    <input type="hidden" name="id" value="<?=$id?>">
+    <input type="hidden" name="id_wedding" value="<?=$id_wedding?>">
     <div style="float: right">
         <button type="submit" onclick="simpanPengantinPria()" class="btn btn-mini btn-primary"><i class="fa fa-save"></i> Simpan</button>
-        <a href="<?= base_url() ?>Printout/printBiodataPria?id=<?= $id_wedding ?>" target="_blank">
+        <a href="<?=base_url()?>Printout/printBiodataPria?id=<?=$id_wedding?>" target="_blank">
             <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print Data</button>
         </a>
     </div>
@@ -94,7 +96,7 @@ if (!empty($pria)) {
 
             <div class="form-group">
                 <label class="control-label">Tanggal Lahir Pengantin Pria</label>
-                <input name="tanggal_lahir_pria" id="tanggal_lahir_pria" type="date" required="required" class="form-control"  />
+                <input name="tanggal_lahir_pria" id="tanggal_lahir_pria" type="text" required="required" class="form-control datepicker-less"   />
             </div>
             <div class="form-group">
                 <label class="control-label">No Hp Pengantin Pria</label>
@@ -110,12 +112,12 @@ if (!empty($pria)) {
                 <select name="agama_pria" id="agama_pria" class="form-control">
                     <option value=""> -- Pilih Agama --</option>
                     <?php
-                    foreach ($data_agama as $val) {
-                        ?>
-                        <option value="<?= $val->agama ?>"><?= $val->agama ?></option>
+foreach ($data_agama as $val) {
+    ?>
+                        <option value="<?=$val->agama?>"><?=$val->agama?></option>
                         <?php
-                    }
-                    ?>
+}
+?>
                 </select>
             </div>
             <div class="form-group">
@@ -139,23 +141,24 @@ if (!empty($pria)) {
 </form>
 <script>
     $(function () {
-        $("#id_pria").val('<?= $id ?>');
-        $("#id_wedding_pria").val('<?= $id_wedding ?>');
-        $("#nama_lengkap_pria").val('<?= $nama_lengkap ?>');
-        $("#nama_panggilan_pria").val('<?= $nama_panggilan ?>');
-        $("#gender_pria").val('<?= $gender ?>');
-        $("#alamat_sekarang_pria").val('<?= $alamat_sekarang ?>');
-        $("#alamat_nikah_pria").val('<?= $alamat_nikah ?>');
-        $("#tempat_lahir_pria").val('<?= $tempat_lahir ?>');
-        $("#tanggal_lahir_pria").val('<?= $tanggal_lahir ?>');
-        $("#no_hp_pria").val('<?= $no_hp ?>');
-        $("#email_pria").val('<?= $email ?>');
-        $("#agama_pria").val('<?= $agama ?>');
-        $("#pendidikan_pria").val('<?= $pendidikan ?>');
-        $("#hobi_pria").val('<?= $hobi ?>');
-        $("#sosmed_pria").val('<?= $sosmed ?>');
-        $("#status_pria").val('<?= $status ?>');
-        $("#photoPria").attr('style', 'background: url(<?= base_url() . "/files/images/" . $photo ?>) no-repeat center center; background-size:cover;');
+        $("#id_pria").val('<?=$id?>');
+        $("#id_wedding_pria").val('<?=$id_wedding?>');
+        $("#nama_lengkap_pria").val('<?=$nama_lengkap?>');
+        $("#nama_panggilan_pria").val('<?=$nama_panggilan?>');
+        $("#gender_pria").val('<?=$gender?>');
+        $("#alamat_sekarang_pria").val('<?=$alamat_sekarang?>');
+        $("#alamat_nikah_pria").val('<?=$alamat_nikah?>');
+        $("#tempat_lahir_pria").val('<?=$tempat_lahir?>');
+        $("#tanggal_lahir_pria").val('<?=$tanggal_lahir?>');
+        $("#no_hp_pria").val('<?=$no_hp?>');
+        $("#email_pria").val('<?=$email?>');
+        $("#agama_pria").val('<?=$agama?>');
+        $("#pendidikan_pria").val('<?=$pendidikan?>');
+        $("#hobi_pria").val('<?=$hobi?>');
+        $("#sosmed_pria").val('<?=$sosmed?>');
+        $("#instagram_pria").val('<?=$instagram?>');
+        $("#status_pria").val('<?=$status?>');
+        $("#photoPria").attr('style', 'background: url(<?=base_url() . "/files/images/" . $photo?>) no-repeat center center; background-size:cover;');
     });
 </script>
 <script>
@@ -180,7 +183,7 @@ if (!empty($pria)) {
             submitHandler: function (form) {
                 $.ajax({
                     type: 'POST',
-                    url: '<?= base_url() ?>Wedding/saveBiodataPria',
+                    url: '<?=base_url()?>Wedding/saveBiodataPria',
                     processData: false,
                     contentType: false,
                     data: formData,

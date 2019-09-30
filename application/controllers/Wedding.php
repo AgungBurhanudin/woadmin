@@ -282,7 +282,7 @@ class Wedding extends CI_Controller {
         $data['alamat_sekarang'] = $_POST['alamat_sekarang_pria'];
         $data['alamat_nikah'] = $_POST['alamat_nikah_pria'];
         $data['tempat_lahir'] = $_POST['tempat_lahir_pria'];
-        $data['tanggal_lahir'] = $_POST['tanggal_lahir_pria'];
+        $data['tanggal_lahir'] = $_POST['tanggal_lahir_pria'] != "" ? toYMD($_POST['tanggal_lahir_pria']) : "";
         $data['no_hp'] = $_POST['no_hp_pria'];
         $data['email'] = $_POST['email_pria'];
         $data['agama'] = $_POST['agama_pria'];
@@ -334,6 +334,9 @@ class Wedding extends CI_Controller {
         $key_user['id_wedding'] = $_POST['id_wedding'];
         $this->db->update('pengantin', $data, $key);
         $this->db->update('app_user', $user, $key_user);
+        $wedding_update['pengantin_pria'] = $_POST['nama_panggilan_pria'];
+        $key_wedding['id'] = $_POST['id_wedding'];
+        $this->db->update('wedding', $wedding_update, $key_wedding);
         $this->wedding_model->insertLog($id_wedding, "Merubah biodata pengantin pria");
     }
 
@@ -348,7 +351,7 @@ class Wedding extends CI_Controller {
         $data['alamat_sekarang'] = $_POST['alamat_sekarang_wanita'];
         $data['alamat_nikah'] = $_POST['alamat_nikah_wanita'];
         $data['tempat_lahir'] = $_POST['tempat_lahir_wanita'];
-        $data['tanggal_lahir'] = $_POST['tanggal_lahir_wanita'];
+        $data['tanggal_lahir'] = $_POST['tanggal_lahir_wanita'] != "" ? toYMD($_POST['tanggal_lahir_wanita']) : "";
         $data['no_hp'] = $_POST['no_hp_wanita'];
         $data['email'] = $_POST['email_wanita'];
         $data['agama'] = $_POST['agama_wanita'];
@@ -398,6 +401,9 @@ class Wedding extends CI_Controller {
         $key_user['id_wedding'] = $_POST['id_wedding'];
         $this->db->update('pengantin', $data, $key);
         $this->db->update('app_user', $user, $key_user);
+        $wedding_update['pengantin_wanita'] = $_POST['nama_panggilan_wanita'];
+        $key_wedding['id'] = $_POST['id_wedding'];
+        $this->db->update('wedding', $wedding_update, $key_wedding);
         $this->wedding_model->insertLog($id_wedding, "Merubah biodata pengantin wanita");
     }
 

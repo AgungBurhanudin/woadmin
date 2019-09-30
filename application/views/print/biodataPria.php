@@ -86,12 +86,12 @@ echo "</pre>";
         <td style="width:3%">11.</td>
         <td style="width:47%">Facebook</td>
         <td style="width:1%">:</td>
-        <td><?= $data->facebook ?></td>
+        <td><?= $data->sosmed ?></td>
     </tr>
     <tr class="borderbottom">
         <td style="width:3%">12.</td>
         <td style="width:47%">Instagram</td>
         <td style="width:1%">:</td>
-        <td><?= $data->sosmed ?></td>
+        <td><?= $data->instagram ?></td>
     </tr>
 </table>
