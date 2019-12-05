@@ -2,7 +2,7 @@
     <div id="addPaket">
         <div class="col-md-6" style="float: left">
             <fieldset>
-                <h2>Paket Acara</h2>
+                <h2>Dara Acara</h2>
                 <hr>
                 <?php
                 $parent = '0';
@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-6" style="float: left">
             <fieldset>
-                <h2>Paket Upacara</h2>
+                <h2>Data Upacara</h2>
                 <hr>
                 <?php
                 $parent = '0';
@@ -57,7 +57,7 @@
         <br>
         <div class="col-md-6" style="float: left">
             <fieldset>
-                <h2>Paket Panitia</h2>
+                <h2>Daftar Panitia</h2>
                 <hr>
                 <?php
                 $parent = '0';
@@ -78,7 +78,7 @@
         </div>
         <div class="col-md-6" style="float: left">
             <fieldset>
-                <h2>Paket Tambahan</h2>
+                <h2>Tambahan</h2>
                 <hr>
                 <?php
                 $parent = '0';

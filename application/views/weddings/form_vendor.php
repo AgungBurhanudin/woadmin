@@ -106,12 +106,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Di Bayar oleh </label>
+                        <label class="col-md-3 col-form-label">Pembayaran Via </label>
                         <div class="col-md-9">
                             <select class="form-control" name="bayar_oleh" id="bayar_oleh">
                                 <option value="">-- Pilih Pembayaran --</option>
                                 <option value="wo">Mahkota / Tiara</option>
-                                <option value="sendiri">Sendiri</option>
+                                <option value="sendiri">Langsung ke Vendor</option>
                             </select>
                         </div>
                     </div>

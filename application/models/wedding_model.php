@@ -107,6 +107,8 @@ class Wedding_model extends CI_Model {
               ON d.id_user = e.user_id 
               WHERE 1=1 $where 
               ORDER BY a.tanggal DESC";
+              echo $sql;
+              exit();
         $query = $this->db->query($sql);
         return $query->result();
     }
@@ -440,7 +442,7 @@ class Wedding_model extends CI_Model {
         $group = $auth['group'];
         $id_company = $auth['company'];
         $_POST = $this->input->post();
-        $username_pria = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_pria'])) . "_" . $id_wedding;
+        $username_pria = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_pria'])) . "_" . str_replace("-", "", date('d-m-Y', strtotime($_POST['tanggal_lahir_pria'])));
         $password_pria = str_replace("-", "", date('d-m-Y', strtotime($_POST['tanggal_lahir_pria'])));
         $data['id_wedding'] = $id_wedding;
         $data['user_company'] = $_POST['user_company'];
@@ -452,10 +454,10 @@ class Wedding_model extends CI_Model {
         $data['user_address'] = $_POST['alamat_sekarang_pria'];
         $data['user_phone'] = $_POST['no_hp_pria'];
         $data['id_pengantin'] = $catin_pria;
-        $this->sendEmail($_POST['email_pria'], $username_pria, $password_pria);
+        // $this->sendEmail($_POST['email_pria'], $username_pria, $password_pria);
         $this->db->insert('app_user', $data);
 
-        $username_wanita = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita'])) . "_" . $id_wedding;
+        $username_wanita = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita'])) . "_" .str_replace("-", "", date('d-m-Y', strtotime($_POST['tanggal_lahir_wanita'])));
         $password_wanita = str_replace("-", "", date('d-m-Y', strtotime($_POST['tanggal_lahir_wanita'])));
         $data['id_wedding'] = $id_wedding;
         $data['user_company'] = $_POST['user_company'];
@@ -467,7 +469,7 @@ class Wedding_model extends CI_Model {
         $data['user_address'] = $_POST['alamat_sekarang_wanita'];
         $data['user_phone'] = $_POST['no_hp_wanita'];
         $data['id_pengantin'] = $catin_wanita;
-        $this->sendEmail($_POST['email_wanita'], $username_wanita, $password_wanita);
+        // $this->sendEmail($_POST['email_wanita'], $username_wanita, $password_wanita);
         return $this->db->insert('app_user', $data);
     }
 
@@ -481,8 +483,8 @@ class Wedding_model extends CI_Model {
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.gmail.com',
             'smtp_port' => 465,
-            'smtp_user' => 'klikmahkota@gmail.com',
-            'smtp_pass' => 'mahkota1990',
+            'smtp_user' => 'afnanafifudin@gmail.com',
+            'smtp_pass' => 'afnan2016',
             'mailtype' => 'html',
             'charset' => 'utf-8'
         );

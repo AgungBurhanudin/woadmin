@@ -2,14 +2,17 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class User extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         checkToken();
     }
 
-    public function index() {
+    public function index()
+    {
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
         $id_company = $auth['company'];
@@ -25,19 +28,20 @@ class User extends CI_Controller {
             $where .= " AND user_group_id IN (1,35,36)";
         } else if ($jenis == "1") {
             $where .= " AND user_group_id IN (37)";
-        }else{
+        } else {
             $where .= " AND user_group_id IN (1,35,36)";
             $jenis = 0;
         }
         $query = "SELECT * FROM app_user $where";
         $data = array(
             'data' => $this->db->query($query)->result(),
-            'jenis_group' => $jenis
+            'jenis_group' => $jenis,
         );
         render('user/data', $data);
     }
 
-    public function add() {
+    public function add()
+    {
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
         $id_company = $auth['company'];
@@ -55,7 +59,8 @@ class User extends CI_Controller {
         render('user/form', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $post = $_POST;
         $id = $this->input->post("id");
 
@@ -63,9 +68,9 @@ class User extends CI_Controller {
         $data['user_company'] = $post['user_company'];
         $data['user_real_name'] = $post['user_real_name'];
         $data['user_user_name'] = $post['user_user_name'];
-        if($post['password'] != ""){
+        if ($post['password'] != "") {
             $data['user_password'] = md5($post['password']);
-        }        
+        }
         $data['user_phone'] = $post['user_phone'];
         $data['user_email'] = $post['user_email'];
         $data['user_address'] = $post['user_address'];
@@ -78,7 +83,7 @@ class User extends CI_Controller {
                 'allowed_types' => 'png|jpg|gif',
                 'max_size' => '5000',
                 'max_width' => '3000',
-                'max_height' => '3000'
+                'max_height' => '3000',
             ));
 
             if ($this->upload->do_upload()) {
@@ -88,7 +93,7 @@ class User extends CI_Controller {
                     'source_image' => $path . '/' . $data_upload['file_name'],
                     'maintain_ratio' => false,
                     //  'create_thumb' => true,
-                    'overwrite' => TRUE
+                    'overwrite' => true,
                 ));
                 if ($this->image_lib->resize()) {
                     $data['user_foto'] = $data_upload['raw_name'] . $data_upload['file_ext'];
@@ -112,7 +117,36 @@ class User extends CI_Controller {
         redirect(base_url() . 'User', 'refresh');
     }
 
-    public function edit() {
+    public function savePassword()
+    {
+        $this->load->model('');
+        $this->load->model(array('wedding_model'));
+        $wedding = $this->wedding_model;
+        $post = $_POST;
+        $id = $this->input->post("id");
+
+        if ($post['password'] != "") {
+            $data['user_password'] = md5($post['password']);
+        }
+        $key['user_id'] = $id;
+        $cek = $this->db->get_where('app_user', $key)->row();
+        if (!empty($cek)) {
+            if ($post['is_email'] == 1) {
+                $wedding->sendEmail($cek->user_email, $cek->user_user_name, $post['password']);
+            }
+
+            $this->db->update("app_user", $data, $key);
+            $msg = "Berhasil merubah user";
+        } else {
+            $msg = "Gagal merubah user";
+        }
+
+        $this->session->set_flashdata('success', $msg);
+        redirect(base_url() . 'User', 'refresh');
+    }
+
+    public function edit()
+    {
         $auth = $this->session->userdata('auth');
         $group = $auth['group'];
         $id_company = $auth['company'];
@@ -132,14 +166,37 @@ class User extends CI_Controller {
         render("user/form", $data);
     }
 
-    public function delete() {
+    public function password()
+    {
+        $auth = $this->session->userdata('auth');
+        $group = $auth['group'];
+        $id_company = $auth['company'];
+        if ($group != 1) {
+            $company = "SELECT * FROM company WHERE id = '$id_company'";
+            $app_group = "SELECT * FROM app_group WHERE group_id != 1";
+        } else {
+            $company = "SELECT * FROM company";
+            $app_group = "SELECT * FROM app_group ";
+        }
+        $key['user_id'] = $this->input->get("id");
+        $data = array(
+            'data_user' => $this->db->get_where("app_user", $key)->result(),
+            'data_company' => $this->db->query($company)->result(),
+            'app_group' => $this->db->query($app_group)->result(),
+        );
+        render("user/password", $data);
+    }
+
+    public function delete()
+    {
         $id = $this->input->get("id");
         $key['user_id'] = $id;
         $this->db->delete("app_user", $key);
         redirect(base_url() . 'User', 'refresh');
     }
 
-    public function aktif() {
+    public function aktif()
+    {
         $id = $this->input->get("id");
         $key['user_id'] = $id;
         $data['user_active'] = 1;
@@ -147,7 +204,8 @@ class User extends CI_Controller {
         redirect(base_url() . 'User', 'refresh');
     }
 
-    public function nonaktif() {
+    public function nonaktif()
+    {
         $id = $this->input->get("id");
         $key['user_id'] = $id;
         $data['user_active'] = 0;

@@ -479,6 +479,7 @@ class Wedding extends CI_Controller {
         $data2['status'] = $status;
 
         $this->db->update('payment', $data, $key);
+        $this->db->query("UPDATE vendor_pengantin SET terbayar = terbayar + " . $detail->terbayar . " WHERE id = " . $detail->id_vendor);
         $this->db->update('vendor_pengantin', $data2, $key2);
     }
 
@@ -532,6 +533,7 @@ class Wedding extends CI_Controller {
             }
         }
         $this->db->insert('payment', $data);
+        // $this->db->query("UPDATE vendor_pengantin SET terbayar = terbayar + " . $_POST['terbayar'] . " WHERE id = " . $_POST['id_payment_pengantin'] );
         $this->wedding_model->insertLog($id_wedding, "Payment vendor " . $_POST['nama_vendor_payment']);
         $result = array(
             'code' => 200

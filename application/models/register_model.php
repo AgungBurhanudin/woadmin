@@ -270,7 +270,7 @@ class Register_model extends CI_Model {
 //        $data['user_address'] = $_POST['alamat_sekarang_pria'];
         $data['user_phone'] = $_POST['no_hp_pria'];
         $data['id_pengantin'] = $catin_pria;
-        $this->sendEmail($_POST['email_pria'], $username_pria, $password_pria);
+        // $this->sendEmail($_POST['email_pria'], $username_pria, $password_pria);
         $this->db->insert('app_user', $data);
 
         $username_wanita = strtolower(str_replace(" ", "_", $_POST['nama_panggilan_wanita'])) . "_" . $id_wedding;
@@ -285,7 +285,7 @@ class Register_model extends CI_Model {
 //        $data['user_address'] = $_POST['alamat_sekarang_wanita'];
         $data2['user_phone'] = $_POST['no_hp_wanita'];
         $data2['id_pengantin'] = $catin_wanita;
-        $this->sendEmail($_POST['email_wanita'], $username_wanita, $password_wanita);
+        // $this->sendEmail($_POST['email_wanita'], $username_wanita, $password_wanita);
         return $this->db->insert('app_user', $data2);
     }
 

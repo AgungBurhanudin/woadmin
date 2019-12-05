@@ -105,7 +105,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Biaya</label>
                         <div class="col-md-9">
-                            <input name="biaya" id="biaya" type="text" required="required" class="form-control" />
+                            <input name="biaya" id="biaya" type="number" required="required" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -114,7 +114,7 @@
                             <select class="form-control" name="bayar_oleh" id="bayar_oleh">
                                 <option value="">-- Pilih Pembayaran --</option>
                                 <option value="wo">Mahkota / Tiara</option>
-                                <option value="sendiri">Sendiri</option>
+                                <option value="sendiri">Langsung Ke Vendor</option>
                             </select>
                         </div>
                     </div>

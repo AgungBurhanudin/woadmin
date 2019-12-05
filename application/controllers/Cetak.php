@@ -15,7 +15,11 @@ class Cetak extends CI_Controller {
         $this->load->model(array('wedding_model'));
         $this->load->library('form_validation');
         $this->PhpExcelTemplator = new alhimik1986\PhpExcelTemplator\PhpExcelTemplator;
-        checkToken();
+        // checkToken();
+    }
+
+    public function cekEmail(){
+        echo $this->wedding_model->sendEmail("agungburhanudinyusuf@gmail.com", "agung", "passwrod");
     }
 
     public function cetak() {

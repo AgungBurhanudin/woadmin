@@ -56,16 +56,16 @@
                                     <a class="nav-link" data-toggle="tab" href="#jadwal" role="tab" aria-controls="jadwal">Jadwal Meeting</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
-                                    <a class="nav-link" data-toggle="tab" href="#acara" role="tab" aria-controls="acara">Paket Acara</a>
+                                    <a class="nav-link" data-toggle="tab" href="#acara" role="tab" aria-controls="acara">Data Acara</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
-                                    <a class="nav-link" data-toggle="tab" href="#upacara" role="tab" aria-controls="upacara">Paket Upacara</a>
+                                    <a class="nav-link" data-toggle="tab" href="#upacara" role="tab" aria-controls="upacara">Data Upacara</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
-                                    <a class="nav-link" data-toggle="tab" href="#panitia" role="tab" aria-controls="panitia">Paket Panitia</a>
+                                    <a class="nav-link" data-toggle="tab" href="#panitia" role="tab" aria-controls="panitia">Daftar Panitia</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
-                                    <a class="nav-link" data-toggle="tab" href="#tambahan" role="tab" aria-controls="tambahan">Paket Tambahan</a>
+                                    <a class="nav-link" data-toggle="tab" href="#tambahan" role="tab" aria-controls="tambahan">Tambahan</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#layout" role="tab" aria-controls="layout">Layout</a>
@@ -77,7 +77,7 @@
                             <br>
                             <div>
                                 <a href="<?= base_url() ?>Wedding/cetak?id=<?= $id_wedding ?>" target="_blank">
-                                    <button type="button" class="btn btn-sm btn-success" style="width:100%"><i class="fa fa-print"></i> Cetak Buku Wedding</button><br><br>
+                                    <button type="button" class="btn btn-sm btn-success" style="width:100%"><i class="fa fa-print"></i> Export Buku Acara</button><br><br>
                                 </a>
                                 <button type="button" class="btn btn-sm btn-dark" style="width:100%"><i class="fa fa-lock"></i> Nonaktifkan User</button>
                                 <br><br>

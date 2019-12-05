@@ -80,7 +80,7 @@ if (!empty($pria)) {
             </div>
             <div class="form-group">
                 <label class="control-label">Alamat setelah nikah Pengantin Pria</label>
-                <input name="alamat_nikah_pria" id="alamat_nikah_pria" type="text" required="required" class="form-control"  />
+                <input name="alamat_nikah_pria" id="alamat_nikah_pria" type="text" class="form-control"  />
             </div>
         </div>
         <div class="col-md-6" style="float: left">
@@ -125,7 +125,7 @@ if (!empty($pria)) {
             </div>
             <div class="form-group">
                 <label class="control-label">Sosmed Pengantin Pria</label>
-                <input name="sosmed_pria" id="sosmed_pria" type="text" required="required" class="form-control"  />
+                <input name="sosmed_pria" id="sosmed_pria" type="text" class="form-control"  />
             </div>
         </div>
     </div>

@@ -65,7 +65,8 @@
                                             <td><?= $val->user_email ?></td>
                                             <td><?= $val->user_phone ?></td>
                                             <td><?= $val->user_active == 1 ? "Aktif" : "Tidak Aktif" ?></td>
-                                            <td>
+                                            <td nowrap="nowrap">
+                                            <a href="<?= base_url() ?>User/password?id=<?= $val->user_id ?>" class="btn btn-sm btn-danger"><i class="fa fa-key"></i> Password</a>&nbsp;
                                                 <?php
                                                 if ($val->user_active == 1) {
                                                     ?>
