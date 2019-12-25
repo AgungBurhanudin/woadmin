@@ -89,9 +89,15 @@
                         <div class="col-md-9">
                             <select class="form-control" name="tipe_undangan" id="tipe_undangan">
                                 <option value="">-- Pilih Tipe Undangan --</option>
-                                <option value="Teman">Teman</option>
-                                <option value="Keluarga">Keluarga</option>
-                                <option value="VIP">VIP</option>
+                                <?php
+                                foreach($kategori as $kat){
+                                ?>
+                                <option value="<?= $kat->kategori ?>"><?= $kat->kategori ?></option>
+                                <?php 
+                                }
+                                ?>
+                                <!-- <option value="Keluarga">Keluarga</option>
+                                <option value="VIP">VIP</option> -->
                             </select>
                         </div>
                     </div>

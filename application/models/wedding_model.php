@@ -107,8 +107,8 @@ class Wedding_model extends CI_Model {
               ON d.id_user = e.user_id 
               WHERE 1=1 $where 
               ORDER BY a.tanggal DESC";
-              echo $sql;
-              exit();
+            //   echo $sql;
+            //   exit();
         $query = $this->db->query($sql);
         return $query->result();
     }

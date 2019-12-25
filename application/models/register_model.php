@@ -25,6 +25,8 @@ class Register_model extends CI_Model {
     public $undangan;
     public $status;
     public $registration_date;
+    public $nama_pic;
+    public $wa_pic;
 
     public function rules_wedding() {
         return [
@@ -76,6 +78,8 @@ class Register_model extends CI_Model {
         $this->hashtag = $_POST["hastag_pernikahan"];
         $this->penyelenggara = $_POST["penyelenggara"];
         $this->undangan = $_POST["jumlah_undangan"];
+        $this->nama_pic = $_POST["nama_pic"];
+        $this->wa_pic = $_POST["wa_pic"];
         $this->status = 1;
         $this->registration_date = date('Y-m-d H:i:s');
         $this->db->insert($this->_table, $this);

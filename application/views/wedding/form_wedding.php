@@ -14,6 +14,8 @@ if (!empty($wedding)) {
     $penyelenggara = $wedding->penyelenggara;
     $undangan = $wedding->undangan;
     $status = $wedding->status;
+    $nama_pic = $wedding->nama_pic;
+    $wa_pic = $wedding->wa_pic;
 } else {
     $id = "";
     $id_company = "";
@@ -29,6 +31,8 @@ if (!empty($wedding)) {
     $penyelenggara = "";
     $undangan = "";
     $status = "";
+    $nama_pic = "";
+    $wa_pic = "";
 }
 ?>
 <form class="form-horizontal" action="#" id="formWedding" method="post">
@@ -87,6 +91,14 @@ if (!empty($wedding)) {
         <div class="form-group">
             <label class="control-label">Jumlah Undangan</label>
             <input name="jumlah_undangan" id="jumlah_undangan" type="number" required="required" class="form-control" value="<?= $undangan ?>"  />
+        </div>
+        <div class="form-group" style="background:#e7e7e7">
+            <label class="control-label">Nama PIC</label>
+            <input name="nama_pic" id="nama_pic" type="text" required="required" class="form-control required" value="<?= $nama_pic ?>" />
+        </div>
+        <div class="form-group" style="background:#e7e7e7">
+            <label class="control-label">No WA PIC</label>
+            <input name="wa_pic" id="wa_pic" type="text" required="required" class="form-control required" value="<?= $wa_pic ?>" />
         </div>
     </div>
 </div>

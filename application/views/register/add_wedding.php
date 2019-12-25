@@ -87,6 +87,14 @@
                 <label class="control-label">Email Pengantin Wanita</label>
                 <input name="email_wanita" id="email_wanita" type="email" required="required" class="form-control required" />
             </div>
+            <div class="form-group" style="background:#e7e7e7">
+                <label class="control-label">Nama PIC</label>
+                <input name="nama_pic" id="nama_pic" type="text" required="required" class="form-control required" />
+            </div>
+            <div class="form-group" style="background:#e7e7e7">
+                <label class="control-label">No WA PIC</label>
+                <input name="wa_pic" id="wa_pic" type="text" required="required" class="form-control required" />
+            </div>
 
         </div>
     </div>

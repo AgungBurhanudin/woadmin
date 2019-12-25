@@ -61,9 +61,16 @@
                 </div>-->
                 <div class="col-md-3">
                     <a href="<?= base_url() ?>Setting/Agama">
-                        <button type="button" class="btn btn-lg col-lg-12" >
-                            <i class="fa fa-phone"></i><br>
+                        <button type="button" class="btn btn-default col-lg-12" >
+                            <i class="fa fa-user"></i><br>
                             Setting Agama<br>&nbsp;</button>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="<?= base_url() ?>Setting/Kategori">
+                        <button type="button" class="btn btn-danger col-lg-12" >
+                            <i class="fa fa-users"></i><br>
+                            Setting Kategori Tamu Undangan<br>&nbsp;</button>
                     </a>
                 </div>
             </div>

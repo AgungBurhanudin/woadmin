@@ -117,7 +117,7 @@
                     submitHandler: function (form) {
                         var formData = new FormData($("#formLogin")[0]);
                         $.ajax({
-                            url: "<?= base_url() ?>Login/login",
+                            url: "<?= base_url() ?>Login/login?_=" + new Date().getTime(),
                             type: "POST",
                             data: formData,
                             processData: false,
@@ -125,7 +125,7 @@
                             dataType: "JSON",
                             success: function (data) {
                                 if (data.code == "200") {
-                                    window.location.href = "<?= base_url() ?>Dashboard";
+                                    window.location.href = "<?= base_url() ?>Dashboard?_=" + new Date().getTime();
                                 } else {
                                     $("#alert").show();
                                     $("#alert").html(data.message);

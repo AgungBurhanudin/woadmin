@@ -157,6 +157,7 @@ class Wedding extends CI_Controller {
                     . "LEFT JOIN kategori_vendor b "
                     . "ON a.id_kategori = b.id "
                     . "WHERE a.id_wedding = '$id'")->result(),
+            'kategori' => $this->db->query("SELECT * FROM kategori WHERE status = '1'")->result(),
             'undangan' => $this->db->query("SELECT * FROM undangan WHERE id_wedding = '$id'")->result(),
             'data_agama' => $this->db->query("SELECT * FROM agama")->result(),
             'meeting' => $this->db->query("SELECT * FROM jadwal_meeting WHERE id_wedding = '$id' ORDER BY tanggal DESC")->result(),
@@ -266,6 +267,8 @@ class Wedding extends CI_Controller {
         $data['hashtag'] = $_POST["hastag_pernikahan"];
         $data['penyelenggara'] = $_POST["penyelenggara"];
         $data['undangan'] = $_POST["jumlah_undangan"];
+        $data['nama_pic'] = $_POST["nama_pic"];
+        $data['wa_pic'] = $_POST["wa_pic"];
         $data['status'] = 1;
         $key['id'] = $_POST['id'];
         $this->db->update('wedding', $data, $key);
