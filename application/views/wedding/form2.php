@@ -83,6 +83,9 @@
                                     <a class="nav-link" data-toggle="tab" href="#layout" role="tab" aria-controls="layout">Lampiran</a>
                                 </li>
                                 <li class="nav-item detail-wedding">
+                                    <a class="nav-link" data-toggle="tab" href="#galeri" role="tab" aria-controls="galeri">Galeri</a>
+                                </li>
+                                <li class="nav-item detail-wedding">
                                     <a class="nav-link" data-toggle="tab" href="#log" role="tab" aria-controls="log">Log Aktivitas</a>
                                 </li>
                             </ul>
@@ -153,6 +156,9 @@ if ($wedding->status == 1) {
                                 </div>
                                 <div class="tab-pane" id="layout" role="tabpanel">
                                     <?php $this->load->view('wedding/form_layout');?>
+                                </div>
+                                <div class="tab-pane" id="galeri" role="tabpanel">
+                                    <?php $this->load->view('wedding/form_galeri');?>
                                 </div>
                                 <div class="tab-pane" id="log" role="tabpanel">
                                     <?php $this->load->view('wedding/form_log');?>

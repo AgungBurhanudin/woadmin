@@ -225,6 +225,7 @@ class Wedding extends CI_Controller {
                         ORDER BY
                                 b.urutan ASC")->result(),
             'layout' => $this->db->query("SELECT * FROM layout WHERE id_wedding = '$id'")->result(),
+            'galeri' => $this->db->query("SELECT * FROM gallery WHERE id_wedding = '$id'")->result(),
             'ayahpria' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'AYAH' AND id_pengantin = 'pria'")->row(),
             'ibupria' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN = 'IBU' AND id_pengantin = 'pria'")->row(),
             'saudara_pria' => $this->db->query("SELECT * FROM keluarga WHERE id_wedding = '$id' AND HUBUNGAN not in ('AYAH', 'IBU') AND id_pengantin = 'pria'")->result(),
