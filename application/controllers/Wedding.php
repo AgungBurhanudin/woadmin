@@ -272,8 +272,17 @@ class Wedding extends CI_Controller {
         $data['wa_pic'] = $_POST["wa_pic"];
         $data['status'] = 1;
         $key['id'] = $_POST['id'];
-        $this->db->update('wedding', $data, $key);
+        $result = $this->db->update('wedding', $data, $key);
         $this->wedding_model->insertLog($id_wedding, "Merubah data pernikahan");
+
+        if($result){
+            $reply = array(
+                'code' => 200,
+                'message' => 'Success'
+            );
+        }
+
+        echo json_encode($reply);
     }
 
     public function saveBiodataPria() {
@@ -340,8 +349,17 @@ class Wedding extends CI_Controller {
         $this->db->update('app_user', $user, $key_user);
         $wedding_update['pengantin_pria'] = $_POST['nama_panggilan_pria'];
         $key_wedding['id'] = $_POST['id_wedding'];
-        $this->db->update('wedding', $wedding_update, $key_wedding);
+        $result = $this->db->update('wedding', $wedding_update, $key_wedding);
         $this->wedding_model->insertLog($id_wedding, "Merubah biodata pengantin pria");
+
+        if($result){
+            $reply = array(
+                'code' => 200,
+                'message' => 'Success'
+            );
+        }
+
+        echo json_encode($reply);
     }
 
     public function saveBiodataWanita() {
@@ -407,8 +425,17 @@ class Wedding extends CI_Controller {
         $this->db->update('app_user', $user, $key_user);
         $wedding_update['pengantin_wanita'] = $_POST['nama_panggilan_wanita'];
         $key_wedding['id'] = $_POST['id_wedding'];
-        $this->db->update('wedding', $wedding_update, $key_wedding);
+        $result = $this->db->update('wedding', $wedding_update, $key_wedding);
         $this->wedding_model->insertLog($id_wedding, "Merubah biodata pengantin wanita");
+
+        if($result){
+            $reply = array(
+                'code' => 200,
+                'message' => 'Success'
+            );
+        }
+
+        echo json_encode($reply);
     }
 
     public function vendor() {

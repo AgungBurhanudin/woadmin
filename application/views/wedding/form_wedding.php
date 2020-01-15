@@ -136,7 +136,7 @@ if (!empty($wedding)) {
                     dataType: "JSON",
                     success: function (data) {
 //                        if (data) {
-                            alert("success", "Berhasil merubah data pernikahan!");
+                            swal("success", "Berhasil merubah data pernikahan!");
 //                            $("#vendorModal").modal('hide');
 //                        } else {
 //                            swal("warning", "Gagal menambah vendor!");
