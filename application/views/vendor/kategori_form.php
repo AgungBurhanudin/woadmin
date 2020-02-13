@@ -6,7 +6,7 @@ if (empty($data_kategori)) {
 } else {
     foreach ($data_kategori as $val) {
         $id = $val->id;
-        $kategori = $val->id_kategori;
+        $kategori = $val->nama_kategori;
         $tag = $val->tag;
     }
 }

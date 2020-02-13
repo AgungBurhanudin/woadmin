@@ -1268,6 +1268,7 @@ class Cetak extends CI_Controller
         $real_print = [];
         foreach ($print as $key => $val) {
             $key = trim(preg_replace('/\s+/', '', $key));
+            $key = strtolower($tag);
             $real_print[$key] = $val;
         }
         $this->PhpExcelTemplator->saveToFile($templateFile, $fileName, $real_print);
