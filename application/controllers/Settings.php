@@ -13,34 +13,36 @@ class Settings extends CI_Controller {
         render("settings");
     }
 
-    public function dokumen() {
-        $key['setting_key'] = 'template_dokumen';
+    public function splashscreen() {
+        $key['setting_key'] = 'splashscreen';
         $data = array(
-            'dokumen' => $this->db->get_where('app_setting', $key)->row()
+            'splashscreen' => $this->db->get_where('app_setting', $key)->row()
         );
-        render("setting/template", $data);
+        render("setting/android", $data);
     }
 
-    public function saveTemplate() {
+    public function saveSplashScreen() {
         if (isset($_FILES)) {
-            $path = realpath(APPPATH . '../files/template/');
+            $path = realpath(APPPATH . '../files/splashscreen/');
 
             $this->upload->initialize(array(
-                'upload_path' => $path,
-                'allowed_types' => 'xlsx'
+                'upload_path' => $path,  
+                'allowed_types' => 'png|jpg|gif',              
             ));
 
-            if ($this->upload->do_upload()) {
+            if ($this->upload->do_upload('file')) {
                 $data_upload = $this->upload->data();
                 $data['setting_value'] = $data_upload['file_name'];
             } else {
+                // echo "123";
+                echo $this->upload->display_errors();
                 $data['setting_value'] = "";
             }
         }
-        $key['setting_key'] = "template_dokumen";
+        $key['setting_key'] = "splashscreen";
         $this->db->update('app_setting', $data, $key);
-        $this->session->set_flashdata('success', 'Berhasil mengupload template dokumen');
-        redirect(base_url() . 'Settings/dokumen', 'refresh');
+        $this->session->set_flashdata('success', 'Berhasil mengupload splashscreen');
+        redirect(base_url() . 'Settings/splashscreen', 'refresh');
     }
 
 }
